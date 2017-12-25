@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="tzw-common:war">
+    <output-path>$PROJECT_DIR$/tzw-common/target</output-path>
+    <root id="archive" name="tzw-common.war">
+      <element id="artifact" artifact-name="tzw-common:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/tzw-common/tzw-common.iml" filepath="$PROJECT_DIR$/tzw-common/tzw-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-manager/tzw-manager.iml" filepath="$PROJECT_DIR$/tzw-manager/tzw-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-manager/tzw-manager-dao/tzw-manager-dao.iml" filepath="$PROJECT_DIR$/tzw-manager/tzw-manager-dao/tzw-manager-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-manager/tzw-manager-interface/tzw-manager-interface.iml" filepath="$PROJECT_DIR$/tzw-manager/tzw-manager-interface/tzw-manager-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-manager/tzw-manager-pojo/tzw-manager-pojo.iml" filepath="$PROJECT_DIR$/tzw-manager/tzw-manager-pojo/tzw-manager-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-manager/tzw-manager-service/tzw-manager-service.iml" filepath="$PROJECT_DIR$/tzw-manager/tzw-manager-service/tzw-manager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-manager/tzw-manager-web/tzw-manager-web.iml" filepath="$PROJECT_DIR$/tzw-manager/tzw-manager-web/tzw-manager-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-parent/tzw-parent.iml" filepath="$PROJECT_DIR$/tzw-parent/tzw-parent.iml" />
+    </modules>
+  </component>
+</project>
