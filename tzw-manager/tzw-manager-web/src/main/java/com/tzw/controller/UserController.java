@@ -77,5 +77,31 @@ public class UserController {
         return "login";
     }
 
+    @RequestMapping("/loginForm/{username}/{password}")
+    public String login2(String username , String password, Model model, HttpServletRequest request, HttpServletResponse response) {
+
+        System.out.println(username+"sssssssssssssssssssss"+password);
+
+        if(password == null || "".equals(password)||username == null || "".equals(username)) {
+            model.addAttribute("error", "用户名或密码不能为空！");
+        }
+        else{
+
+            Owner login = this.loginService.login(username, password);
+
+            if (login==null)
+            {
+                model.addAttribute("error", "用户名或密码错误！");
+            }else
+            {
+                String token = UUID.randomUUID().toString();
+                CookieUtils.setCookie(request, response, "token", token);
+                model.addAttribute("username",username);
+                return "index";
+            }
+        }
+        return "redirect:login2";
+    }
+
 
 }
