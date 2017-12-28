@@ -1,14 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tzw.mapper.UserMapper" >
-
-<select id="userList" resultType="com.tzw.pojo.User">
-
-select tzw_user_pwd,tzw_user_username,tzw_user_phone,tzw_user_address,tzw_user_score,tzw_user_money,tzw_user_id  from tzw_user
-
-</select>
+<mapper namespace="com.tzw.mapper.UserMapper">
 
 
 
+    <select id="findUserList" resultType="com.tzw.pojo.User" parameterType="map">
+
+        select tzw_user_pwd,
+        tzw_user_username,
+        tzw_user_phone,
+        tzw_user_address,
+        tzw_user_score,
+        tzw_user_money,
+        tzw_user_id,
+        tzw_user_createDate,
+        tzw_user_updateDate
+        from tzw_user
+        <if test="lname!=null">
+
+            WHERE tzw_user_username LIKE  concat('%',#{lname},'%')
+
+        </if>
+        limit #{index},#{rows}
+    </select>
+
+
+
+    <!--修改回显-->
+
+    <select id="findUserById" parameterType="bigInteger" resultType="com.tzw.pojo.User">
+        select tzw_user_pwd,
+        tzw_user_username,
+        tzw_user_phone,
+        tzw_user_address,
+        tzw_user_score,
+        tzw_user_money,
+        tzw_user_id,
+        tzw_user_createDate,
+        tzw_user_updateDate
+        from tzw_user
+        where tzw_user_id=#{tzw_user_id}
+    </select>
+    <!--修改用户信息-->
+
+    <update id="updateUser" parameterType="com.tzw.pojo.User" >
+
+        update tzw_user set(
+        tzw_user_pwd=#{tzw_user_pwd},
+        tzw_user_username=#{tzw_user_username},
+        tzw_user_phone=#{tzw_user_phone},
+        tzw_user_address=#{tzw_user_address},
+        tzw_user_score=#{tzw_user_score},
+        tzw_user_createDate=#{tzw_user_createDate},
+        tzw_user_updateDate=#{tzw_user_updateDate})
+        where tzw_user_id=#{tzw_user_id}
+
+
+    </update>
+
+    <!--删除用户-->
+
+    <delete id="deleteUser" parameterType="bigInteger">
+
+        DELETE  from tzw_user where tzw_user_id=#{tzw_user_id}
+
+    </delete>
+
+    <!--查询记录条数-->
+
+    <select id="getTotal" parameterType="map" resultType="int">
+        SELECT count(*) from tzw_user
+        <if test="lname!=null">
+
+            WHERE tzw_user_username LIKE  concat('%',#{lname},'%')
+
+        </if>
+    </select>
+
+
+ <!--   int scoreNum(int id);
+    int moneyNum(int id);
+    int orderNum(int id);-->
+
+    <select id="scoreNum" parameterType="bigInteger" resultType="bigInteger">
+        SELECT sum(tzw_score_num) from tzw_score where tzw_score_user_id=#{tzw_score_user_id}
+    </select>
+
+    <select id="moneyNum" resultType="double" parameterType="bigInteger">
+        SELECT SUM(tzw_money_num) from tzw_money where tzw_money_user_id=#{tzw_money_user_id}
+    </select>
+
+    <select id="orderNum" parameterType="bigInteger" resultType="int">
+        SELECT count(*) from tzw_order where tzw_order_user_id=#{tzw_order_user_id}
+    </select>
 </mapper>

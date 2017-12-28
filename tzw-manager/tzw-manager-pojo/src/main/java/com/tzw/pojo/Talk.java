@@ -1,6 +1,7 @@
 package com.tzw.pojo;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 
 /**
  * Created by Administrator on 2017/12/22.
@@ -11,6 +12,25 @@ public class Talk {
     private BigInteger tzw_user_id;
     private BigInteger tzw_item_id;
     private String tzw_talk_content;
+
+    private Timestamp tzw_talk_createDate;
+    private Timestamp tzw_talk_updateDate;
+
+    public Timestamp getTzw_talk_createDate() {
+        return tzw_talk_createDate;
+    }
+
+    public void setTzw_talk_createDate(Timestamp tzw_talk_createDate) {
+        this.tzw_talk_createDate = tzw_talk_createDate;
+    }
+
+    public Timestamp getTzw_talk_updateDate() {
+        return tzw_talk_updateDate;
+    }
+
+    public void setTzw_talk_updateDate(Timestamp tzw_talk_updateDate) {
+        this.tzw_talk_updateDate = tzw_talk_updateDate;
+    }
 
     public BigInteger getTzw_talk_id() {
         return tzw_talk_id;

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tzw.mapper.OrderMapper">
+
+    <!--查询订单-->
+
+    <select id="findAllOrder1" resultType="com.tzw.pojo.Order" parameterType="map">
+
+        SELECT t1.tzw_order_id,
+        t1.tzw_order_address,
+        t1.tzw_order_createDate,
+        t1.tzw_order_updateDate,
+        t1.tzw_order_num,
+        t1.tzw_order_beizhu,
+        t1.tzw_order_status,
+        t2.tzw_user_username,
+        t3.tzw_item_name
+        from tzw_order t1,tzw_user t2, tzw_item t3
+        where t1.tzw_user_id=t2.tzw_user_id and
+        t3.tzw_item_id=t1.tzw_item_id
+
+
+        <if test="lname!=null">
+
+            AND  address LIKE  concat('%',#{lname},'%')
+
+        </if>
+        limit #{index},#{rows}
+    </select>
+
+  <!--删除订单;-->
+
+    <delete id="deleteOrder" parameterType="bigInteger">
+        delete from tzw_order where tzw_order_id=#{tzw_order_id}
+    </delete>
+
+<!--修改回显-->
+    <select id="findOrderById" resultType="com.tzw.pojo.Order" parameterType="bigInteger">
+
+        SELECT t1.tzw_order_id,
+        t1.tzw_order_address,
+        t1.tzw_order_createDate,
+        t1.tzw_order_updateDate,
+        t1.tzw_order_num,
+        t1.tzw_order_beizhu,
+        t1.tzw_order_status,
+        t2.tzw_user_username,
+        t3.tzw_item_name
+        from tzw_order t1,tzw_user t2, tzw_item t3
+        where t1.tzw_user_id=t2.tzw_user_id
+        and
+        t3.tzw_item_id=t1.tzw_item_id
+        AND
+        t1.tzw_order_id=#{tzw_order_id}
+    </select>
+
+
+     <!--修改订单-->
+
+    <update id="updateOrder" parameterType="com.tzw.pojo.Order">
+        UPDATE  tzw_order set( tzw_order_address=#{tzw_order_address}，
+        tzw_order_createDate=#{tzw_order_createDate}
+        tzw_order_updateDate=#{tzw_order_updateDate}
+        tzw_order_num=#{tzw_order_num}
+        tzw_order_beizhu=#{tzw_order_beizhu}
+        tzw_order_status=#{tzw_order_status}
+        )
+        where tzw_order_id=#{tzw_order_id}
+    </update>
+
+<!--
+总记录数
+-->
+
+    <select id="getOrderCount" parameterType="map" resultType="int">
+
+        SELECT count(*) from tzw_order
+
+
+        <if test="address!=null">
+
+            WHERE  address LIKE  concat('%',#{lname},'%')
+
+        </if>
+
+    </select>
+
+
+</mapper>

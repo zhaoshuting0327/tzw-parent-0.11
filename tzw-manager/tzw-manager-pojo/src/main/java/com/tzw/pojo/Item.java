@@ -1,6 +1,7 @@
 package com.tzw.pojo;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 
 /**
  * Created by Administrator on 2017/12/22.
@@ -15,6 +16,35 @@ public class Item {
     private Integer  tzw_item_status;
     private String  tzw_item_picture;
     private String  tzw_item_desc;
+
+    private int tzw_item_active;
+
+    private String tzw_item_createDate;
+    private String tzw_item_updateDate;
+
+    public String getTzw_item_createDate() {
+        return tzw_item_createDate;
+    }
+
+    public void setTzw_item_createDate(String tzw_item_createDate) {
+        this.tzw_item_createDate = tzw_item_createDate;
+    }
+
+    public String getTzw_item_updateDate() {
+        return tzw_item_updateDate;
+    }
+
+    public void setTzw_item_updateDate(String tzw_item_updateDate) {
+        this.tzw_item_updateDate = tzw_item_updateDate;
+    }
+
+    public int getTzw_item_active() {
+        return tzw_item_active;
+    }
+
+    public void setTzw_item_active(int tzw_item_active) {
+        this.tzw_item_active = tzw_item_active;
+    }
 
     private Integer peopleNum;
 

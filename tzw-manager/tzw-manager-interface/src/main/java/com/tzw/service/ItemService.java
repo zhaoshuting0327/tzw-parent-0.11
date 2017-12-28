@@ -1,5 +1,6 @@
 package com.tzw.service;
 
+import com.tzw.common.pojo.EasyUIDataGridResult;
 import com.tzw.pojo.Item;
 
 import java.math.BigInteger;
@@ -14,5 +15,8 @@ public interface ItemService {
 
     int peopleNum(BigInteger id);
 
+    List<Item> searchItemList(String lname);
+
+  EasyUIDataGridResult getItemList(Integer page, Integer rows,String lname);
 
 }

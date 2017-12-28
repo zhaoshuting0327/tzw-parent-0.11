@@ -17,5 +17,7 @@ public interface ItemMapper {
 
     int  peopleNum(BigInteger id);
 
+//    List<Item> searchItemList(Map<String, Object> map);
 
+     int getTotal(Map<String,Object> map);
 }

@@ -10,11 +10,18 @@
          from tzw_item t1
     </select>
 
-    <select id="selectByMap" resultType="com.tzw.pojo.Item" parameterType="map">
 
+    <select id="selectByMap" resultType="com.tzw.pojo.Item" parameterType="map">
         select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
-        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc
-        from tzw_item t1 limit #{index},#{ROWS }
+        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_createDate,t1.tzw_item_updateDate
+        from tzw_item t1
+
+    <if test="lname!=null">
+
+            WHERE t1.tzw_item_name LIKE  concat('%',#{lname},'%')
+
+        </if>
+        limit #{index},#{rows}
     </select>
 
     <!--SELECT count(*) from tzw_order m where m.tzw_order_user_id;
@@ -24,5 +31,26 @@
     SELECT count(*) from tzw_order m where m.tzw_order_user_id=#{tzw_order_user_id}
     </select>
 
+<!--
+    searchItemList
+-->
+    <!--<select id="searchItemList" resultType="com.tzw.pojo.Item" parameterType="map">
+
+        select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
+        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc
+        from tzw_item t1 where t1.tzw_item_name LIKE  concat('%',#{lname},'%')
+    </select>
+-->
+    <!--getTotal-->
+    <select id="getTotal" resultType="int" parameterType="map">
+
+        select count(*) from tzw_item t1
+
+        <if test="lname!=null">
+
+            WHERE t1.tzw_item_name LIKE  concat('%',#{lname},'%')
+
+        </if>
+    </select>
 
 </mapper>

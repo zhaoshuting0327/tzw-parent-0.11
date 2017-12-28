@@ -15,6 +15,24 @@ public class Active {
     private Integer tzw_active_status;
     private Timestamp tzw_active_time;
 
+    private Timestamp tzw_active_createDate;
+    private Timestamp tzw_active_updateDate;
+
+    public Timestamp getTzw_active_createDate() {
+        return tzw_active_createDate;
+    }
+
+    public void setTzw_active_createDate(Timestamp tzw_active_createDate) {
+        this.tzw_active_createDate = tzw_active_createDate;
+    }
+
+    public Timestamp getTzw_active_updateDate() {
+        return tzw_active_updateDate;
+    }
+
+    public void setTzw_active_updateDate(Timestamp tzw_active_updateDate) {
+        this.tzw_active_updateDate = tzw_active_updateDate;
+    }
 
     public BigInteger getTzw_active_id() {
         return tzw_active_id;

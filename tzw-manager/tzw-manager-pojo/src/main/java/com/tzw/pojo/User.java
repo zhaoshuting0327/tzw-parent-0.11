@@ -1,6 +1,7 @@
 package com.tzw.pojo;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 
 /**
  * Created by Administrator on 2017/12/22.
@@ -16,6 +17,9 @@ public class User {
     private BigInteger tzw_user_score;
     private Double tzw_user_money;
     private Integer tzw_user_ordernum;
+
+    private String tzw_user_createDate;
+    private String tzw_user_updateDate;
 
     public BigInteger getTzw_user_id() {
         return tzw_user_id;
@@ -79,5 +83,21 @@ public class User {
 
     public void setTzw_user_ordernum(Integer tzw_user_ordernum) {
         this.tzw_user_ordernum = tzw_user_ordernum;
+    }
+
+    public String getTzw_user_createDate() {
+        return tzw_user_createDate;
+    }
+
+    public void setTzw_user_createDate(String tzw_user_createDate) {
+        this.tzw_user_createDate = tzw_user_createDate;
+    }
+
+    public String getTzw_user_updateDate() {
+        return tzw_user_updateDate;
+    }
+
+    public void setTzw_user_updateDate(String tzw_user_updateDate) {
+        this.tzw_user_updateDate = tzw_user_updateDate;
     }
 }

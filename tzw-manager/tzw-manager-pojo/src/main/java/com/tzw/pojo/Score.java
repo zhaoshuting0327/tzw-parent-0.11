@@ -10,7 +10,8 @@ public class Score {
 
     private BigInteger tzw_score_id;
     private BigInteger tzw_score_num;
-    private Timestamp tzw_score_createdate;
+    private Timestamp tzw_score_createDate;
+    private Timestamp tzw_score_updateDate;
 
     public BigInteger getTzw_score_id() {
         return tzw_score_id;
@@ -28,11 +29,19 @@ public class Score {
         this.tzw_score_num = tzw_score_num;
     }
 
-    public Timestamp getTzw_score_createdate() {
-        return tzw_score_createdate;
+    public Timestamp getTzw_score_createDate() {
+        return tzw_score_createDate;
     }
 
-    public void setTzw_score_createdate(Timestamp tzw_score_createdate) {
-        this.tzw_score_createdate = tzw_score_createdate;
+    public void setTzw_score_createDate(Timestamp tzw_score_createDate) {
+        this.tzw_score_createDate = tzw_score_createDate;
+    }
+
+    public Timestamp getTzw_score_updateDate() {
+        return tzw_score_updateDate;
+    }
+
+    public void setTzw_score_updateDate(Timestamp tzw_score_updateDate) {
+        this.tzw_score_updateDate = tzw_score_updateDate;
     }
 }

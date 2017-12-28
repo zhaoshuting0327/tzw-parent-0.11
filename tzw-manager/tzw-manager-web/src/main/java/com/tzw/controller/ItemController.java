@@ -2,15 +2,15 @@ package com.tzw.controller;
 
 import com.tzw.common.pojo.EasyUIDataGridResult;
 import com.tzw.pojo.Item;
-import com.tzw.pojo.User;
 import com.tzw.service.ItemService;
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -23,79 +23,72 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping("/item/itemList")
-    public String ItemList(Model model) {
-        List<Item> itemList = this.itemService.itemList();
-        model.addAttribute("itemList",itemList);
-        System.out.println(itemList.size());
-        return "item-list";
-    }
-
-    @RequestMapping("/item/itemListjson")
+    @RequestMapping("item_listJson")
     @ResponseBody
-    public EasyUIDataGridResult ItemListjson(Integer page, Integer rows) {
-        List<Item> itemList = this.itemService.itemList();
-        EasyUIDataGridResult result = itemService.getItemList(page, rows);
-        return result;
-    }
+    public List<Item>  item_list(HttpServletRequest request, HttpSession httpSession, @RequestParam(name="pageNum",defaultValue = "1")  Integer pageNum,
+                                               @RequestParam(name="pageSize",defaultValue = "10")  Integer pageSize,Model model) {
 
-     /*
-         controller
-          @RequestMapping("/item/list")
-    @ResponseBody
-    public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
-        //调用服务查询商品列表
-        EasyUIDataGridResult result = itemService.getItemList(page, rows);
-        return result;
-    }*/
-    /*int page,int rows*/
-
-/*
-   /item/search
-*/
-
-    @RequestMapping("/item/search")
-    public String searchItemList(String lname, HttpSession httpSession, Model model) {
-
-
-        List<Item> itemList = this.itemService.searchItemList(lname);
-        model.addAttribute("itemList",itemList);
-        System.out.println(itemList.size());
+        String lname = request.getParameter("lname");
 
         if (lname!=null||!"".equals(lname))
         {
+            System.out.println(lname);
             httpSession.setAttribute("lname",lname);
         }
 
-       lname= (String) httpSession.getAttribute("lname");
+        lname= (String) httpSession.getAttribute("lname");
 
+        List<Item> itemList = this.itemService.itemList();
+        EasyUIDataGridResult result = itemService.getItemList(pageNum, pageSize,lname);
 
-/*
-         service
+        model.addAttribute("list",result.getRows());
+        System.out.println(result.getRows().size()+"列表长度=======");
+        for (int i=0;i<result.getRows().size();i++)
+        {
+            Item o = (Item) result.getRows().get(i);
+            System.out.println(o.getTzw_item_createDate()+"==");
+            System.out.println(o.getTzw_item_updateDate()+"==");
+            String s = o.getTzw_item_createDate() + "";
+            String s1 = o.getTzw_item_updateDate() + "";
 
-         @Override
-    public EasyUIDataGridResult getItemList(int page, int rows) {
-        //设置分页信息
-        PageHelper.startPage(page, rows);
-        //执行查询
-        TbItemExample example = new TbItemExample();
-        List<TbItem> list = itemMapper.selectByExample(example);
-        //创建一个返回值对象
-        EasyUIDataGridResult result = new EasyUIDataGridResult();
-        result.setRows(list);
-        //取分页结果
-        PageInfo<TbItem> pageInfo = new PageInfo<>(list);
-        //取总记录数
-        long total = pageInfo.getTotal();
-        result.setTotal(total);
-        return result;
+            o.setTzw_item_createDate(s.substring(0,s.length()-2));
+            o.setTzw_item_updateDate(s1.substring(0,s1.length()-2));
+        }
+        return  result.getRows();
+
     }
+/*    string s = "ABDCETDSA";
+    string str = s.Remove(s.Length-4,s.Length);
+    string str = s.Substring(0,s.Length-4); */
+    @RequestMapping("item_list")
+    public String item()
+    {
+        return "item_list";
     }
 
 
 
+    @RequestMapping("item_add")
+    public String item_add()
+    {
+        return "item_add";
+    }
 
-*/
-        return "redirect:/item/itemList";
+    //添加提交  item_add_commit
+
+    @RequestMapping("item_add_commit")
+    public String item_add_commit(HttpServletRequest request,Model model)
+    {
+        String itemname = request.getParameter("itemname");
+        String itemprice = request.getParameter("itemprice");
+        String itemNum = request.getParameter("itemNum");
+
+
+        System.out.println(itemname);
+        System.out.println(itemprice);
+        System.out.println(itemNum);
+        model.addAttribute("message","商品添加成功！");
+
+        return "200";
     }
 }
