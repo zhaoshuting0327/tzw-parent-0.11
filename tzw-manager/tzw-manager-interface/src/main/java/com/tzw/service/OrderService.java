@@ -3,6 +3,7 @@ package com.tzw.service;
 import com.tzw.pojo.Order;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +30,6 @@ public interface OrderService {
     void updateOrder(Order order);
 
     void deleteOrder(BigInteger id);
+
+    int getOrderCount(String lname);
 }

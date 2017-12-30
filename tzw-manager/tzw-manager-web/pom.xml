@@ -21,6 +21,18 @@
             <artifactId>freemarker-gae</artifactId>
             <version>2.3.18</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl -->
+        <dependency>
+                         <groupId>taglibs</groupId>
+                     <artifactId>standard</artifactId>
+                       <version>1.1.2</version>
+            </dependency>
+        <dependency>
+                    <groupId>jstl</groupId>
+                   <artifactId>jstl</artifactId>
+                    <version>1.2</version>
+        </dependency>
+
         <dependency>
             <groupId>com.tzw</groupId>
             <artifactId>tzw-manager-interface</artifactId>

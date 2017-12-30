@@ -20,13 +20,13 @@ public class UserServiceImpl  implements UserService{
     @Autowired
     private UserMapper userMapper;
     @Override
-    public List<User> findUserList(String lname, int page, int rows) {
+    public List<User> findUserList(String lname, int cpage, int size) {
 
         HashMap<String, Object> objectObjectHashMap = new HashMap<>();
 
         objectObjectHashMap.put("lname",lname);
-        objectObjectHashMap.put("index",(page-1)*rows);
-        objectObjectHashMap.put("rows",rows);
+        objectObjectHashMap.put("cpage",(cpage-1)*size);
+        objectObjectHashMap.put("size",size);
 
         List<User> list=this.userMapper.findUserList(objectObjectHashMap);
 
@@ -38,11 +38,21 @@ public class UserServiceImpl  implements UserService{
             //添加用户积分
             //添加用户订单数
 
+
+
            User user= list.get(i);
 
            user.setTzw_user_ordernum(this.userMapper.orderNum(user.getTzw_user_id()));
            user.setTzw_user_score(this.userMapper.scoreNum(user.getTzw_user_id()));
            user.setTzw_user_money(this.userMapper.moneyNum(user.getTzw_user_id()));
+
+            //判断用户性别
+            if(user.getTzw_user_sex()==1)
+            {
+                user.setTzw_user_sex1("男");
+            }else {
+                user.setTzw_user_sex1("女");
+            }
         }
         int total =this.userMapper.getTotal(objectObjectHashMap);
 
@@ -65,5 +75,15 @@ public class UserServiceImpl  implements UserService{
     @Override
     public User findUserById(BigInteger id) {
         return this.userMapper.findUserById(id);
+    }
+
+    @Override
+    public int getUserCount(String lname) {
+
+        HashMap<String,Object> map=new HashMap<>();
+
+        map.put("lname",lname);
+
+        return this.userMapper.getTotal(map);
     }
 }

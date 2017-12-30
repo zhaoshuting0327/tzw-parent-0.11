@@ -16,45 +16,129 @@
     <link href="css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="js/content.min.js?v=1.0.0"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <!--分页-->
+
+    <script type="text/javascript" src="styles/bootstrap/js/jquery.min.js"></script>
+    <script type="text/javascript" src="styles/bootstrap/js/angular.min.js"></script>
+    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/bootstrap/css/font-awesome.css">
     <base target="_blank">
+    <script type="text/javascript">
 
+        angular.module("MyApp",[])
+            .controller("firstController",function($rootScope,$scope,$http){
+                $http.get("user_listJson").then(function(msg){
+                    $scope.show = msg.data.list;
+                    $scope.epage = msg.data.epage;
+                    $scope.cpage = msg.data.cpage;
+                });
+                $(" li a").click(function(){
+                    var str = $(this).text();
+                    if(str=="首页"){
+                        var id = 1;
+                    }else if(str=="上一页"){
+                        var id = $("#a").val();
+                    }else if(str=="下一页"){
+                        d = $("#b").val();
+                        var id = Number(d)+1;
+                    }else if(str=="尾页"){
+                        var id = $("#c").val();
+                    }
+                    $http({
+                        method:"post",
+                        url:"user_listJson",
+                        params:{cpage:id}
+                    }).then(function(msg){
+                        $scope.show = msg.data.list;
+                        $scope.epage = msg.data.epage;
+                        $scope.cpage = msg.data.cpage;
+                    })
+                });
+
+            })
+    </script>
 </head>
-<body>
+<body ng-app="MyApp" ng-controller="firstController">
+<div class="container">
+    <div class="now">
+        <div class="col-md-12 col-md-offset-1">
+            <div class="col-md-12">
 
-<div class="example-wrap">
-    <h4 class="example-title">用户列表</h4>
-    <div class="example">
-        <table id="exampleTablePagination" data-toggle="table" data-url="user_listJson" data-query-params="true" data-mobile-responsive="true" data-height="400" data-pagination="true" data-icon-size="outline" data-search="tr">
-            <thead>
-            <tr>
-                <th data-field="state" data-checkbox="true"></th>
-                <th data-field="tzw_user_id">用户ID</th>
-                <th data-field="tzw_user_username">用户名称</th>
-                <th data-field="tzw_user_pwd">用户密码</th>
-                <th data-field="tzw_user_phone">用户电话</th>
-                <th data-field="tzw_user_address">用户地址</th>
-                <th data-field="tzw_user_score">用户积分</th>
-                <th data-field="tzw_user_money">用户余额</th>
-                <th data-field="tzw_user_ordernum">用户订单数</th>
-                <th data-field="tzw_item_createDate">创建日期</th>
-                <th data-field="tzw_item_updateDate">修改日期</th>
-            </tr>
+                <nav  role="navigation">
+                    <h4>订单列表</h4><br>
 
-            </thead>
-        </table>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            按用户名称搜索： <input type="text" ng-model="stream.tzw_item_name" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
+                </nav>
+                <form action="">
+                    <table  class="table table-bordered">
+                        <tr>
+                            <!--
+<th data-field="state" data-checkbox="true"></th>
+<th data-field="tzw_user_id">用户ID</th>
+<th data-field="tzw_user_username">用户名称</th>
+<th data-field="tzw_user_pwd">用户密码</th>
+<th data-field="tzw_user_phone">用户电话</th>
+<th data-field="tzw_user_address">用户地址</th>
+<th data-field="tzw_user_score">用户积分</th>
+<th data-field="tzw_user_money">用户余额</th>
+<th data-field="tzw_user_ordernum">用户订单数</th>
+<th data-field="tzw_item_createDate">创建日期</th>
+<th data-field="tzw_item_updateDate">修改日期</th>
+</tr>-->
+                            <td>用户ID</td>
+                            <td>用户名称</td>
+                            <td>用户密码</td>
+                            <td>用户电话</td>
+                            <td>用户性别</td>
+                            <td>用户地址</td>
+                            <td>用户积分</td>
+                            <td>用户余额</td>
+                            <td>创建日期</td>
+                            <td>修改日期</td>
+                            <td colspan="10">操作</td>
+                        </tr>
+                        <tr ng-repeat="s in show | filter:stream">
+                            <td>{{s.tzw_user_id}}</td>
+                            <td>{{s.tzw_user_username}}</td>
+                            <td>{{s.tzw_user_pwd}}</td>
+                            <td>{{s.tzw_user_phone}}</td>
+                            <td>{{s.tzw_user_sex1}}</td>
+                            <td>{{s.tzw_user_address}}</td>
+                            <td>{{s.tzw_user_score}}</td>
+                            <td>{{s.tzw_user_money}}</td>
+                            <td>{{s.tzw_user_ordernum}}</td>
+                            <td>{{s.tzw_user_createDate}}</td>
+                            <td>{{s.tzw_user_updateDate}}</td>
+                            <td><input type="button" value="修改"  class="btn btn-default"></td>
+                            <td><input type="button" value="删除" class="btn btn-default"></td>
+                        </tr>
+                    </table>
+                </form>
+                <ul class="pagination">
+                    <li><a class="btn">首页</a></li>
+                    <li><a class="btn">上一页</a></li>
+                    <input type="hidden" id="a" value="{{cpage-1}}">
+                    <li><a class="btn">下一页</a></li>
+                    <input type="hidden" id="b" value="{{cpage}}">
+                    <li><a class="btn">尾页</a></li>
+                    <input type="hidden" id="c" value="{{epage}}">
+                </ul>
+
+            </div>
+        </div>
     </div>
 </div>
-
-<script src="js/jquery.min.js?v=2.1.4"></script>
-<script src="js/bootstrap.min.js?v=3.3.5"></script>
-<script src="js/content.min.js?v=1.0.0"></script>
-<script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-<script src="js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
-<!--分页-->
-<script src="js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="js/demo/bootstrap-table-demo.min.js"></script>
-<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-
 </body>
 
 </html>
+

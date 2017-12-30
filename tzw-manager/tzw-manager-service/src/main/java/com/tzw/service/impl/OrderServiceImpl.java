@@ -24,15 +24,34 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public List<Order> findAllOrder1(String lname, int page, int rows) {
+    public List<Order> findAllOrder1(String lname, int cpage, int size) {
 
         Map<String,Object> map=new HashMap<>();
 
         map.put("lname",lname);
-        map.put("index",(page-1)*rows);
-        map.put("rows",rows);
+        map.put("cpage",(cpage-1)*size);
+        map.put("size",size);
 
         List<Order> all = this.orderMapper.findAllOrder1(map);
+
+        for (int i=0;i<all.size();i++)
+        {
+            Order o=all.get(i);
+
+            if(o.getTzw_order_status()==1)
+            {
+                o.setTzw_order_statusz("待支付");
+            }else if(o.getTzw_order_status()==2)
+            {
+                o.setTzw_order_statusz("已支付");
+            }else if(o.getTzw_order_status()==3)
+            {
+                o.setTzw_order_statusz("作废");
+            }else if(o.getTzw_order_status()==4)
+            {
+                o.setTzw_order_statusz("已取消");
+            }
+        }
 
         int total=this.orderMapper.getOrderCount(map);
 
@@ -62,6 +81,16 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(BigInteger id) {
 
         this.orderMapper.deleteOrder(id);
+    }
+
+    @Override
+    public int getOrderCount(String lname) {
+
+        HashMap<String,Object> map=new HashMap<>();
+
+        map.put("lname",lname);
+
+        return this.orderMapper.getOrderCount(map);
     }
 
 }

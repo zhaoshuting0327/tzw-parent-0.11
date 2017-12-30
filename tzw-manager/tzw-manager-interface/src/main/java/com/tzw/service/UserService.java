@@ -27,4 +27,7 @@ public interface UserService {
 
     User findUserById(BigInteger id);
 
+    int getUserCount(String lname);
+
+
 }

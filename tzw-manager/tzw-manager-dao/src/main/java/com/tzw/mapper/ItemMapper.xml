@@ -21,7 +21,7 @@
             WHERE t1.tzw_item_name LIKE  concat('%',#{lname},'%')
 
         </if>
-        limit #{index},#{rows}
+        limit #{cpage},#{size}
     </select>
 
     <!--SELECT count(*) from tzw_order m where m.tzw_order_user_id;

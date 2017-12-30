@@ -15,7 +15,9 @@
         t1.tzw_order_beizhu,
         t1.tzw_order_status,
         t2.tzw_user_username,
-        t3.tzw_item_name
+        t3.tzw_item_name,
+        t1.tzw_order_user_id,
+        t2.tzw_user_phone
         from tzw_order t1,tzw_user t2, tzw_item t3
         where t1.tzw_user_id=t2.tzw_user_id and
         t3.tzw_item_id=t1.tzw_item_id
@@ -26,7 +28,7 @@
             AND  address LIKE  concat('%',#{lname},'%')
 
         </if>
-        limit #{index},#{rows}
+        limit #{cpage},#{size}
     </select>
 
   <!--删除订单;-->
@@ -46,7 +48,8 @@
         t1.tzw_order_beizhu,
         t1.tzw_order_status,
         t2.tzw_user_username,
-        t3.tzw_item_name
+        t3.tzw_item_name,
+        t2.tzw_user_phone
         from tzw_order t1,tzw_user t2, tzw_item t3
         where t1.tzw_user_id=t2.tzw_user_id
         and

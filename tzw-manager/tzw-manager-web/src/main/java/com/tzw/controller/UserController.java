@@ -1,6 +1,7 @@
 package com.tzw.controller;
 
 import com.tzw.common.utils.CookieUtils;
+import com.tzw.common.utils.Fenye;
 import com.tzw.pojo.Owner;
 import com.tzw.pojo.User;
 import com.tzw.service.LoginService;
@@ -16,9 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/12/24.
@@ -82,8 +81,7 @@ public class UserController {
 
     @RequestMapping("user_listJson")
     @ResponseBody
-    public List<User> user_listJson(HttpServletRequest request, HttpSession httpSession, @RequestParam(name="pageNum",defaultValue = "1")  Integer pageNum,
-                                @RequestParam(name="pageSize",defaultValue = "10")  Integer pageSize, Model model)
+    public HashMap<String, Object> user_listJson(HttpServletRequest request, HttpSession httpSession)
     {
 
         String lname = request.getParameter("lname");
@@ -96,11 +94,32 @@ public class UserController {
 
         lname= (String) httpSession.getAttribute("lname");
 
-        List<User> userList = this.userService.findUserList(lname, pageNum, pageSize);
 
-        return userList;
+        String cpage = request.getParameter("cpage");
+        int size = 10;
+        Fenye fenye = new Fenye();
+        Map<String, Object> fen = fenye.Fenye(request, cpage, size, this.userService.getUserCount(lname));
+        String cpages = (String) fen.get("cpage");
+        Integer epage =  (Integer) fen.get("epage");
+        List<User> userList = this.userService.findUserList(lname, Integer.parseInt(cpages), size);
+
+
+        HashMap<String,Object> map=new HashMap<>();
+
+        map.put("list",userList);
+        map.put("epage",epage);
+        map.put("cpage",cpage);
+
+
+        return map;
     }
 
+/*loginOut*/
 
+    @RequestMapping("loginOut")
+    public String loginOut()
+    {
+        return "login";
+    }
 
 }

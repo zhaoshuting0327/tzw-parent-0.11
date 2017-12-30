@@ -17,6 +17,8 @@ public interface ItemService {
 
     List<Item> searchItemList(String lname);
 
-  EasyUIDataGridResult getItemList(Integer page, Integer rows,String lname);
+   int  getCount(String lname);
+
+    List<Item> getItemList(Integer cpage, Integer size,String lname);
 
 }

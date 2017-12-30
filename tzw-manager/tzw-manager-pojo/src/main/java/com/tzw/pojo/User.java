@@ -21,6 +21,25 @@ public class User {
     private String tzw_user_createDate;
     private String tzw_user_updateDate;
 
+    private Integer tzw_user_sex;
+    private String tzw_user_sex1;
+
+    public String getTzw_user_sex1() {
+        return tzw_user_sex1;
+    }
+
+    public void setTzw_user_sex1(String tzw_user_sex1) {
+        this.tzw_user_sex1 = tzw_user_sex1;
+    }
+
+    public Integer getTzw_user_sex() {
+        return tzw_user_sex;
+    }
+
+    public void setTzw_user_sex(Integer tzw_user_sex) {
+        this.tzw_user_sex = tzw_user_sex;
+    }
+
     public BigInteger getTzw_user_id() {
         return tzw_user_id;
     }

@@ -1,6 +1,7 @@
 package com.tzw.controller;
 
 import com.tzw.common.pojo.EasyUIDataGridResult;
+import com.tzw.common.utils.Fenye;
 import com.tzw.pojo.Item;
 import com.tzw.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/12/25.
@@ -25,44 +28,56 @@ public class ItemController {
 
     @RequestMapping("item_listJson")
     @ResponseBody
-    public List<Item>  item_list(HttpServletRequest request, HttpSession httpSession, @RequestParam(name="pageNum",defaultValue = "1")  Integer pageNum,
-                                               @RequestParam(name="pageSize",defaultValue = "10")  Integer pageSize,Model model) {
+    public  HashMap<String, Object>  item_list(HttpServletRequest request, HttpSession httpSession) {
 
         String lname = request.getParameter("lname");
 
-        if (lname!=null||!"".equals(lname))
-        {
-            System.out.println(lname);
-            httpSession.setAttribute("lname",lname);
-        }
 
         lname= (String) httpSession.getAttribute("lname");
 
-        List<Item> itemList = this.itemService.itemList();
-        EasyUIDataGridResult result = itemService.getItemList(pageNum, pageSize,lname);
+        String cpage = request.getParameter("cpage");
+        int size = 10;
+        Fenye fenye = new Fenye();
+        int total=this.itemService.getCount(lname);
 
-        model.addAttribute("list",result.getRows());
-        System.out.println(result.getRows().size()+"列表长度=======");
-        for (int i=0;i<result.getRows().size();i++)
-        {
-            Item o = (Item) result.getRows().get(i);
-            System.out.println(o.getTzw_item_createDate()+"==");
-            System.out.println(o.getTzw_item_updateDate()+"==");
+        Map<String, Object> fen = fenye.Fenye(request, cpage, size, total);
+        String cpages = (String) fen.get("cpage");
+        Integer epage =  (Integer) fen.get("epage");
+
+        List<Item> list = this.itemService.getItemList(Integer.parseInt(cpages),size,lname);
+
+        System.out.println("返回list长度："+list.size());
+
+
+
+        for (int i=0;i<list.size();i++) {
+            Item o = (Item) list.get(i);
+            System.out.println(o.getTzw_item_createDate() + "==");
+            System.out.println(o.getTzw_item_updateDate() + "==");
             String s = o.getTzw_item_createDate() + "";
             String s1 = o.getTzw_item_updateDate() + "";
 
-            o.setTzw_item_createDate(s.substring(0,s.length()-2));
-            o.setTzw_item_updateDate(s1.substring(0,s1.length()-2));
-        }
-        return  result.getRows();
+            o.setTzw_item_createDate(s.substring(0, s.length() - 2));
+            o.setTzw_item_updateDate(s1.substring(0, s1.length() - 2));
 
+        }
+
+            HashMap<String, Object> m = new HashMap<>();
+            m.put("list", list);
+            m.put("cpage", cpage);
+            m.put("epage", epage);
+            m.put("total", total);
+
+        return m;
     }
 /*    string s = "ABDCETDSA";
     string str = s.Remove(s.Length-4,s.Length);
     string str = s.Substring(0,s.Length-4); */
     @RequestMapping("item_list")
-    public String item()
+    public String item(HttpServletRequest request,HttpSession httpSession)
     {
+        item_list(request,httpSession);
+
         return "item_list";
     }
 

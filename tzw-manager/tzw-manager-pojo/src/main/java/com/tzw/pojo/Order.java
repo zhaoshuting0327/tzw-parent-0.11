@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 public class Order {
 
     private BigInteger tzw_order_id;
+    private BigInteger tzw_order_user_id;
     private BigInteger tzw_user_id;
     private BigInteger tzw_item_id;
     private String tzw_order_address;
@@ -19,6 +20,33 @@ public class Order {
    private int tzw_order_status;
    private String tzw_user_username;
    private String tzw_item_name;
+    private String tzw_user_phone;
+
+    public String getTzw_user_phone() {
+        return tzw_user_phone;
+    }
+
+    public void setTzw_user_phone(String tzw_user_phone) {
+        this.tzw_user_phone = tzw_user_phone;
+    }
+
+    private String tzw_order_statusz;
+
+    public BigInteger getTzw_order_user_id() {
+        return tzw_order_user_id;
+    }
+
+    public void setTzw_order_user_id(BigInteger tzw_order_user_id) {
+        this.tzw_order_user_id = tzw_order_user_id;
+    }
+
+    public String getTzw_order_statusz() {
+        return tzw_order_statusz;
+    }
+
+    public void setTzw_order_statusz(String tzw_order_statusz) {
+        this.tzw_order_statusz = tzw_order_statusz;
+    }
 
     public String getTzw_order_createDate() {
         return tzw_order_createDate;

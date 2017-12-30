@@ -1,5 +1,6 @@
 package com.tzw.controller;
 
+import com.tzw.common.utils.Fenye;
 import com.tzw.pojo.Order;
 import com.tzw.pojo.User;
 import com.tzw.service.OrderService;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/12/28.
@@ -23,8 +26,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    /*user列表展示*/
-
     @RequestMapping("order_list")
     public String order_list()
     {
@@ -33,8 +34,7 @@ public class OrderController {
 
     @RequestMapping("order_listJson")
     @ResponseBody
-    public List<Order> user_listJson(HttpServletRequest request, HttpSession httpSession, @RequestParam(name="pageNum",defaultValue = "1")  Integer pageNum,
-                                @RequestParam(name="pageSize",defaultValue = "10")  Integer pageSize, Model model)
+    public HashMap<String,Object> user_listJson(HttpServletRequest request, HttpSession httpSession,Model model)
     {
         String lname = request.getParameter("lname");
 
@@ -46,9 +46,24 @@ public class OrderController {
 
         lname= (String) httpSession.getAttribute("lname");
 
-        List<Order> orderList = this.orderService.findAllOrder1(lname,pageNum,pageSize);
+        String cpage = request.getParameter("cpage");
+        int size = 10;
+        Fenye fenye = new Fenye();
+        int total=this.orderService.getOrderCount(lname);
+        Map<String, Object> fen = fenye.Fenye(request, cpage, size,total);
+        String cpages = (String) fen.get("cpage");
+        Integer epage =  (Integer) fen.get("epage");
+        List<Order> list = this.orderService.findAllOrder1(lname,Integer.parseInt(cpages),size);
 
-        return orderList;
+        HashMap<String,Object> m=new HashMap<>();
+        m.put("list", list);
+        m.put("cpage", cpage);
+        m.put("epage", epage);
+        m.put("total", total);
+
+        model.addAttribute("total",total);
+        System.out.println(total+"total+==================");
+        return m;
     }
 
 

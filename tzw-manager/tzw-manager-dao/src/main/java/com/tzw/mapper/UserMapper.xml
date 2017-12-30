@@ -14,6 +14,7 @@
         tzw_user_score,
         tzw_user_money,
         tzw_user_id,
+        tzw_user_sex,
         tzw_user_createDate,
         tzw_user_updateDate
         from tzw_user
@@ -22,7 +23,7 @@
             WHERE tzw_user_username LIKE  concat('%',#{lname},'%')
 
         </if>
-        limit #{index},#{rows}
+        limit #{cpage},#{size}
     </select>
 
 

@@ -47,6 +47,14 @@ public class ItemServiceImpl implements ItemService {
         return null;
     }
 
+    @Override
+    public int getCount(String lname) {
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("lname",lname);
+        return this.itemMapper.getTotal(map);
+    }
+
  /*   @Override
     public List<Item> searchItemList(String lname) {
 
@@ -61,26 +69,15 @@ public class ItemServiceImpl implements ItemService {
     /*
     * easyui分页*/
     @Override
-    public EasyUIDataGridResult getItemList(Integer page, Integer rows,String lname) {
+    public  List<Item> getItemList(Integer cpage, Integer size,String lname) {
 
 
-        System.out.println(page+"serview============");
-        System.out.println(rows+"serview============");
+        System.out.println(cpage+"serview============");
+        System.out.println(size+"serview============");
         Map<String,Object> map=new HashMap<>();
 
-        /*
-        * 第五页  十条
-        *
-        map.put("index",(page-1)*rows);
-
-        map.put("rows",rows);
-
-        * */
-
-
-
-        map.put("index",(page-1)*rows);
-        map.put("rows",rows);
+        map.put("cpage",(cpage-1)*size);
+        map.put("size",size);
 
         map.put("lname",lname);
 
@@ -99,18 +96,7 @@ public class ItemServiceImpl implements ItemService {
             items.get(i).setPeopleNum(peopleNum);
         }
 
-
-        EasyUIDataGridResult easyUIDataGridResult=new EasyUIDataGridResult();
-
-        easyUIDataGridResult.setRows(items);
-
-        long total = this.itemMapper.getTotal(map);
-
-        easyUIDataGridResult.setTotal(total);
-
-
-
-        return easyUIDataGridResult;
+        return items;
     }
 
 
