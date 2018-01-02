@@ -97,8 +97,6 @@ public class ItemController {
         String itemname = request.getParameter("itemname");
         String itemprice = request.getParameter("itemprice");
         String itemNum = request.getParameter("itemNum");
-
-
         System.out.println(itemname);
         System.out.println(itemprice);
         System.out.println(itemNum);

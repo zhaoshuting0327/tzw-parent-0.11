@@ -16,10 +16,92 @@
 
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min.css?v=4.0.0" rel="stylesheet"><base target="_blank">
+
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="js/content.min.js?v=1.0.0"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <!--分页-->
+
+    <script type="text/javascript" src="styles/bootstrap/js/jquery.min.js"></script>
     <!--[if lt IE 8]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
+<!--
     <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+-->
+    <script type="text/javascript">
+  /*      var redirectUrl = "${redirect}";
+        var LOGIN = {
+            checkInput:function() {
+                $("#sfbestNameErr").attr("class", "").html("").prev().attr("class", "border");
+                $("#sfbestPwdErr").attr("class", "").html("").prev().attr("class", "border");
+
+                if(!$("#formlogin #loginname").val()) {
+                    $("#sfbestNameErr").attr("class", "error").show().html("请输入用户名").prev().attr("class", "border-error");
+                    return false;
+                }
+                if(!$("#formlogin input[name='password']").val()) {
+                    $("#sfbestPwdErr").attr("class", "error").show().html("请输入密码").prev().attr("class", "border-error");
+                    return false;
+                }
+                $("#username").val($("#loginname").val());
+                return true;
+            },
+            doLogin:function() {
+                $.post("/loginForm", $("#formlogin").serialize(),function(data){
+                    if (data.ok == 1) {
+                        jAlert('登录成功！',"提示", function(){
+                            if (redirectUrl == "") {
+                                location.href = "http://localhost:8081/index";
+                            } else {
+                                location.href = redirectUrl;
+                            }
+                        });
+
+                    } else {
+                       $("#err").val(data.messg);
+                    }
+                });
+            },
+            login:function() {
+                if (this.checkInput()) {
+                    this.doLogin();
+                }
+            }
+
+        };*/
+        $(function(){
+            $("#login_sub").click(function(){
+
+                var username=$("[name='username']").val();
+                var password=$("[name='password']").val();
+
+                $.post(
+                    "/loginForm",
+                    {"username":username,
+                        "password":password},
+                    function(data){
+
+                        alert(1)
+                        if(data.ok==1)
+                        {
+                            alert(2)
+                            location.href="/index";
+                        }else {
+
+                            alert(3)
+                            $("[name='username']").text()=="";
+                            $("[password='password']").text()=="";
+                            $("#err").text(data.messg);
+                        }
+                },
+                    "json"
+                )
+            });
+        });
+    </script>
 </head>
 
 <body class="gray-bg">
@@ -33,18 +115,18 @@
             </div>
             <h3>欢迎使用 </h3>
 
-            <form class="m-t" role="form" action="/loginForm">
+            <form class="m-t"  method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="用户名" required="" name="username">
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" placeholder="密码" required="" name="password">
-                    <span style="color: #8a1f11">${error}</span>
+                    <span style="color: #8a1f11" id="err"></span>
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
-
-
-
+<!--
+                <button  class="btn btn-primary block full-width m-b" id="login_sub" value="登陆" />
+-->
+                <input value="登陆" id="login_sub"  type="button" class="btn btn-primary block full-width m-b">
             </form>
         </div>
     </div>
