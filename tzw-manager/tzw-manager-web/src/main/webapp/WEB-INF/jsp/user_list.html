@@ -37,6 +37,11 @@
                     $scope.show = msg.data.list;
                     $scope.epage = msg.data.epage;
                     $scope.cpage = msg.data.cpage;
+                    $scope.total = msg.data.total;
+
+                    var total= msg.data.total;
+                    var cpage= msg.data.cpage;
+                    $("#m").text("第"+cpage+"页/共"+total+"页");
                 });
                 $(" li a").click(function(){
                     var str = $(this).text();
@@ -58,10 +63,48 @@
                         $scope.show = msg.data.list;
                         $scope.epage = msg.data.epage;
                         $scope.cpage = msg.data.cpage;
+                        $scope.total = msg.data.total;
+
+                        var total= msg.data.total;
+                        var cpage= msg.data.cpage;
+                        $("#m").text("第"+cpage+"页/共"+total+"页");
                     })
                 });
 
+            });
+
+
+
+
+        /*    $(".del").click(function () {
+
+                alert(1)
+                var tzw_user_id=$(this).val();
+                location.href="user/del?tzw_user_id="+tzw_user_id;
             })
+*/
+
+            /*  $(".del").click(function(){
+                alert("正确")
+              var tzw_user_id = $(this).next().val();
+                alert(tzw_user_id)
+                if(confirm("确定要删除?")){
+                    $.get(
+                        "user/del", //url
+                        {"tzw_user_id":tzw_user_id}, //传输的值
+                        function(obj){ //回调函数
+                        /!*    if(obj=="y"){
+                                location.href="<%=path%>/Servlet?m=list";
+                            }else{
+                                alert("删除失败");
+                            }*!/
+                        alert("删除成功！")
+                        },
+                        "json"  //返回值的类型
+                    );
+                }
+
+            });*/
     </script>
 </head>
 <body ng-app="MyApp" ng-controller="firstController">
@@ -75,13 +118,14 @@
 
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            按用户名称搜索： <input type="text" ng-model="stream.tzw_item_name" class="form-control" placeholder="Search">
+                            按用户名称搜索： <input type="text" ng-model="stream.tzw_user_username" class="form-control" placeholder="Search">
                         </div>
                     </form>
                 </nav>
                 <form action="">
                     <table  class="table table-bordered">
                         <tr>
+                            <td>序号</td>
                             <td>用户ID</td>
                             <td>用户名称</td>
                             <td>用户密码</td>
@@ -95,6 +139,7 @@
                             <td colspan="10">操作</td>
                         </tr>
                         <tr ng-repeat="s in show | filter:stream">
+                            <td>{{ $index + 1 }}</td>
                             <td>{{s.tzw_user_id}}</td>
                             <td>{{s.tzw_user_username}}</td>
                             <td>{{s.tzw_user_pwd}}</td>
@@ -106,8 +151,12 @@
                             <td>{{s.tzw_user_ordernum}}</td>
                             <td>{{s.tzw_user_createDate}}</td>
                             <td>{{s.tzw_user_updateDate}}</td>
-                            <td><input type="button" value="修改"  class="btn btn-default"></td>
-                            <td><input type="button" value="删除" class="btn btn-default"></td>
+
+
+                            <td><input type="button" value="修改"  class="btn btn-default" class="update"></td>
+                            <td><input type="button" value="删除" class="btn btn-default" class="del">
+                                <button ng-click="del($index)">删除</button></td>
+                            <td><input type="hidden" value={{s.tzw_user_id}} ></td>
                         </tr>
                     </table>
                 </form>
@@ -119,6 +168,7 @@
                     <input type="hidden" id="b" value="{{cpage}}">
                     <li><a class="btn">尾页</a></li>
                     <input type="hidden" id="c" value="{{epage}}">
+                    <span id="m"></span>
                 </ul>
 
             </div>

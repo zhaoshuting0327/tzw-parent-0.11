@@ -87,8 +87,10 @@
                         alert(1)
                         if(data.ok==1)
                         {
+                            var username=data.username;
+                            var img=data.img;
                             alert(2)
-                            location.href="/index";
+                            location.href="/index?username="+username+"&img="+img;
                         }else {
 
                             alert(3)

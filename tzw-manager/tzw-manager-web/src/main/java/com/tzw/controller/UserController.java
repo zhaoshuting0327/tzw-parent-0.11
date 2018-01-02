@@ -47,9 +47,22 @@ public class UserController {
     }
 
     @RequestMapping("/index")
-    public String index() {
+    public String index(String username,String img,Model model) {
+
+        model.addAttribute("username",username);
+        model.addAttribute("img",img);
 
         return "index";
+    }
+
+    @RequestMapping("user/del")
+    public String index(BigInteger tzw_user_id) {
+
+
+        System.out.println(tzw_user_id+"==tzw_user_id");
+        this.userService.deleteUser(tzw_user_id);
+
+        return "redirect:user_list";
     }
 
     @RequestMapping(value = "/loginForm",method = RequestMethod.POST)
@@ -60,8 +73,6 @@ public class UserController {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
-        System.out.println(username+"sssssssssssssssssssss"+password);
 
        String  messg="";
 
@@ -76,7 +87,6 @@ public class UserController {
 
            Owner login = this.loginService.login(username, s);
 
-           System.out.println(s);
            if (login==null)
            {
                messg="用户名或密码错误！";
@@ -87,7 +97,9 @@ public class UserController {
            {
                String token = UUID.randomUUID().toString();
                CookieUtils.setCookie(request, response, "token", token);
-               model.addAttribute("username",username);
+
+               map.put("username",username);
+               map.put("img",login.getTzw_owner_img());
                map.put("lu","index");
                map.put("ok",1);
               return map;
@@ -115,7 +127,6 @@ public class UserController {
 
         if (lname!=null||!"".equals(lname))
         {
-            System.out.println(lname);
             httpSession.setAttribute("lname",lname);
         }
 
@@ -125,7 +136,8 @@ public class UserController {
         String cpage = request.getParameter("cpage");
         int size = 10;
         Fenye fenye = new Fenye();
-        Map<String, Object> fen = fenye.Fenye(request, cpage, size, this.userService.getUserCount(lname));
+        int userCount = this.userService.getUserCount(lname);
+        Map<String, Object> fen = fenye.Fenye(request, cpage, size,userCount );
         String cpages = (String) fen.get("cpage");
         Integer epage =  (Integer) fen.get("epage");
         List<User> userList = this.userService.findUserList(lname, Integer.parseInt(cpages), size);
@@ -135,8 +147,18 @@ public class UserController {
 
         map.put("list",userList);
         map.put("epage",epage);
-        map.put("cpage",cpage);
+        map.put("cpage",cpages);
+        int page=0;
+        if(userCount%10==0)
+        {
+            page=userCount/10;
+        }else
+        {
+            page=userCount/10+1;
+        }
 
+
+        map.put("total", page);
 
         return map;
     }
@@ -147,29 +169,6 @@ public class UserController {
     public String loginOut()
     {
         return "login";
-
-
-
-        /*
-
-public String makeMD5(String password) {
-MessageDigest md;
-   try {
-    // 生成一个MD5加密计算摘要
-    md = MessageDigest.getInstance("MD5");
-    // 计算md5函数
-    md.update(password.getBytes());
-    // digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
-    // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
-    String pwd = new BigInteger(1, md.digest()).toString(16);
-    System.err.println(pwd);
-    return pwd;
-   } catch (Exception e) {
-    e.printStackTrace();
-   }
-   return password;
-}
- */
     }
     public String makeMD5(String password) {
         MessageDigest md;
@@ -181,7 +180,7 @@ MessageDigest md;
             // digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
             // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
             String pwd = new BigInteger(1, md.digest()).toString(16);
-            System.err.println(pwd);
+
             return pwd;
         } catch (Exception e) {
             e.printStackTrace();

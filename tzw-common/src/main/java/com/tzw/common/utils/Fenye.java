@@ -30,6 +30,7 @@ public class Fenye {
 	     Map<String,Object> fenye=new HashMap<>();
 	     fenye.put("cpage",cpage);
 	     fenye.put("epage",epage);
+	     fenye.put("total",sumcount);
 		 return fenye;
 	}
 	//特殊卡号

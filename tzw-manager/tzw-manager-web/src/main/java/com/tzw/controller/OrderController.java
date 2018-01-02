@@ -57,12 +57,20 @@ public class OrderController {
 
         HashMap<String,Object> m=new HashMap<>();
         m.put("list", list);
-        m.put("cpage", cpage);
+        m.put("cpage", cpages);
         m.put("epage", epage);
-        m.put("total", total);
 
-        model.addAttribute("total",total);
-        System.out.println(total+"total+==================");
+        int page=0;
+        if(total%10==0)
+        {
+            page=total/10;
+        }else
+        {
+            page=total/10+1;
+        }
+
+
+        m.put("total", page);
         return m;
     }
 
