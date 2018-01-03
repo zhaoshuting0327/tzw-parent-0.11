@@ -2,6 +2,7 @@ package com.tzw.controller;
 
 import com.tzw.common.utils.CookieUtils;
 import com.tzw.common.utils.Fenye;
+import com.tzw.pojo.Item;
 import com.tzw.pojo.Owner;
 import com.tzw.pojo.User;
 import com.tzw.service.LoginService;
@@ -52,14 +53,6 @@ public class UserController {
         model.addAttribute("img",img);
         return "index";
     }
-
-    @RequestMapping("user/del")
-    public String index(BigInteger tzw_user_id) {
-        System.out.println(tzw_user_id+"==tzw_user_id");
-        this.userService.deleteUser(tzw_user_id);
-        return "redirect:user_list";
-    }
-
     @RequestMapping(value = "/loginForm",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> login(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -185,6 +178,36 @@ public class UserController {
         return password;
     }
       //用户删除
-
+      @RequestMapping("user/del")
+      @ResponseBody
+      public int del(BigInteger tzw_item_id)
+      {
+          this.userService.deleteUser(tzw_item_id);
+          return 1;
+      }
      //用户修改
+
+    @RequestMapping("toUpdateUser")
+    public String toUpdateItem(BigInteger tzw_user_id,Model model)
+    {
+        model.addAttribute("tzw_user_id",tzw_user_id);
+
+        return "user_update";
+    }
+
+    @RequestMapping("huixianUser")
+    @ResponseBody
+    public User huixianItem(HttpServletRequest request)
+    {
+        String tzw_user_id = request.getParameter("tzw_user_id");
+
+        System.out.println(tzw_user_id+"tzw_user_id+++++++");
+        int i = Integer.parseInt(tzw_user_id);
+
+        User user = this.userService.findUserById(BigInteger.valueOf(i));
+        return user;
+    }
+
+
+
 }
