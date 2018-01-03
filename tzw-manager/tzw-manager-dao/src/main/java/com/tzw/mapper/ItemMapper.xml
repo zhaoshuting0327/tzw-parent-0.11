@@ -6,9 +6,17 @@
     <select id="itemList" resultType="com.tzw.pojo.Item">
 
         select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
-        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc
+        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_status1
          from tzw_item t1
     </select>
+
+    <select id="findItemById" parameterType="bigInteger" resultType="com.tzw.pojo.Item">
+          select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
+        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc
+         from tzw_item t1 WHERE t1.tzw_item_id=#{t1.tzw_item_id}
+    </select>
+
+
 
 
     <select id="selectByMap" resultType="com.tzw.pojo.Item" parameterType="map">
@@ -52,5 +60,9 @@
 
         </if>
     </select>
+
+    <delete id="del" parameterType="bigInteger" >
+        DELETE  from tzw_item where tzw_item_id=#{tzw_item_id}
+    </delete>
 
 </mapper>

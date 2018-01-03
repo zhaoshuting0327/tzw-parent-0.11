@@ -55,25 +55,9 @@ public class ItemServiceImpl implements ItemService {
         return this.itemMapper.getTotal(map);
     }
 
- /*   @Override
-    public List<Item> searchItemList(String lname) {
-
-        Map<String,Object> map=new HashMap<>();
-
-        map.put("lname",lname);
-
-
-        return itemMapper.searchItemList(map);
-    }*/
-
-    /*
-    * easyui分页*/
     @Override
     public  List<Item> getItemList(Integer cpage, Integer size,String lname) {
 
-
-        System.out.println(cpage+"serview============");
-        System.out.println(size+"serview============");
         Map<String,Object> map=new HashMap<>();
 
         map.put("cpage",(cpage-1)*size);
@@ -85,18 +69,36 @@ public class ItemServiceImpl implements ItemService {
 
         List<Item> items = this.itemMapper.selectByMap(map);
 
-        System.out.println(items.size()+"列表长度====items.size===");
-
-
         for(int i=0;i<items.size();i++)
-
         {
             //查询购买用户数
             int peopleNum = peopleNum(items.get(i).getTzw_item_id());
             items.get(i).setPeopleNum(peopleNum);
-        }
 
+            //1下架  2未下架
+            if ( items.get(i).getTzw_item_status()==1)
+            {
+                items.get(i).setTzw_item_status1("下架");
+            }else {
+                items.get(i).setTzw_item_status1("未下架");
+            }
+
+
+
+        }
         return items;
+    }
+    @Override
+    public void del(BigInteger tzw_item_id) {
+        this.itemMapper.del(tzw_item_id);
+    }
+
+    @Override
+    public Item findItemById(BigInteger tzw_item_id) {
+
+        Item itemById = this.itemMapper.findItemById(tzw_item_id);
+
+        return itemById;
     }
 
 

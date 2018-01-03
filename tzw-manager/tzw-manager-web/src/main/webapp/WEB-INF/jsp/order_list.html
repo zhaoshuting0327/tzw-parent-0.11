@@ -38,10 +38,12 @@
                     $scope.epage = msg.data.epage;
                     $scope.cpage = msg.data.cpage;
                     $scope.total = msg.data.total;
+                    $scope.totalnum = msg.data.totalnum;
 
                     var total= msg.data.total;
                     var cpage= msg.data.cpage;
-                    $("#m").text("第"+cpage+"页/共"+total+"页");
+                    var totalnum= msg.data.totalnum;
+                    $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
 
                 });
                 $(" li a").click(function(){
@@ -67,10 +69,12 @@
                         $scope.epage = msg.data.epage;
                         $scope.cpage = msg.data.cpage;
                         $scope.total = msg.data.total;
+                        $scope.totalnum = msg.data.totalnum;
 
                         var total= msg.data.total;
                         var cpage= msg.data.cpage;
-                        $("#m").text("第"+cpage+"页/共"+total+"页");
+                        var totalnum= msg.data.totalnum;
+                        $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
                     })
                 });
 
@@ -123,8 +127,8 @@
                             <td>{{s.tzw_order_statusz}}</td>
                             <td>{{s.tzw_order_createDate}}</td>
                             <td>{{s.tzw_order_updateDate}}</td>
-                            <td><input type="button" value="修改"  class="btn btn-default"></td>
-                            <td><input type="button" value="删除" class="btn btn-default"></td>
+                            <td><input type="button" value="修改" ng-click="update(s.tzw_order_user_id)" class="btn btn-danger update" ></td>
+                            <td><input type="button" value="删除" ng-click="del(s.tzw_order_user_id)" class="btn btn-danger del" >
                         </tr>
                     </table>
                 </form>

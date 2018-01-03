@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 表单验证 jQuery Validation</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css?v=4.0.0" rel="stylesheet"><base target="_blank">
+
+
+    <link rel="stylesheet" type="text/css" href="css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="css/demo/webuploader-demo.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/plugins/markdown/bootstrap-markdown.min.css" />
+
+    <base target="_blank">
+
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="js/content.min.js?v=1.0.0"></script>
+    <script src="js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="js/plugins/validate/messages_zh.min.js"></script>
+    <script src="js/demo/form-validate-demo.min.js"></script>
+    <!--    <script src="js/jquery-1.8.3.js"></script>
+        <script src="js/jquery.validate.js"></script>-->
+
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        var BASE_URL = 'js/plugins/webuploader';
+    </script>
+    <script src="js/plugins/webuploader/webuploader.min.js"></script>
+    <script src="js/demo/webuploader-demo.min.js"></script>
+
+
+    <script type="text/javascript" src="js/plugins/markdown/markdown.js"></script>
+    <script type="text/javascript" src="js/plugins/markdown/to-markdown.js"></script>
+    <script type="text/javascript" src="js/plugins/markdown/bootstrap-markdown.js"></script>
+    <script type="text/javascript" src="js/plugins/markdown/bootstrap-markdown.zh.js"></script>
+
+    <!--表单验证-->
+
+    <script type="text/javascript">
+
+
+
+        $(function(){
+            /*数据回显*/
+
+            var tzw_item_id=$("#tzw_item_id").val();
+
+            alert(tzw_item_id+"ddddd");
+            $.post(
+                "huixianItem",
+                {tzw_item_id:tzw_item_id},
+                function (item) {
+
+                    $("#itemname").val(item.tzw_item_name);
+                    $("#itemprice").val(item.tzw_item_price);
+                    $("#itemnum").val(item.tzw_item_num);
+
+                    $(":radio[value="+item.tzw_item_status+"]").attr("checked",true);
+                },
+                "json"
+            )
+            $("#back").click(function () {
+                history.back(-1);
+            })
+
+
+            $("#update").click(function(){
+                var itemname=$("#itemname").val();
+                var itemprice=$("#itemprice").val();
+                var itemnum=$("#itemnum").val();
+                var content=$("#content").val();
+                var itemstatus=$(":radio:checked").val();
+
+                $.post(
+                    "item_update_commit",
+                    {"itemname":itemname,
+                        "itemprice":itemprice,
+                        "itemnum":itemnum,
+                        "itemstatus":itemstatus,
+                        "content":content
+                    },
+                    function (data) {
+
+                    },
+                    "json"
+                )
+            });
+        })
+
+    </script>
+</head>
+
+<body class="gray-bg">
+
+<div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5> <input type="button" value="返回" id="back" class="btn btn-default">用户修改</h5>
+
+        </div>
+        <div class="ibox-content">
+            <form class="form-horizontal m-t"   method="post">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">用户名称：</label>
+                    <div class="col-sm-8">
+                        <input type="hidden" value="${tzw_user_id}" id="tzw_user_id" name="tzw_user_id">
+                        <input id="tzw_user_name" name="tzw_user_name" class="form-control" type="text">
+                        <span id="ctzw_user_name" style="color: red"></span>
+                        <!--
+                                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请输入商品名称</span>
+                        -->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">用户年龄：</label>
+                    <div class="col-sm-8">
+                        <input id="itemprice" name="itemprice" class="form-control" type="text" aria-required="true" aria-invalid="false" class="valid">
+                        <span id="citemprice" style="color: red"></span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品库存：</label>
+                    <div class="col-sm-8">
+                        <input id="itemnum" name="itemnum" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
+                        <span id="citemnum" style="color: red"></span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品状态：</label>
+
+
+                    <div class="radio" class="" >
+                        <label>
+                            <input type="radio" checked="" value="1" id="optionsRadios1" name="itemstatus">上架</label>
+
+                        <label>
+                            <input type="radio" value="2" id="optionsRadios2" name="itemstatus">不上架</label>
+                        <span id="citemstatus" style="color: red"></span>
+
+                    </div>
+
+                </div>
+                    <div class="form-group">
+                    <div class="col-sm-8 col-sm-offset-3">
+                        <input type="button" value="提交" class="btn btn-primary" id="update">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</body>
+
+</html>

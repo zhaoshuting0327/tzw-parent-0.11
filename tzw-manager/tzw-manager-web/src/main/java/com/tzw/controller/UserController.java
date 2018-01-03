@@ -40,9 +40,8 @@ public class UserController {
         return "index_v1";
     }
 
-       @RequestMapping("/login")
+    @RequestMapping("/login")
     public String toLogin() {
-
         return "login";
     }
 
@@ -51,17 +50,13 @@ public class UserController {
 
         model.addAttribute("username",username);
         model.addAttribute("img",img);
-
         return "index";
     }
 
     @RequestMapping("user/del")
     public String index(BigInteger tzw_user_id) {
-
-
         System.out.println(tzw_user_id+"==tzw_user_id");
         this.userService.deleteUser(tzw_user_id);
-
         return "redirect:user_list";
     }
 
@@ -74,9 +69,9 @@ public class UserController {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-       String  messg="";
+        String  messg="";
 
-       if(password == null || "".equals(password)||username == null || "".equals(username)) {
+        if(password == null || "".equals(password)||username == null || "".equals(username)) {
            messg="用户名或密码不能为空!";
            map.put("messg",messg);
            map.put("ok",0);
@@ -159,18 +154,20 @@ public class UserController {
 
 
         map.put("total", page);
+        map.put("totalnum", userCount);
 
         return map;
     }
 
-/*loginOut*/
 
+    /*loginOut*/
     @RequestMapping("loginOut")
     public String loginOut()
     {
         return "login";
     }
-    public String makeMD5(String password) {
+
+        public String makeMD5(String password) {
         MessageDigest md;
         try {
             // 生成一个MD5加密计算摘要
@@ -187,6 +184,7 @@ public class UserController {
         }
         return password;
     }
+      //用户删除
 
-
+     //用户修改
 }

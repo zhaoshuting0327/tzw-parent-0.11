@@ -29,51 +29,7 @@
     <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/bootstrap/css/font-awesome.css">
     <base target="_blank">
-    <script type="text/javascript">
 
-                angular.module("MyApp",[])
-            .controller("firstController",function($rootScope,$scope,$http){
-                $http.get("item_listJson").then(function(msg){
-                    $scope.show = msg.data.list;
-                    $scope.epage = msg.data.epage;
-                    $scope.cpage = msg.data.cpage;
-                    $scope.total = msg.data.total;
-                    var total= msg.data.total;
-                    var cpage= msg.data.cpage;
-                    $("#m").text("第"+cpage+"页/共"+total+"页");
-
-                });
-                $(" li a").click(function(){
-                    var str = $(this).text();
-                    if(str=="首页"){
-                        var id = 1;
-                    }else if(str=="上一页"){
-                        var id = $("#a").val();
-                    }else if(str=="下一页"){
-                        d = $("#b").val();
-                        var id = Number(d)+1;
-                    }else if(str=="尾页"){
-                        var id = $("#c").val();
-                    }
-                    $http({
-                        method:"post",
-                        url:"item_listJson",
-                        params:{cpage:id}
-                    }).then(function(msg){
-                        $scope.show = msg.data.list;
-                        $scope.epage = msg.data.epage;
-                        $scope.cpage = msg.data.cpage;
-                        $scope.total = msg.data.total;
-
-                        var total= msg.data.total;
-                        var cpage= msg.data.cpage;
-                        $("#m").text("第"+cpage+"页/共"+total+"页");
-
-                    })
-                });
-
-            })
-    </script>
 </head>
 <body ng-app="MyApp" ng-controller="firstController">
 <div class="container">
@@ -111,11 +67,12 @@
                             <td>{{s.tzw_item_price}}</td>
                             <td>{{s.tzw_item_num}}</td>
                             <td>{{s.tzw_item_desc}}</td>
-                            <td>{{s.tzw_item_status}}</td>
+                            <td>{{s.tzw_item_status1}}</td>
                             <td>{{s.tzw_item_createDate}}</td>
                             <td>{{s.tzw_item_updateDate}}</td>
-                            <td><input type="button" value="修改"  class="btn btn-default"></td>
-                            <td><input type="button" value="删除" class="btn btn-default"></td>
+                          <td><input type="button" value="修改" ng-click="update(s.tzw_item_id)" class="btn btn-danger update" ></td>
+                            <td><input type="button" value="删除" ng-click="del(s.tzw_item_id)" class="btn btn-danger del" >
+                          </td>
                         </tr>
                     </table>
                 </form>
@@ -134,5 +91,88 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+        angular.module("MyApp",[])
+        .controller("firstController",function($rootScope,$scope,$http){
+            $http.get("item_listJson").then(function(msg){
+                $scope.show = msg.data.list;
+                $scope.epage = msg.data.epage;
+                $scope.cpage = msg.data.cpage;
+                $scope.total = msg.data.total;
+                $scope.totalnum = msg.data.totalnum;
+                var total= msg.data.total;
+                var cpage= msg.data.cpage;
+                var totalnum= msg.data.totalnum;
+                $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
+            });
+            $scope.del = function(id){
+                if(confirm("确认删除?")){
+                    $http({
+                        method:"get",
+                        url:"item/del",
+                        params:{tzw_item_id:id}
+                    }).success(function(data){
+                        if(data>0){
+                            alert("删除成功!");
+                            location.reload();
+                        }else{
+                            alert("刪除失败");
+                        }
+                    })
+                }
+            }
+            $scope.update = function(id){
+                location.href="toUpdateItem?tzw_item_id="+id;
+                /* $http({
+                     method:"get",
+                     url:"toUpdateItem",
+                     params:{"tzw_item_id":id}
+                 }).success(function(data){
+                     if(data>0){
+                         alert("删除成功!");
+                         location.reload();
+                     }else{
+                        location.href="/itemUpdateJsp";
+                     }
+                 })*/
+            }
+
+            $(" li a").click(function(){
+                var str = $(this).text();
+                if(str=="首页"){
+                    var id = 1;
+                }else if(str=="上一页"){
+                    var id = $("#a").val();
+                }else if(str=="下一页"){
+                    d = $("#b").val();
+                    var id = Number(d)+1;
+                }else if(str=="尾页"){
+                    var id = $("#c").val();
+                }
+                $http({
+                    method:"post",
+                    url:"item_listJson",
+                    params:{cpage:id}
+                }).then(function(msg){
+                    $scope.show = msg.data.list;
+                    $scope.epage = msg.data.epage;
+                    $scope.cpage = msg.data.cpage;
+                    $scope.total = msg.data.total;
+                    $scope.totalnum = msg.data.totalnum;
+
+                    var total= msg.data.total;
+                    var cpage= msg.data.cpage;
+                    var totalnum= msg.data.totalnum;
+                    $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
+
+                });
+
+
+            });
+
+        });
+
+
+</script>
 </body>
 </html>

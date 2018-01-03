@@ -71,6 +71,7 @@ public class OrderController {
 
 
         m.put("total", page);
+        m.put("totalnum", total);
         return m;
     }
 

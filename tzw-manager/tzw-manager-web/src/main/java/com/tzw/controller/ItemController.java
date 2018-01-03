@@ -4,6 +4,7 @@ import com.tzw.common.pojo.EasyUIDataGridResult;
 import com.tzw.common.utils.Fenye;
 import com.tzw.pojo.Item;
 import com.tzw.service.ItemService;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +48,6 @@ public class ItemController {
 
         List<Item> list = this.itemService.getItemList(Integer.parseInt(cpages),size,lname);
 
-
         for (int i=0;i<list.size();i++) {
             Item o = (Item) list.get(i);
 
@@ -61,6 +62,7 @@ public class ItemController {
             m.put("list", list);
             m.put("cpage", cpages);
             m.put("epage", epage);
+            m.put("totalnum", total);
 
             int page=0;
             if(total%10==0)
@@ -80,7 +82,13 @@ public class ItemController {
         return "item_list";
     }
 
-
+   @RequestMapping("item/del")
+   @ResponseBody
+    public int del(BigInteger tzw_item_id)
+    {
+        this.itemService.del(tzw_item_id);
+        return 1;
+    }
 
     @RequestMapping("item_add")
     public String item_add()
@@ -89,18 +97,43 @@ public class ItemController {
     }
 
 
-/*    @RequestMapping("/upload")
-    public String upload()
+    @RequestMapping("toUpdateItem")
+    public String toUpdateItem(BigInteger tzw_item_id,Model model)
     {
-        System.out.println("1111111111111111111");
-        return "";
-    }*/
-  /*  @RequestMapping("/upload")
-    public String upload()
+        model.addAttribute("tzw_item_id",tzw_item_id);
+
+        return "item_update";
+    }
+
+    @RequestMapping("huixianItem")
+    @ResponseBody
+    public Item huixianItem( HttpServletRequest request)
     {
-        System.out.println("1111111111111111111");
-        return "";
-    }*/
+
+        String tzw_item_id = request.getParameter("tzw_item_id");
+
+        int i = Integer.parseInt(tzw_item_id);
+
+
+        System.out.println(tzw_item_id+"update");
+
+        Item itemById = this.itemService.findItemById(BigInteger.valueOf(i));
+
+        System.out.println(itemById.getTzw_item_name());
+        System.out.println(itemById.getTzw_item_num());
+        return itemById;
+    }
+
+
+
+
+
+
+
+
+
+
+
         @RequestMapping(value = "/upload", method ={RequestMethod.POST,RequestMethod.GET}, produces = "application/json; charset=utf-8")
         @ResponseBody
         public String uploder(@RequestParam MultipartFile[] file, HttpServletRequest request, HttpServletResponse response){

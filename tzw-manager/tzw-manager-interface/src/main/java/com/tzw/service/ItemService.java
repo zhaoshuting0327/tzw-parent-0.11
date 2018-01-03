@@ -21,4 +21,9 @@ public interface ItemService {
 
     List<Item> getItemList(Integer cpage, Integer size,String lname);
 
+    void  del(BigInteger tzw_item_id);
+
+    Item findItemById(BigInteger tzw_item_id);
+
+
 }

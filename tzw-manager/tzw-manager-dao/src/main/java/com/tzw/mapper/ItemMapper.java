@@ -20,4 +20,8 @@ public interface ItemMapper {
 //    List<Item> searchItemList(Map<String, Object> map);
 
      int getTotal(Map<String,Object> map);
+
+     void  del(BigInteger tzw_item_id);
+
+     Item findItemById(BigInteger tzw_item_id);
 }

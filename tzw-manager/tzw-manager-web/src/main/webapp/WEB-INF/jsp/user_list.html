@@ -38,10 +38,12 @@
                     $scope.epage = msg.data.epage;
                     $scope.cpage = msg.data.cpage;
                     $scope.total = msg.data.total;
+                    $scope.totalnum = msg.data.totalnum;
 
                     var total= msg.data.total;
+                    var totalnum= msg.data.totalnum;
                     var cpage= msg.data.cpage;
-                    $("#m").text("第"+cpage+"页/共"+total+"页");
+                    $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
                 });
                 $(" li a").click(function(){
                     var str = $(this).text();
@@ -64,47 +66,17 @@
                         $scope.epage = msg.data.epage;
                         $scope.cpage = msg.data.cpage;
                         $scope.total = msg.data.total;
+                        $scope.totalnum = msg.data.totalnum;
 
                         var total= msg.data.total;
+                        var totalnum= msg.data.totalnum;
                         var cpage= msg.data.cpage;
-                        $("#m").text("第"+cpage+"页/共"+total+"页");
+                        $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
                     })
                 });
 
             });
 
-
-
-
-        /*    $(".del").click(function () {
-
-                alert(1)
-                var tzw_user_id=$(this).val();
-                location.href="user/del?tzw_user_id="+tzw_user_id;
-            })
-*/
-
-            /*  $(".del").click(function(){
-                alert("正确")
-              var tzw_user_id = $(this).next().val();
-                alert(tzw_user_id)
-                if(confirm("确定要删除?")){
-                    $.get(
-                        "user/del", //url
-                        {"tzw_user_id":tzw_user_id}, //传输的值
-                        function(obj){ //回调函数
-                        /!*    if(obj=="y"){
-                                location.href="<%=path%>/Servlet?m=list";
-                            }else{
-                                alert("删除失败");
-                            }*!/
-                        alert("删除成功！")
-                        },
-                        "json"  //返回值的类型
-                    );
-                }
-
-            });*/
     </script>
 </head>
 <body ng-app="MyApp" ng-controller="firstController">
@@ -134,6 +106,7 @@
                             <td>用户地址</td>
                             <td>用户积分</td>
                             <td>用户余额</td>
+                            <td>是否为vip</td>
                             <td>创建日期</td>
                             <td>修改日期</td>
                             <td colspan="10">操作</td>
@@ -148,15 +121,12 @@
                             <td>{{s.tzw_user_address}}</td>
                             <td>{{s.tzw_user_score}}</td>
                             <td>{{s.tzw_user_money}}</td>
+                            <td>{{s.tzw_user_vip1}}</td>
                             <td>{{s.tzw_user_ordernum}}</td>
                             <td>{{s.tzw_user_createDate}}</td>
                             <td>{{s.tzw_user_updateDate}}</td>
-
-
-                            <td><input type="button" value="修改"  class="btn btn-default" class="update"></td>
-                            <td><input type="button" value="删除" class="btn btn-default" class="del">
-                                <button ng-click="del($index)">删除</button></td>
-                            <td><input type="hidden" value={{s.tzw_user_id}} ></td>
+                            <td><input type="button" value="修改" ng-click="update(s.tzw_user_id)" class="btn btn-danger update" ></td>
+                            <td><input type="button" value="删除" ng-click="del(s.tzw_user_id)" class="btn btn-danger del" >
                         </tr>
                     </table>
                 </form>

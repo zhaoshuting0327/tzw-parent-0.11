@@ -37,11 +37,7 @@ public class UserServiceImpl  implements UserService{
 
             //添加用户积分
             //添加用户订单数
-
-
-
            User user= list.get(i);
-
            user.setTzw_user_ordernum(this.userMapper.orderNum(user.getTzw_user_id()));
            user.setTzw_user_score(this.userMapper.scoreNum(user.getTzw_user_id()));
            user.setTzw_user_money(this.userMapper.moneyNum(user.getTzw_user_id()));
@@ -53,6 +49,17 @@ public class UserServiceImpl  implements UserService{
             }else {
                 user.setTzw_user_sex1("女");
             }
+
+            //填写用户是否是vip
+            if(user.getTzw_user_vip()==1)
+            {
+                user.setTzw_user_vip1("是");
+            }else
+            {
+                user.setTzw_user_vip1("否");
+
+            }
+
         }
         int total =this.userMapper.getTotal(objectObjectHashMap);
 

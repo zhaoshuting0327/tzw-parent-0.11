@@ -14,6 +14,10 @@ public class Item {
     private BigInteger  tzw_item_num;
 
     private Integer  tzw_item_status;
+    private String  tzw_item_status1;
+
+
+
     private String  tzw_item_picture;
     private String  tzw_item_desc;
 
@@ -21,6 +25,14 @@ public class Item {
 
     private String tzw_item_createDate;
     private String tzw_item_updateDate;
+
+    public String getTzw_item_status1() {
+        return tzw_item_status1;
+    }
+
+    public void setTzw_item_status1(String tzw_item_status1) {
+        this.tzw_item_status1 = tzw_item_status1;
+    }
 
     public String getTzw_item_createDate() {
         return tzw_item_createDate;

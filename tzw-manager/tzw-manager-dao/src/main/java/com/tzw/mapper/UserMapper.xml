@@ -16,7 +16,8 @@
         tzw_user_id,
         tzw_user_sex,
         tzw_user_createDate,
-        tzw_user_updateDate
+        tzw_user_updateDate,
+        tzw_user_vip
         from tzw_user
         <if test="lname!=null">
 
@@ -39,7 +40,8 @@
         tzw_user_money,
         tzw_user_id,
         tzw_user_createDate,
-        tzw_user_updateDate
+        tzw_user_updateDate,
+        tzw_user_vip
         from tzw_user
         where tzw_user_id=#{tzw_user_id}
     </select>
@@ -54,7 +56,8 @@
         tzw_user_address=#{tzw_user_address},
         tzw_user_score=#{tzw_user_score},
         tzw_user_createDate=#{tzw_user_createDate},
-        tzw_user_updateDate=#{tzw_user_updateDate})
+        tzw_user_updateDate=#{tzw_user_updateDate}),
+        tzw_user_vip=#{tzw_user_vip}
         where tzw_user_id=#{tzw_user_id}
 
 

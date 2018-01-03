@@ -12,15 +12,6 @@ import java.util.Map;
  */
 public interface OrderService {
 
- /*   List<Order> findAll(String lname,int page,int rows);
-
-    void updateOrder(Order order);
-
-    void deleteOrder(int id);
-
-    Order findById(int id);
-*/
-
 
     List<Order> findAllOrder1(String lname,int page,int rows);
 

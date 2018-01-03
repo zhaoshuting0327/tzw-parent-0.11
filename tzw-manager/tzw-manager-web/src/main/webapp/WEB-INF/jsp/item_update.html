@@ -11,7 +11,8 @@
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
     <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min.css?v=4.0.0" rel="stylesheet"><base target="_blank">
@@ -51,12 +52,36 @@
 
 <script type="text/javascript">
 
-    /*$(":radio[value="+obj.sex+"]").attr("checked",true);
-    * var sex = $(":radio:checked").val();*/
+
+
     $(function(){
+        /*数据回显*/
+
+        var tzw_item_id=$("#tzw_item_id").val();
+
+        alert(tzw_item_id+"ddddd");
+        $.post(
+            "huixianItem",
+            {tzw_item_id:tzw_item_id},
+            function (item) {
+
+            /*    alert(item.tzw_item_name)
+                alert(item.tzw_item_price)
+                alert(item.tzw_item_num)*/
+                $("#itemname").val(item.tzw_item_name);
+                $("#itemprice").val(item.tzw_item_price);
+                $("#itemnum").val(item.tzw_item_num);
+
+                $(":radio[value="+item.tzw_item_status+"]").attr("checked",true);
+            },
+            "json"
+                    )
+        $("#back").click(function () {
+            history.back(-1);
+        })
 
 
-        $("#add").click(function(){
+        $("#update").click(function(){
             var itemname=$("#itemname").val();
             var itemprice=$("#itemprice").val();
             var itemnum=$("#itemnum").val();
@@ -64,7 +89,7 @@
             var itemstatus=$(":radio:checked").val();
 
             $.post(
-                "item_add_commit",
+                "item_update_commit",
                 {"itemname":itemname,
                     "itemprice":itemprice,
                     "itemnum":itemnum,
@@ -72,7 +97,6 @@
                     "content":content
                 },
                 function (data) {
-
 
                 },
                 "json"
@@ -88,13 +112,15 @@
 <div class="col-sm-12">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>商品添加</h5>
+            <h5> <input type="button" value="返回" id="back" class="btn btn-default">商品修改</h5>
+
         </div>
         <div class="ibox-content">
             <form class="form-horizontal m-t"   method="post">
                 <div class="form-group">
                     <label class="col-sm-3 control-label">商品名称：</label>
                     <div class="col-sm-8">
+                        <input type="hidden" value="${tzw_item_id}" id="tzw_item_id" name="tzw_item_id">
                         <input id="itemname" name="itemname" class="form-control" type="text">
                         <span id="citemname" style="color: red"></span>
 <!--
@@ -222,7 +248,7 @@
 、
                 <div class="form-group">
                     <div class="col-sm-8 col-sm-offset-3">
-                        <input type="button" value="提交" class="btn btn-primary" id="add">
+                        <input type="button" value="提交" class="btn btn-primary" id="update">
                     </div>
                 </div>
             </form>
