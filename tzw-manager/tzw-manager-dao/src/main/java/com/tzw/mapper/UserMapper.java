@@ -1,5 +1,6 @@
 package com.tzw.mapper;
 
+import com.tzw.pojo.Score;
 import com.tzw.pojo.User;
 
 import java.math.BigInteger;
@@ -29,4 +30,7 @@ public interface UserMapper {
     BigInteger scoreNum(BigInteger id);
     Double moneyNum(BigInteger id);
     int orderNum(BigInteger id);
+
+    List<Score> findScoreById(BigInteger tzw_user_id);
+
 }

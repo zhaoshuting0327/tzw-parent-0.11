@@ -33,7 +33,7 @@
 
   <!--删除订单;-->
 
-    <delete id="deleteOrder" parameterType="bigInteger">
+    <delete id="delById" parameterType="bigInteger">
         delete from tzw_order where tzw_order_id=#{tzw_order_id}
     </delete>
 

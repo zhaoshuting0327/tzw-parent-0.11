@@ -4,6 +4,7 @@ import com.tzw.common.utils.CookieUtils;
 import com.tzw.common.utils.Fenye;
 import com.tzw.pojo.Item;
 import com.tzw.pojo.Owner;
+import com.tzw.pojo.Score;
 import com.tzw.pojo.User;
 import com.tzw.service.LoginService;
 import com.tzw.service.UserService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,7 +57,7 @@ public class UserController {
     }
     @RequestMapping(value = "/loginForm",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> login(Model model, HttpServletRequest request, HttpServletResponse response) {
+    public Map<String,Object> login(HttpSession httpSession,Model model, HttpServletRequest request, HttpServletResponse response) {
 
         Map<String,Object> map=new HashMap<>();
 
@@ -71,9 +73,8 @@ public class UserController {
            return map;
         }
         else{
-           String s = makeMD5(password);
-
-           Owner login = this.loginService.login(username, s);
+            String s = MD5Util.string2MD5(password);
+            Owner login = this.loginService.login(username, s);
 
            if (login==null)
            {
@@ -84,6 +85,9 @@ public class UserController {
            }else
            {
                String token = UUID.randomUUID().toString();
+
+               httpSession.setAttribute("loginname", username);
+
                CookieUtils.setCookie(request, response, "token", token);
 
                map.put("username",username);
@@ -93,11 +97,7 @@ public class UserController {
               return map;
            }
         }
-
     }
-
-
-
     /*user列表展示*/
 
     @RequestMapping("user_list")
@@ -155,8 +155,9 @@ public class UserController {
 
     /*loginOut*/
     @RequestMapping("loginOut")
-    public String loginOut()
+    public String loginOut(HttpSession httpSession)
     {
+        httpSession.invalidate();
         return "login";
     }
 
@@ -190,6 +191,9 @@ public class UserController {
     @RequestMapping("toUpdateUser")
     public String toUpdateItem(BigInteger tzw_user_id,Model model)
     {
+
+        System.out.println(tzw_user_id+"kkkkkkkkkkkkkkk");
+
         model.addAttribute("tzw_user_id",tzw_user_id);
 
         return "user_update";
@@ -200,14 +204,108 @@ public class UserController {
     public User huixianItem(HttpServletRequest request)
     {
         String tzw_user_id = request.getParameter("tzw_user_id");
+        String tzw_user_createDate = request.getParameter("tzw_user_createDate");
 
-        System.out.println(tzw_user_id+"tzw_user_id+++++++");
         int i = Integer.parseInt(tzw_user_id);
 
         User user = this.userService.findUserById(BigInteger.valueOf(i));
+
         return user;
     }
 
+    @RequestMapping("user_update_commit")
+    @ResponseBody
+    public boolean user_update_commit(HttpServletRequest request)
+    {
+        String tzw_user_id = request.getParameter("tzw_user_id");
+        String tzw_user_username = request.getParameter("tzw_user_username");
+        String tzw_user_pwd = request.getParameter("tzw_user_pwd");
+        String tzw_user_phone = request.getParameter("tzw_user_phone");
+        String tzw_user_address = request.getParameter("tzw_user_address");
+        String tzw_user_score = request.getParameter("tzw_user_score");
+        String tzw_user_money = request.getParameter("tzw_user_money");
+        String tzw_user_sex = request.getParameter("tzw_user_sex");
+        String tzw_user_vip = request.getParameter("tzw_user_vip");
+        String tzw_user_createDate = request.getParameter("tzw_user_createDate");
 
+        User u=new User();
+
+        u.setTzw_user_sex(Integer.parseInt(tzw_user_sex));
+
+        int i = Integer.parseInt(tzw_user_id);
+        u.setTzw_user_id(BigInteger.valueOf(i));
+
+        u.setTzw_user_username(tzw_user_username);
+        u.setTzw_user_pwd(tzw_user_pwd);
+
+        u.setTzw_user_phone(tzw_user_phone);
+        u.setTzw_user_address(tzw_user_address);
+
+        int i1 = Integer.parseInt(tzw_user_score);
+        u.setTzw_user_score(BigInteger.valueOf(i1));
+
+        u.setTzw_user_money(Double.parseDouble(tzw_user_money));
+        u.setTzw_user_vip(Integer.parseInt(tzw_user_vip));
+
+        u.setTzw_user_createDate(tzw_user_createDate);
+
+        this.userService.updateUser(u);
+
+        return true;
+    }
+
+/*
+
+    @RequestMapping("scoreMessage2")
+    public String scoreMessage(BigInteger tzw_user_id,Model model)
+    {
+        System.out.println(tzw_user_id+"kkkkkkkkkkkkkkk");
+
+        User userById = this.userService.findUserById(tzw_user_id);
+        model.addAttribute("tzw_user_id",tzw_user_id);
+        model.addAttribute("tzw_user_username",userById.getTzw_user_username());
+        return "scoreMessage";
+    }
+
+
+    @RequestMapping("scoreMessageJson")
+    @ResponseBody
+    public Score scoreMessageJson(BigInteger tzw_user_id,Model model)
+    {
+
+        Score scoreById = this.userService.findScoreById(tzw_user_id);
+
+        return scoreById;
+    }
+*/
+
+   @RequestMapping("scoreMessage")
+    public String scoreMessage(BigInteger tzw_user_id,Model model)
+   {
+       System.out.println("进入详情页面");
+       System.out.println(tzw_user_id+"积分详情");
+
+       User userById = this.userService.findUserById(tzw_user_id);
+
+       String tzw_user_username = userById.getTzw_user_username();
+
+       model.addAttribute("tzw_user_id",tzw_user_id);
+       model.addAttribute("tzw_user_username",tzw_user_username);
+       return "score_message";
+   }
+
+   //scoreMessageJson
+
+    @RequestMapping("scoreMessageJson")
+    @ResponseBody
+    public  List<Score> scoreMessageJson(BigInteger tzw_user_id)
+    {
+        System.out.println("进入详情页面2");
+        System.out.println(tzw_user_id+"积分详情2");
+
+        List<Score> scoreById = this.userService.findScoreById(tzw_user_id);
+
+        return scoreById;
+    }
 
 }

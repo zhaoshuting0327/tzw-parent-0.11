@@ -22,4 +22,7 @@ public interface OrderMapper {
     void deleteOrder(BigInteger id);
 
     int getOrderCount(Map<String,Object> map);
+
+    void delById(BigInteger tzw_order_id);
+
 }

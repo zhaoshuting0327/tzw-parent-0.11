@@ -93,4 +93,9 @@ public class OrderServiceImpl implements OrderService {
         return this.orderMapper.getOrderCount(map);
     }
 
+    @Override
+    public void delById(BigInteger tzw_order_id) {
+        this.orderMapper.delById(tzw_order_id);
+    }
+
 }

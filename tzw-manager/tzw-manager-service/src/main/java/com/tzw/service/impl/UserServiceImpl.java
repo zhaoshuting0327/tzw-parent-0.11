@@ -1,12 +1,16 @@
 package com.tzw.service.impl;
 
+import com.tzw.common.utils.MD5Util;
 import com.tzw.mapper.UserMapper;
+import com.tzw.pojo.Score;
 import com.tzw.pojo.User;
 import com.tzw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,11 +41,33 @@ public class UserServiceImpl  implements UserService{
 
             //添加用户积分
             //添加用户订单数
-           User user= list.get(i);
-           user.setTzw_user_ordernum(this.userMapper.orderNum(user.getTzw_user_id()));
-           user.setTzw_user_score(this.userMapper.scoreNum(user.getTzw_user_id()));
-           user.setTzw_user_money(this.userMapper.moneyNum(user.getTzw_user_id()));
 
+           User user= list.get(i);
+
+           user.setTzw_user_pwd(MD5Util.convertMD5(MD5Util.convertMD5(user.getTzw_user_pwd())));
+
+            int orderNum = this.userMapper.orderNum(user.getTzw_user_id());
+            BigInteger score = this.userMapper.scoreNum(user.getTzw_user_id());
+            Double money = this.userMapper.moneyNum(user.getTzw_user_id());
+
+            if(("").equals(score)||score==null)
+            {
+                int i1 = Integer.parseInt("0");
+                user.setTzw_user_score(BigInteger.valueOf(i1));
+            }else
+            {
+                user.setTzw_user_score(score);
+            }
+
+            if(("").equals(money)||money==null)
+            {
+                user.setTzw_user_money(0.00);
+            }else
+            {
+                user.setTzw_user_money(money);
+            }
+
+            user.setTzw_user_ordernum(orderNum);
             //判断用户性别
             if(user.getTzw_user_sex()==1)
             {
@@ -51,13 +77,12 @@ public class UserServiceImpl  implements UserService{
             }
 
             //填写用户是否是vip
-            if(user.getTzw_user_vip()==1)
+            if(user.getTzw_user_vip()==3)
             {
                 user.setTzw_user_vip1("是");
             }else
             {
                 user.setTzw_user_vip1("否");
-
             }
 
         }
@@ -69,10 +94,21 @@ public class UserServiceImpl  implements UserService{
     @Override
     public void updateUser(User user) {
 
+        //添加修改时间
+        Date date=new Date();
+                                                    //2017-12-05 17:31:49
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
 
+        String format = simpleDateFormat.format(date);
 
+        user.setTzw_user_updateDate(format);
 
+        System.out.println(user.getTzw_user_money()+"money");
+        System.out.println(user.getTzw_user_address()+"address");
+        System.out.println(user.getTzw_user_score()+"score");
+        System.out.println(user.getTzw_user_phone()+"phone");
 
+        user.setTzw_user_pwd(MD5Util.string2MD5(user.getTzw_user_pwd()));
         this.userMapper.updateUser(user);
     }
 
@@ -97,5 +133,10 @@ public class UserServiceImpl  implements UserService{
         map.put("lname",lname);
 
         return this.userMapper.getTotal(map);
+    }
+
+    @Override
+    public  List<Score> findScoreById(BigInteger tzw_user_id) {
+        return this.userMapper.findScoreById(tzw_user_id);
     }
 }

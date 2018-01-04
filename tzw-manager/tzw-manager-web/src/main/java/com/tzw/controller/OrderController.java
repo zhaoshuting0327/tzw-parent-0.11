@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,5 +76,15 @@ public class OrderController {
         return m;
     }
 
+    //订单删除
+
+    @RequestMapping("order/del")
+    @ResponseBody
+    public int del(BigInteger tzw_order_id)
+    {
+        this.orderService.delById(tzw_order_id);
+        return 1;
+    }
+    //订单修改
 
 }

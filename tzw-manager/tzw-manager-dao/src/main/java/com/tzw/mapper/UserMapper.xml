@@ -49,18 +49,18 @@
 
     <update id="updateUser" parameterType="com.tzw.pojo.User" >
 
-        update tzw_user set(
-        tzw_user_pwd=#{tzw_user_pwd},
-        tzw_user_username=#{tzw_user_username},
-        tzw_user_phone=#{tzw_user_phone},
-        tzw_user_address=#{tzw_user_address},
-        tzw_user_score=#{tzw_user_score},
-        tzw_user_createDate=#{tzw_user_createDate},
-        tzw_user_updateDate=#{tzw_user_updateDate}),
-        tzw_user_vip=#{tzw_user_vip}
-        where tzw_user_id=#{tzw_user_id}
-
-
+        update tzw_user t set
+        t.tzw_user_pwd=#{tzw_user_pwd},
+        t.tzw_user_username=#{tzw_user_username},
+        t.tzw_user_phone=#{tzw_user_phone},
+        t.tzw_user_address=#{tzw_user_address},
+        t.tzw_user_score=#{tzw_user_score},
+        t.tzw_user_money=#{tzw_user_money},
+        t.tzw_user_createDate=#{tzw_user_createDate},
+        t.tzw_user_updateDate=#{tzw_user_updateDate},
+        t.tzw_user_vip=#{tzw_user_vip},
+        t.tzw_user_sex=#{tzw_user_sex}
+        where t.tzw_user_id=#{tzw_user_id}
     </update>
 
     <!--删除用户-->
@@ -98,4 +98,15 @@
     <select id="orderNum" parameterType="bigInteger" resultType="int">
         SELECT count(*) from tzw_order where tzw_order_user_id=#{tzw_order_user_id}
     </select>
+
+<!--
+    findScoreById
+-->
+
+    <select id="findScoreById" parameterType="bigInteger" resultType="com.tzw.pojo.Score">
+        SELECT * from tzw_score WHERE  tzw_score_user_id=#{tzw_score_user_id}
+    </select>
+
+    <!--余额详情-->
+    <!--订单详情-->
 </mapper>

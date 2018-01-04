@@ -103,7 +103,7 @@
                 var total= msg.data.total;
                 var cpage= msg.data.cpage;
                 var totalnum= msg.data.totalnum;
-                $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
+                $("#m").html("<span style='color: #00a2d4'>"+"第"+cpage+"/"+total+"页/共"+totalnum+"条"+"</span>");
             });
             $scope.del = function(id){
                 if(confirm("确认删除?")){
@@ -163,7 +163,7 @@
                     var total= msg.data.total;
                     var cpage= msg.data.cpage;
                     var totalnum= msg.data.totalnum;
-                    $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
+                    $("#m").html("<span style='color: #00a2d4'>"+"第"+cpage+"/"+total+"页/共"+totalnum+"条"+"</span>");
 
                 });
 

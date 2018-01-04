@@ -43,7 +43,7 @@
                     var total= msg.data.total;
                     var totalnum= msg.data.totalnum;
                     var cpage= msg.data.cpage;
-                    $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
+                    $("#m").html("<span style='color: #00a2d4'>"+"第"+cpage+"/"+total+"页/共"+totalnum+"条"+"</span>");
                 });
 
                 $scope.del = function(id){
@@ -64,9 +64,28 @@
                 }
                 $scope.update = function(id){
 
+                    alert(id)
                     location.href="toUpdateUser?tzw_user_id="+id;
 
+                              };
+                $scope.score = function(id){
+
+                    alert(id)
+                    location.href="scoreMessage?tzw_user_id="+id;
+
+                              };
+                $scope.money = function(id){
+
+                    alert(id)
+                    location.href="moneyMessage?tzw_user_id="+id;
+
+                              };
+                $scope.order = function(id){
+
+                    alert(id)
+                    location.href="orderMessage?tzw_user_id="+id;
                               }
+
 
 
                 $(" li a").click(function(){
@@ -96,7 +115,7 @@
                         var total= msg.data.total;
                         var totalnum= msg.data.totalnum;
                         var cpage= msg.data.cpage;
-                        $("#m").text("第"+cpage+"/"+total+"页/共"+totalnum+"条");
+                        $("#m").html("<span style='color: #00a2d4'>"+"第"+cpage+"/"+total+"页/共"+totalnum+"条"+"</span>");
                     })
                 });
 
@@ -111,7 +130,7 @@
             <div class="col-md-12">
 
                 <nav  role="navigation">
-                    <h4>订单列表</h4><br>
+                    <h4>用户列表</h4><br>
 
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
@@ -132,6 +151,7 @@
                             <td>用户积分</td>
                             <td>用户余额</td>
                             <td>是否为vip</td>
+                            <td>用户订单个数</td>
                             <td>创建日期</td>
                             <td>修改日期</td>
                             <td colspan="10">操作</td>
@@ -152,10 +172,13 @@
                             <td>{{s.tzw_user_updateDate}}</td>
                             <td><input type="button" value="修改" ng-click="update(s.tzw_user_id)" class="btn btn-danger update" ></td>
                             <td><input type="button" value="删除" ng-click="del(s.tzw_user_id)" class="btn btn-danger del" >
+                            <td><input type="button" value="积分详情" ng-click="score(s.tzw_user_id)" class="btn btn-danger del" >
+                            <td><input type="button" value="余额详情" ng-click="money(s.tzw_user_id)" class="btn btn-danger del" >
+                            <td><input type="button" value="订单详情" ng-click="order(s.tzw_user_id)" class="btn btn-danger del" >
                         </tr>
                     </table>
                 </form>
-                <ul class="pagination">
+                <ul class="pagination" style="margin-left: 300px">
                     <li><a class="btn">首页</a></li>
                     <li><a class="btn">上一页</a></li>
                     <input type="hidden" id="a" value="{{cpage-1}}">

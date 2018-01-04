@@ -1,5 +1,6 @@
 package com.tzw.service;
 
+import com.tzw.pojo.Score;
 import com.tzw.pojo.User;
 
 import java.math.BigInteger;
@@ -30,4 +31,5 @@ public interface UserService {
     int getUserCount(String lname);
 
 
+    List<Score> findScoreById(BigInteger tzw_user_id);
 }

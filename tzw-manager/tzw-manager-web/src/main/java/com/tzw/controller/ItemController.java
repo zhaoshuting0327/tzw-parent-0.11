@@ -48,7 +48,7 @@ public class ItemController {
 
         List<Item> list = this.itemService.getItemList(Integer.parseInt(cpages),size,lname);
 
-        for (int i=0;i<list.size();i++) {
+     /*   for (int i=0;i<list.size();i++) {
             Item o = (Item) list.get(i);
 
             String s = o.getTzw_item_createDate() + "";
@@ -57,7 +57,7 @@ public class ItemController {
             o.setTzw_item_createDate(s.substring(0, s.length() - 2));
             o.setTzw_item_updateDate(s1.substring(0, s1.length() - 2));
 
-        }
+        }*/
             HashMap<String, Object> m = new HashMap<>();
             m.put("list", list);
             m.put("cpage", cpages);
@@ -124,17 +124,7 @@ public class ItemController {
         return itemById;
     }
 
-
-
-
-
-
-
-
-
-
-
-        @RequestMapping(value = "/upload", method ={RequestMethod.POST,RequestMethod.GET}, produces = "application/json; charset=utf-8")
+       @RequestMapping(value = "/upload", method ={RequestMethod.POST,RequestMethod.GET}, produces = "application/json; charset=utf-8")
         @ResponseBody
         public String uploder(@RequestParam MultipartFile[] file, HttpServletRequest request, HttpServletResponse response){
 

@@ -23,4 +23,6 @@ public interface OrderService {
     void deleteOrder(BigInteger id);
 
     int getOrderCount(String lname);
+
+   void delById(BigInteger tzw_order_id);
 }

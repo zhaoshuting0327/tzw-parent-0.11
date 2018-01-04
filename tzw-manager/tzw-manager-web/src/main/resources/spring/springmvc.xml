@@ -57,4 +57,16 @@
 		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
 		<property name="maxUploadSize" value="5242880"></property>
 	</bean>
+
+
+	<!-- 拦截器 -->
+	      <mvc:interceptors>
+	          <!-- 多个拦截器，顺序执行 -->
+	           <mvc:interceptor>
+	               <mvc:mapping path="/**"/>
+	               <bean class="com.twz.interceptor.CommonInterceptor"></bean>
+	      </mvc:interceptor>
+	       </mvc:interceptors>
+
+
 </beans>
