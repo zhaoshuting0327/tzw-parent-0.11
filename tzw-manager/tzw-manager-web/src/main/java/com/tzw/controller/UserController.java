@@ -2,10 +2,8 @@ package com.tzw.controller;
 
 import com.tzw.common.utils.CookieUtils;
 import com.tzw.common.utils.Fenye;
-import com.tzw.pojo.Item;
-import com.tzw.pojo.Owner;
-import com.tzw.pojo.Score;
-import com.tzw.pojo.User;
+import com.tzw.common.utils.MD5Util;
+import com.tzw.pojo.*;
 import com.tzw.service.LoginService;
 import com.tzw.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.jws.WebParam;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
+
 import java.util.*;
 
 /**
@@ -161,23 +157,7 @@ public class UserController {
         return "login";
     }
 
-        public String makeMD5(String password) {
-        MessageDigest md;
-        try {
-            // 生成一个MD5加密计算摘要
-            md = MessageDigest.getInstance("MD5");
-            // 计算md5函数
-            md.update(password.getBytes());
-            // digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
-            // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
-            String pwd = new BigInteger(1, md.digest()).toString(16);
 
-            return pwd;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return password;
-    }
       //用户删除
       @RequestMapping("user/del")
       @ResponseBody
@@ -222,11 +202,12 @@ public class UserController {
         String tzw_user_pwd = request.getParameter("tzw_user_pwd");
         String tzw_user_phone = request.getParameter("tzw_user_phone");
         String tzw_user_address = request.getParameter("tzw_user_address");
-        String tzw_user_score = request.getParameter("tzw_user_score");
+        String tzw_score_num = request.getParameter("tzw_score_num");
         String tzw_user_money = request.getParameter("tzw_user_money");
         String tzw_user_sex = request.getParameter("tzw_user_sex");
         String tzw_user_vip = request.getParameter("tzw_user_vip");
         String tzw_user_createDate = request.getParameter("tzw_user_createDate");
+        String tzw_money_num = request.getParameter("tzw_money_num");
 
         User u=new User();
 
@@ -241,7 +222,7 @@ public class UserController {
         u.setTzw_user_phone(tzw_user_phone);
         u.setTzw_user_address(tzw_user_address);
 
-        int i1 = Integer.parseInt(tzw_user_score);
+        int i1 = Integer.parseInt(tzw_score_num);
         u.setTzw_user_score(BigInteger.valueOf(i1));
 
         u.setTzw_user_money(Double.parseDouble(tzw_user_money));
@@ -249,36 +230,12 @@ public class UserController {
 
         u.setTzw_user_createDate(tzw_user_createDate);
 
-        this.userService.updateUser(u);
+        this.userService.updateUser(u,tzw_money_num,tzw_score_num);
 
         return true;
     }
 
-/*
-
-    @RequestMapping("scoreMessage2")
-    public String scoreMessage(BigInteger tzw_user_id,Model model)
-    {
-        System.out.println(tzw_user_id+"kkkkkkkkkkkkkkk");
-
-        User userById = this.userService.findUserById(tzw_user_id);
-        model.addAttribute("tzw_user_id",tzw_user_id);
-        model.addAttribute("tzw_user_username",userById.getTzw_user_username());
-        return "scoreMessage";
-    }
-
-
-    @RequestMapping("scoreMessageJson")
-    @ResponseBody
-    public Score scoreMessageJson(BigInteger tzw_user_id,Model model)
-    {
-
-        Score scoreById = this.userService.findScoreById(tzw_user_id);
-
-        return scoreById;
-    }
-*/
-
+    //积分详情
    @RequestMapping("scoreMessage")
     public String scoreMessage(BigInteger tzw_user_id,Model model)
    {
@@ -298,14 +255,150 @@ public class UserController {
 
     @RequestMapping("scoreMessageJson")
     @ResponseBody
-    public  List<Score> scoreMessageJson(BigInteger tzw_user_id)
+    public  HashMap<String, Object> scoreMessageJson(BigInteger tzw_user_id,HttpServletRequest request)
     {
-        System.out.println("进入详情页面2");
-        System.out.println(tzw_user_id+"积分详情2");
 
-        List<Score> scoreById = this.userService.findScoreById(tzw_user_id);
+        System.out.println("scoreMessageJson:"+tzw_user_id);
 
-        return scoreById;
+        String cpage = request.getParameter("cpage");
+        int size = 10;
+        Fenye fenye = new Fenye();
+        int userCount = this.userService.getScoreCount(tzw_user_id);
+        Map<String, Object> fen = fenye.Fenye(request, cpage, size,userCount );
+        String cpages = (String) fen.get("cpage");
+        Integer epage =  (Integer) fen.get("epage");
+
+        System.out.println("scoreMessageJson:"+cpages);
+        List<Score> scoreList = this.userService.findScoreById( Integer.parseInt(cpages), size,tzw_user_id);
+
+        HashMap<String,Object> map=new HashMap<>();
+
+        map.put("list",scoreList);
+        map.put("epage",epage);
+        map.put("cpage",cpages);
+        int page=0;
+        if(userCount%10==0)
+        {
+            page=userCount/10;
+        }else
+        {
+            page=userCount/10+1;
+        }
+        map.put("total", page);
+        map.put("totalnum", userCount);
+        return map;
+
+    }
+
+    //余额详情
+    @RequestMapping("moneyMessage")
+    public String moneyMessage(BigInteger tzw_user_id,Model model)
+    {
+        System.out.println("进入详情页面");
+        System.out.println(tzw_user_id+"积分详情");
+
+        User userById = this.userService.findUserById(tzw_user_id);
+
+        String tzw_user_username = userById.getTzw_user_username();
+
+        model.addAttribute("tzw_user_id",tzw_user_id);
+        model.addAttribute("tzw_user_username",tzw_user_username);
+        return "money_message";
+    }
+
+
+    @RequestMapping("moneyMessageJson")
+    @ResponseBody
+    public  HashMap<String, Object> moneyMessageJson(BigInteger tzw_user_id,HttpServletRequest request)
+    {
+
+        System.out.println("moneyMessageJson:"+tzw_user_id);
+
+        String cpage = request.getParameter("cpage");
+        int size = 10;
+        Fenye fenye = new Fenye();
+        int userCount = this.userService.getMoneyCount(tzw_user_id);
+        Map<String, Object> fen = fenye.Fenye(request, cpage, size,userCount );
+
+        String cpages = (String) fen.get("cpage");
+        Integer epage =  (Integer) fen.get("epage");
+
+        System.out.println("scoreMessageJson:"+cpages);
+        List<Money> scoreList = this.userService.findMoneyById( Integer.parseInt(cpages), size,tzw_user_id);
+
+        HashMap<String,Object> map=new HashMap<>();
+
+        map.put("list",scoreList);
+        map.put("epage",epage);
+        map.put("cpage",cpages);
+        int page=0;
+        if(userCount%10==0)
+        {
+            page=userCount/10;
+        }else
+        {
+            page=userCount/10+1;
+        }
+        map.put("total", page);
+        map.put("totalnum", userCount);
+        return map;
+
+    }
+
+
+    //订单详情
+    @RequestMapping("orderMessage")
+    public String orderMessage(BigInteger tzw_user_id,Model model)
+    {
+        System.out.println("进入详情页面");
+        System.out.println(tzw_user_id+"积分详情");
+
+        User userById = this.userService.findUserById(tzw_user_id);
+
+        String tzw_user_username = userById.getTzw_user_username();
+
+        model.addAttribute("tzw_user_id",tzw_user_id);
+        model.addAttribute("tzw_user_username",tzw_user_username);
+        return "order_message";
+    }
+
+    //scoreMessageJson
+
+    @RequestMapping("orderMessageJson")
+    @ResponseBody
+    public  HashMap<String, Object> orderMessageJson(BigInteger tzw_user_id,HttpServletRequest request)
+    {
+
+        System.out.println("orderMessageJson:"+tzw_user_id);
+
+        String cpage = request.getParameter("cpage");
+        int size = 10;
+        Fenye fenye = new Fenye();
+        int userCount = this.userService.getOrderCount(tzw_user_id);
+        Map<String, Object> fen = fenye.Fenye(request, cpage, size,userCount );
+        String cpages = (String) fen.get("cpage");
+        Integer epage =  (Integer) fen.get("epage");
+
+        System.out.println("scoreMessageJson:"+cpages);
+        List<Order> scoreList = this.userService.findOrderById( Integer.parseInt(cpages), size,tzw_user_id);
+
+        HashMap<String,Object> map=new HashMap<>();
+
+        map.put("list",scoreList);
+        map.put("epage",epage);
+        map.put("cpage",cpages);
+        int page=0;
+        if(userCount%10==0)
+        {
+            page=userCount/10;
+        }else
+        {
+            page=userCount/10+1;
+        }
+        map.put("total", page);
+        map.put("totalnum", userCount);
+        return map;
+
     }
 
 }

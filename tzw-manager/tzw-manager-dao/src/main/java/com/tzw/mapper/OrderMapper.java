@@ -25,4 +25,6 @@ public interface OrderMapper {
 
     void delById(BigInteger tzw_order_id);
 
+    void updateOrderStatus();
+
 }

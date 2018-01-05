@@ -1,9 +1,12 @@
 package com.tzw.mapper;
 
+import com.tzw.pojo.Money;
+import com.tzw.pojo.Order;
 import com.tzw.pojo.Score;
 import com.tzw.pojo.User;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +34,15 @@ public interface UserMapper {
     Double moneyNum(BigInteger id);
     int orderNum(BigInteger id);
 
-    List<Score> findScoreById(BigInteger tzw_user_id);
+    List<Score> findScoreById(HashMap<String,Object> map);
+    int  getScoreCount(BigInteger tzw_user_id);
 
+    List<Money> findMoneyById(HashMap<String,Object> map);
+    int  getMoneyCount(BigInteger tzw_user_id);
+
+    List<Order> findOrderById(HashMap<String,Object> map);
+    int  getOrderCount(BigInteger tzw_user_id);
+
+    void addScore(Score score);
+    void addMoney(Money money);
 }

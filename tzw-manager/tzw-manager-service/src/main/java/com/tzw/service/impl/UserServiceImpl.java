@@ -2,6 +2,8 @@ package com.tzw.service.impl;
 
 import com.tzw.common.utils.MD5Util;
 import com.tzw.mapper.UserMapper;
+import com.tzw.pojo.Money;
+import com.tzw.pojo.Order;
 import com.tzw.pojo.Score;
 import com.tzw.pojo.User;
 import com.tzw.service.UserService;
@@ -38,13 +40,10 @@ public class UserServiceImpl  implements UserService{
         for (int i=0;i<list.size();i++)
         {
             //添加用户金额
-
             //添加用户积分
             //添加用户订单数
 
            User user= list.get(i);
-
-           user.setTzw_user_pwd(MD5Util.convertMD5(MD5Util.convertMD5(user.getTzw_user_pwd())));
 
             int orderNum = this.userMapper.orderNum(user.getTzw_user_id());
             BigInteger score = this.userMapper.scoreNum(user.getTzw_user_id());
@@ -92,7 +91,14 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(User user,String tzw_money_num,String tzw_score_num) {
+
+        //查询创建时间
+
+        User u=this.findUserById(user.getTzw_user_id());
+
+        String tzw_user_createDate = u.getTzw_user_createDate();
+
 
         //添加修改时间
         Date date=new Date();
@@ -108,7 +114,33 @@ public class UserServiceImpl  implements UserService{
         System.out.println(user.getTzw_user_score()+"score");
         System.out.println(user.getTzw_user_phone()+"phone");
 
-        user.setTzw_user_pwd(MD5Util.string2MD5(user.getTzw_user_pwd()));
+        //添加进积分表
+
+        Score score=new Score();
+
+        score.setTzw_score_createDate(tzw_user_createDate);
+        score.setTzw_score_desc("后台手动输入");
+        score.setTzw_score_type(3);
+        score.setTzw_score_id(user.getTzw_user_id());
+
+        this.userMapper.addScore(score);
+        //添加进余额表
+
+        Money money=new Money();
+
+        money.setTzw_money_updateDate(format);
+
+        money.setTzw_money_createDate(tzw_user_createDate);
+
+        money.setTzw_money_desc("手动输入");
+
+        money.setTzw_money_type(3);
+
+        money.setTzw_money_user_id(user.getTzw_user_id());
+/*
+        money.setTzw_money_num();
+*/
+        this.userMapper.addMoney(money);
         this.userMapper.updateUser(user);
     }
 
@@ -136,7 +168,47 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
-    public  List<Score> findScoreById(BigInteger tzw_user_id) {
-        return this.userMapper.findScoreById(tzw_user_id);
+    public List<Score> findScoreById(int cpages, int size, BigInteger tzw_user_id) {
+
+        HashMap<String, Object> objectObjectHashMap = new HashMap<>();
+
+        objectObjectHashMap.put("tzw_score_user_id",tzw_user_id);
+        objectObjectHashMap.put("cpage",(cpages-1)*size);
+        objectObjectHashMap.put("size",size);
+        return this.userMapper.findScoreById(objectObjectHashMap);
+    }
+
+    @Override
+    public int getScoreCount(BigInteger tzw_user_id) {
+        return this.userMapper.getScoreCount(tzw_user_id);
+    }
+
+    @Override
+    public List<Money> findMoneyById(int cpages, int size, BigInteger tzw_money_user_id) {
+
+        HashMap<String, Object> objectObjectHashMap = new HashMap<>();
+        objectObjectHashMap.put("tzw_money_user_id",tzw_money_user_id);
+        objectObjectHashMap.put("cpage",(cpages-1)*size);
+        objectObjectHashMap.put("size",size);
+        return this.userMapper.findMoneyById(objectObjectHashMap);
+    }
+
+    @Override
+    public int getMoneyCount(BigInteger tzw_user_id) {
+        return this.userMapper.getMoneyCount(tzw_user_id);
+    }
+
+    @Override
+    public List<Order> findOrderById(int cpages, int size, BigInteger tzw_user_id) {
+        HashMap<String, Object> objectObjectHashMap = new HashMap<>();
+
+        objectObjectHashMap.put("tzw_user_id",tzw_user_id);
+        objectObjectHashMap.put("cpage",(cpages-1)*size);
+        objectObjectHashMap.put("size",size);
+        return this.userMapper.findOrderById(objectObjectHashMap);
+    }
+    @Override
+    public int getOrderCount(BigInteger tzw_user_id) {
+        return this.userMapper.getOrderCount(tzw_user_id);
     }
 }

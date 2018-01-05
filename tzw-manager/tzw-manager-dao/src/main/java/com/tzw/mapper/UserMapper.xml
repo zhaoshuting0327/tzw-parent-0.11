@@ -82,11 +82,6 @@
         </if>
     </select>
 
-
- <!--   int scoreNum(int id);
-    int moneyNum(int id);
-    int orderNum(int id);-->
-
     <select id="scoreNum" parameterType="bigInteger" resultType="bigInteger">
         SELECT sum(tzw_score_num) from tzw_score where tzw_score_user_id=#{tzw_score_user_id}
     </select>
@@ -99,14 +94,66 @@
         SELECT count(*) from tzw_order where tzw_order_user_id=#{tzw_order_user_id}
     </select>
 
-<!--
-    findScoreById
--->
 
-    <select id="findScoreById" parameterType="bigInteger" resultType="com.tzw.pojo.Score">
-        SELECT * from tzw_score WHERE  tzw_score_user_id=#{tzw_score_user_id}
+    <!--积分详情-->
+    <select id="findScoreById" parameterType="map" resultType="com.tzw.pojo.Score">
+        SELECT * from tzw_score   WHERE  tzw_score_user_id=#{tzw_score_user_id} limit #{cpage},#{size}
+    </select>
+    <select id="getScoreCount" parameterType="bigInteger" resultType="int">
+
+        SELECT COUNT(*) from tzw_score where tzw_score_user_id=#{tzw_score_user_id}
     </select>
 
     <!--余额详情-->
+    <select id="findMoneyById" parameterType="map" resultType="com.tzw.pojo.Money">
+        SELECT * from tzw_money   WHERE  tzw_money_user_id=#{tzw_money_user_id} limit #{cpage},#{size}
+</select>
+    <select id="getMoneyCount" parameterType="bigInteger" resultType="int">
+
+        SELECT COUNT(*) from tzw_money where tzw_money_user_id=#{tzw_money_user_id}
+    </select>
     <!--订单详情-->
+    <select id="findOrderById" parameterType="map" resultType="com.tzw.pojo.Order">
+        SELECT * from tzw_order   WHERE  tzw_user_id=#{tzw_user_id} limit #{cpage},#{size}
+    </select>
+    <select id="getOrderCount" parameterType="bigInteger" resultType="int">
+        SELECT COUNT(*) from tzw_order where tzw_user_id=#{tzw_user_id}
+    </select>
+
+    <!--添加进score-->
+    <insert id="addScore" parameterType="com.tzw.pojo.Score">
+        insert into tzw_score(
+        tzw_score_num,
+        tzw_score_updateDate,
+        tzw_score_createDate,
+        tzw_score_type,
+        tzw_score_user_id,
+        tzw_score_size,
+        tzw_score_desc
+        ) values (#{tzw_score_num},
+                   #{tzw_score_updateDate},
+                   #{tzw_score_createDate},
+                   #{tzw_score_type},
+                   #{tzw_score_user_id},
+                   #{tzw_score_size},
+                    #{tzw_score_desc})
+    </insert>
+    <!--添加进money-->
+    <insert id="addMoney" parameterType="com.tzw.pojo.Money">
+        insert into tzw_score(
+        tzw_money_num,
+        tzw_money_updateDate,
+        tzw_money_createDate,
+        tzw_money_type,
+        tzw_money_user_id,
+        tzw_money_desc,
+        tzw_money_size
+        ) values (#{tzw_money_num},
+        #{tzw_money_updateDate},
+        #{tzw_money_createDate},
+        #{tzw_money_type},
+        #{tzw_money_user_id},
+        #{tzw_money_desc},
+        #{tzw_money_size})
+    </insert>
 </mapper>

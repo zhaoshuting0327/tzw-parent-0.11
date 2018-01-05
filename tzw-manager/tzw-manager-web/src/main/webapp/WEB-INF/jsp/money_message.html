@@ -40,13 +40,8 @@
                 <nav  role="navigation">
                     <input type="button" value="返回" ng-click="back()" class="btn btn-primary" >
 
-                    <h4>${tzw_user_username}的积分详情</h4><br>
+                    <h4>${tzw_user_username}的余额详情</h4><br>
                     <input type="hidden" value="${tzw_user_id}" id="tzw_user_id">
-                 <!--   <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            按商品名称搜索： <input type="text" ng-model="stream.tzw_item_name" class="form-control" placeholder="Search">
-                        </div>
-                    </form>-->
                 </nav>
                 <form action="">
                     <table  class="table table-bordered">
@@ -55,18 +50,18 @@
                             <td>创建时间</td>
                             <td>修改时间</td>
                             <td>类型</td>
-                            <td>增/减积分数</td>
-                            <td>积分</td>
+                            <td>增/减金额数</td>
+                            <td>余额</td>
                             <td>描述</td>
                         </tr>
                         <tr ng-repeat="s in show | filter:stream">
                             <td>{{ $index + 1 }}</td>
-                            <td>{{s.tzw_score_createDate}}</td>
-                            <td>{{s.tzw_score_updateDate}}</td>
-                            <td>{{s.tzw_score_type}}</td>
-                            <td>{{s.tzw_score_size}}</td>
-                            <td>{{s.tzw_score_num}}</td>
-                            <td>{{s.tzw_score_desc}}</td>
+                            <td>{{s.tzw_money_createDate}}</td>
+                            <td>{{s.tzw_money_updateDate}}</td>
+                            <td>{{s.tzw_money_type}}</td>
+                            <td>{{s.tzw_money_size}}</td>
+                            <td>{{s.tzw_money_num}}</td>
+                            <td>{{s.tzw_money_desc}}</td>
                           </tr>
                     </table>
                 </form>
@@ -94,7 +89,7 @@
             console.log(tzw_user_id+"44444444444444444444");
             alert(tzw_user_id);
 
-           $http.get("scoreMessageJson?tzw_user_id="+tzw_user_id).then(function(msg){
+           $http.get("moneyMessageJson?tzw_user_id="+tzw_user_id).then(function(msg){
                 $scope.show = msg.data.list;
                 $scope.epage = msg.data.epage;
                 $scope.cpage = msg.data.cpage;
@@ -105,13 +100,11 @@
                 var totalnum= msg.data.totalnum;
                 $("#m").html("<span style='color: #00a2d4'>"+"第"+cpage+"/"+total+"页/共"+totalnum+"条"+"</span>");
             });
-
             $scope.back = function(){
 
                 location.replace(document.referrer);
 
             }
-
             $(" li a").click(function(){
                 var str = $(this).text();
                 if(str=="首页"){
@@ -124,9 +117,10 @@
                 }else if(str=="尾页"){
                     var id = $("#c").val();
                 }
+
                 $http({
                     method:"post",
-                    url:"scoreMessageJson?tzw_user_id="+tzw_user_id,
+                    url:"moneyMessageJson?tzw_user_id="+tzw_user_id,
                     params:{cpage:id}
                 }).then(function(msg){
                     $scope.show = msg.data.list;

@@ -11,11 +11,13 @@
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
     <link rel="shortcut icon" href="favicon.ico">
+
     <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
     <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+
 
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.5"></script>
@@ -26,8 +28,8 @@
 
     <script type="text/javascript" src="styles/bootstrap/js/jquery.min.js"></script>
     <script type="text/javascript" src="styles/bootstrap/js/angular.min.js"></script>
-    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/bootstrap/css/font-awesome.css">
+   <!-- <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/bootstrap/css/font-awesome.css">-->
     <base target="_blank">
     <script type="text/javascript">
 
@@ -122,6 +124,9 @@
             });
 
     </script>
+    <style>
+
+    </style>
 </head>
 <body ng-app="MyApp" ng-controller="firstController">
 <div class="container">
@@ -140,27 +145,29 @@
                 </nav>
                 <form action="">
                     <table  class="table table-bordered">
-                        <tr>
-                            <td>序号</td>
-                            <td>用户ID</td>
-                            <td>用户名称</td>
-                            <td>用户密码</td>
-                            <td>用户电话</td>
-                            <td>用户性别</td>
-                            <td>用户地址</td>
-                            <td>用户积分</td>
-                            <td>用户余额</td>
-                            <td>是否为vip</td>
-                            <td>用户订单个数</td>
-                            <td>创建日期</td>
-                            <td>修改日期</td>
-                            <td colspan="10">操作</td>
+                        <tr style="height: 100px !important;">
+                            <td style="width: 100px !important;">序号</td>
+                            <td style="width: 100px !important;">用户ID</td>
+                            <td style="width: 100px !important;">用户名称</td>
+                            <td style="width: 100px !important;">用户密码</td>
+                            <td style="width: 100px !important;">用户电话</td>
+                            <td style="width: 100px !important;">用户性别</td>
+                            <td style="width: 100px !important;">用户地址</td>
+                            <td style="width: 100px !important;">用户积分</td>
+                            <td style="width: 100px !important;">用户余额</td>
+                            <td style="width: 100px !important;">是否为vip</td>
+                            <td style="width: 100px !important;">用户订单个数</td>
+                            <td style="width: 100px !important;">创建日期</td>
+                            <td style="width: 100px !important;">修改日期</td>
+                            <td colspan="10" style="width: 100px !important;">操作</td>
                         </tr>
                         <tr ng-repeat="s in show | filter:stream">
                             <td>{{ $index + 1 }}</td>
                             <td>{{s.tzw_user_id}}</td>
                             <td>{{s.tzw_user_username}}</td>
-                            <td>{{s.tzw_user_pwd}}</td>
+                            <td>
+                                {{s.tzw_user_pwd}}
+                            </td>
                             <td>{{s.tzw_user_phone}}</td>
                             <td>{{s.tzw_user_sex1}}</td>
                             <td>{{s.tzw_user_address}}</td>

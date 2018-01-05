@@ -89,5 +89,9 @@
 
     </select>
 
+    <update id="updateOrderStatus">
+        update tzw_order set tzw_order_status=4 where tzw_order_status=1
+    </update>
+
 
 </mapper>
