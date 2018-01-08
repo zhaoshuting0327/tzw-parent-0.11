@@ -11,7 +11,7 @@
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+   <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
     <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min.css?v=4.0.0" rel="stylesheet"><base target="_blank">
@@ -30,8 +30,6 @@
     <script src="js/plugins/validate/jquery.validate.min.js"></script>
     <script src="js/plugins/validate/messages_zh.min.js"></script>
     <script src="js/demo/form-validate-demo.min.js"></script>
-<!--    <script src="js/jquery-1.8.3.js"></script>
-    <script src="js/jquery.validate.js"></script>-->
 
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
@@ -39,24 +37,133 @@
         var BASE_URL = 'js/plugins/webuploader';
     </script>
     <script src="js/plugins/webuploader/webuploader.min.js"></script>
-    <script src="js/demo/webuploader-demo.min.js"></script>
-
-
     <script type="text/javascript" src="js/plugins/markdown/markdown.js"></script>
     <script type="text/javascript" src="js/plugins/markdown/to-markdown.js"></script>
     <script type="text/javascript" src="js/plugins/markdown/bootstrap-markdown.js"></script>
     <script type="text/javascript" src="js/plugins/markdown/bootstrap-markdown.zh.js"></script>
 
-<!--表单验证-->
-
 <script type="text/javascript">
-
-    /*$(":radio[value="+obj.sex+"]").attr("checked",true);
-    * var sex = $(":radio:checked").val();*/
     $(function(){
+    jQuery(function() {
+        var $ = jQuery,
+            $list = $('#fileList'),
+            // 优化retina, 在retina下这个值是2
+            ratio = window.devicePixelRatio || 1,
+            // 缩略图大小
+            thumbnailWidth = 100 * ratio,
+            thumbnailHeight = 100 * ratio,
+            // Web Uploader实例
+            uploader;
+        // 初始化Web Uploader
+        uploader = WebUploader.create({
+            // 自动上传。
+            auto: false,
+            // swf文件路径
+            swf: BASE_URL + "/Uploader.swf",            // 文件接收服务端。
+            server: 'uploader1',
+            threads:'5',        //同时运行5个线程传输
+            fileNumLimit:'10',  //文件总数量只能选择10个
 
+            // 选择文件的按钮。可选。
+            pick: {id:'#filePicker',  //选择文件的按钮
+                multiple:true},   //允许可以同时选择多个图片
+            // 图片质量，只有type为`image/jpeg`的时候才有效。
+            quality: 90,
+
+            //限制传输文件类型，accept可以不写
+            accept: {
+                title: 'Images',//描述
+                extensions: 'gif,jpg,jpeg,bmp,png,zip',//类型
+                mimeTypes: 'image/*'//mime类型
+            }
+        });
+
+        var str="";
+
+
+        // 当有文件添加进来的时候，创建img显示缩略图使用
+        uploader.on( 'fileQueued', function( file ) {
+
+            str+=","+ file.name;
+
+            var $li = $(
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    '<img>' +
+                    '<div class="info">' + file.name + '</div>' +
+                    '</div>'
+                ),
+                $img = $li.find('img');
+
+            // $list为容器jQuery实例
+            $list.append( $li );
+
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 100 x 100
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+
+                $img.attr( 'src', src );
+            }, thumbnailWidth, thumbnailHeight );
+        });
+
+        // 文件上传过程中创建进度条实时显示。    uploadProgress事件：上传过程中触发，携带上传进度。 file文件对象 percentage传输进度 Nuber类型
+        uploader.on( 'uploadProgress', function( file, percentage ) {
+            var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress span');
+
+            // 避免重复创建
+            if ( !$percent.length ) {
+                $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo( $li )
+                    .find('span');
+            }
+
+            $percent.css( 'width', percentage * 100 + '%' );
+        });
+
+        // 文件上传成功时候触发，给item添加成功class, 用样式标记上传成功。 file：文件对象，    response：服务器返回数据
+        uploader.on( 'uploadSuccess', function( file,response) {
+            $( '#'+file.id ).addClass('upload-state-done');
+            //console.info(response);
+            $("#upInfo").html("<font color='red'>"+response._raw+"</font>");
+        });
+
+        // 文件上传失败                                file:文件对象 ， code：出错代码
+        uploader.on( 'uploadError', function(file,code) {
+            var $li = $( '#'+file.id ),
+                $error = $li.find('div.error');
+
+            // 避免重复创建
+            if ( !$error.length ) {
+                $error = $('<div class="error"></div>').appendTo( $li );
+            }
+
+            $error.text('上传失败!');
+        });
+
+        // 不管成功或者失败，文件上传完成时触发。 file： 文件对象
+        uploader.on( 'uploadComplete', function( file ) {
+            $( '#'+file.id ).find('.progress').remove();
+        });
+
+        //绑定提交事件
+        $("#btn").click(function() {
+            alert(str);
+            console.log("上传...");
+            uploader.upload();   //执行手动提交
+            alert("上传成功！！！");
+            console.log("上传成功");
+        });
+    });
 
         $("#add").click(function(){
+
+            alert($("#upInfo").text());
+            var imageStr=str;
             var itemname=$("#itemname").val();
             var itemprice=$("#itemprice").val();
             var itemnum=$("#itemnum").val();
@@ -69,15 +176,50 @@
                     "itemprice":itemprice,
                     "itemnum":itemnum,
                     "itemstatus":itemstatus,
-                    "content":content
+                    "content":content,
+                "imageStr":imageStr
                 },
                 function (data) {
 
+                    $("#citemname").text(data.itemname);
+                    $("#citemprice").text(data.itemprice);
+                    $("#citemnum").text(data.itemnum);
 
                 },
                 "json"
             )
         });
+
+
+
+        $("#optionsRadios3").click(function(){
+            $("#choujiang").show();
+        });
+
+
+        $("#optionsRadios4").click(function(){
+            $("#choujiang").hide();
+        });
+       $("#optionsRadios5").click(function(){
+            $("#jifene").show();
+        });
+
+
+        $("#optionsRadios6").click(function(){
+            $("#jifene").hide();
+        });
+
+       $("#optionsRadios7").click(function(){
+            $("#jingpaie").show();
+        });
+
+
+        $("#optionsRadios8").click(function(){
+            $("#jingpaie").hide();
+        });
+
+
+
     })
 
 </script>
@@ -134,60 +276,136 @@
 
                 </div>
 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">是否为抽奖商品：</label>
+
+
+                    <div class="radio" class="" >
+                        <label>
+                            <input type="radio"  value="3" id="optionsRadios3" name="choujiang">是</label>
+
+                        <label>
+                            <input type="radio" value="4" id="optionsRadios4" name="choujiang" checked="true">不是</label>
+
+                    </div>
+
+                </div>
+
+                <!--如果选中为抽奖商品-->
+                <div style="border:red 2px solid;display: none;padding-top: 20px;margin-bottom: 10px;" id="choujiang">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">号码前缀：</label>
+                        <div class="col-sm-8">
+                            <input id="preNum" name="preNum" class="form-control" type="text">
+                            <!--
+                                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请输入商品名称</span>
+                            -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">号码：</label>
+                        <div class="col-sm-8">
+                            <input id="houNum" name="houNum" class="form-control" type="text">
+                             <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许输入数字</span>
+
+                        </div>
+                    </div>
+                </div>
+
 
 
 
                 <div class="form-group">
+                    <label class="col-sm-3 control-label">是否为积分商品：</label>
+
+
+                    <div class="radio" class="" >
+                        <label>
+                            <input type="radio"  value="5" id="optionsRadios5" name="jifen">是</label>
+
+                        <label>
+                            <input type="radio" value="6" id="optionsRadios6" name="jifen" checked="true">不是</label>
+                        <span id="citemjifen" style="color: red"></span>
+
+                    </div>
+
+                </div>
+
+
+                <!--如果选中为积分商品-->
+
+                <div style="border:red 2px solid;display: none;padding-top: 20px;margin-bottom: 10px;" id="jifene">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入所需积分数：</label>
+                        <div class="col-sm-8">
+                            <input id="scoreNum" name="preNum" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 多少积分可以兑换此商品</span>
+                        </div>
+                    </div>
+                </div>
+
+
+               <div class="form-group">
+                    <label class="col-sm-3 control-label">是否为竞拍商品：</label>
+
+
+                    <div class="radio" class="" >
+                        <label>
+                            <input type="radio"  value="7" id="optionsRadios7" name="jingpai">是</label>
+                        <label>
+                            <input type="radio" value="8" id="optionsRadios8" name="jingpai" checked="true">不是
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <!--如果选中为竞拍商品-->
+
+                <div style="border:red 2px solid;display: none;padding-top: 20px;margin-bottom: 10px;" id="jingpaie">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入每次加价额：</label>
+                        <div class="col-sm-8">
+                            <input id="jingpai" name="preNum" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 多少积分可以兑换此商品</span>
+                        </div>
+                    </div>
+                    </div>
+
+                <div class="row">
                     <label class="col-sm-3 control-label">商品图片：</label>
 
-                    <div class="wrapper wrapper-content animated fadeIn">
+                    <div class="col-sm-8">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <div class="ibox-tools">
 
-                        <div class="row">
-                            <div class="col-sm-9">
-                                <div class="ibox float-e-margins">
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="page-container">
 
-                                    <div class="ibox-content">
-                                        <div class="page-container">
-<!--
-                                            <p>您可以尝试文件拖拽，使用QQ截屏工具，然后激活窗口后粘贴，或者点击添加图片按钮，来体验此demo.</p>
--->
-                                            <div id="uploader" class="wu-example">
-                                                <div class="queueList">
-                                                    <div id="dndArea" class="placeholder">
-                                                        <div id="filePicker"></div>
-                                                        <p>或将照片拖到这里，单次最多可选300张</p>
-                                                    </div>
-                                                </div>
-                                                <div class="statusBar" style="display:none;">
-                                                    <div class="progress">
-                                                        <span class="text">0%</span>
-                                                        <span class="percentage"></span>
-                                                    </div>
-                                                    <div class="info"></div>
-                                                    <div class="btns">
-                                                        <div id="filePicker2"></div>
-                                                        <div class="uploadBtn">开始上传</div>
-                                                    </div>
-                                                </div>
+                                    <div id="uploader" class="wu-example">
+
+                                        <div class="wrapper wrapper-content animated fadeIn">
+
+                                            <div id="uploader-demo">
+                                                <div id="fileList" class="uploader-list"></div>
+                                                <div id="upInfo" ></div>
+                                                <div id="filePicker" >选择文件</div>
+                                                <input type="button" id="btn" value="开始上传" >
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">商品描述：</label>
-                    <!--    <div class="col-sm-8">
-                            <textarea id="itemdesc" name="itemdesc" class="form-control" required="" aria-required="true"></textarea>
-                        </div>
-                        -->
-
                         <div class="wrapper wrapper-content">
 
                             <div class="row">

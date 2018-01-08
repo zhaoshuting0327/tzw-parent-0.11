@@ -15,7 +15,9 @@ public class TimeOut {
     /*修改订单状态*/
     public void orderTimeOut()
     {
+/*
         System.out.println("5秒执行一次");
+*/
          this.orderMapper.updateOrderStatus();
     }
 }

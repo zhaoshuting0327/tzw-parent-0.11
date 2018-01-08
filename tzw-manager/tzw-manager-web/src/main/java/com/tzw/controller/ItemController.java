@@ -124,23 +124,6 @@ public class ItemController {
         return itemById;
     }
 
-       @RequestMapping(value = "/upload", method ={RequestMethod.POST,RequestMethod.GET}, produces = "application/json; charset=utf-8")
-        @ResponseBody
-        public String uploder(@RequestParam MultipartFile[] file, HttpServletRequest request, HttpServletResponse response){
-
-            System.out.println("22222");
-                    String flag=null;
-                    try {
-                           WebuploaderUtil webuploaderUtil=new WebuploaderUtil();
-                       webuploaderUtil.upload(file[0], "upload/news/", request);
-                          flag=webuploaderUtil.getFileName();
-                   } catch (Exception e) {
-                       e.printStackTrace();
-                     }
-
-                    return flag;
-              }
-
 
     //添加提交  item_add_commit
 

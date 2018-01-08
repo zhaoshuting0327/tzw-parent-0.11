@@ -18,6 +18,8 @@
 	<mvc:resources location="/img/" mapping="/img/**"/>
 	<mvc:resources location="/fonts/" mapping="/fonts/**"/>
 	<mvc:resources location="/styles/" mapping="/styles/**"/>
+	<mvc:resources location="/upload/" mapping="/upload/**"/>
+	<mvc:resources location="/plugins/" mapping="/plugins/**"/>
 
 	<mvc:annotation-driven />
 
@@ -57,7 +59,8 @@
 		<property name="maxUploadSize" value="5242880"></property>
 	</bean>
 
-
+<!--  swf: BASE_URL + "/Uploader.swf",            // 文件接收服务端。
+                server: 'uploader1',-->
 	<!-- 拦截器 -->
 	      <mvc:interceptors>
 	          <!-- 多个拦截器，顺序执行 -->
@@ -66,9 +69,6 @@
 	               <bean class="com.twz.interceptor.CommonInterceptor"></bean>
 	      </mvc:interceptor>
 	       </mvc:interceptors>
-
-
-
 	<context:component-scan base-package="com.tzw" />
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<context:annotation-config />
