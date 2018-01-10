@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tzw.mapper.ActiveMapper" >
+
+    <!--   Item loadChouJiang(Map<String,Object> map);
+   Item loadJiFen(Map<String,Object> map);
+   Item loadJingPai(Map<String,Object> map);
+
+   int chouJiangCount();
+   int jiFenCount();
+   int jingPaiCount();-->
+
+    <select id="loadChouJiang" parameterType="map" resultType="com.tzw.pojo.Item">
+     SELECT * from tzw_item t,tzw_choujiang c
+      where t.tzw_item_id=c.tzw_choujiang_item_id and t.tzw_item_choujiang=3
+      limit #{cpage},#{size}
+    </select>
+
+   <select id="loadJiFen" parameterType="map" resultType="com.tzw.pojo.Item">
+   SELECT * from tzw_item t,tzw_jifen c
+   where t.tzw_item_id=c.tzw_jifen_item_id and t.tzw_item_jifen=5
+      limit #{cpage},#{size}
+    </select>
+
+   <select id="loadJingPai" parameterType="map" resultType="com.tzw.pojo.Item">
+      SELECT * from tzw_item t,tzw_jingpai c
+       where t.tzw_item_id=c.tzw_jingpai_item_id and t.tzw_item_jingpai=7
+      limit #{cpage},#{size}
+    </select>
+
+    <select id="chouJiangCount" resultType="int">
+ SELECT count(*) from tzw_item t where t.tzw_item_choujiang=3
+    </select>
+    <select id="jiFenCount" resultType="int">
+ SELECT count(*) from tzw_item t where t.tzw_item_jifen=5
+    </select>
+    <select id="jingPaiCount" resultType="int">
+ SELECT count(*) from tzw_item t where t.tzw_item_jingpai=7
+    </select>
+
+<!--从抽奖商品中删除 传商品id-->
+
+    <delete id="deleteChouJiang" parameterType="bigInteger">
+      delete from tzw_choujiang where tzw_choujiang_item_id=#{tzw_item_id}
+    </delete>
+
+    <delete id="deleteJiFen" parameterType="bigInteger">
+      delete from tzw_choujiang where tzw_choujiang_item_id=#{tzw_item_id}
+    </delete>
+
+    <delete id="deleteChouJiang" parameterType="bigInteger">
+      delete from tzw_choujiang where tzw_choujiang_item_id=#{tzw_item_id}
+    </delete>
+
+
+</mapper>

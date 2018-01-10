@@ -1,8 +1,12 @@
 package com.tzw.mapper;
 
+import com.tzw.pojo.Choujiang;
 import com.tzw.pojo.Item;
+import com.tzw.pojo.JiFen;
+import com.tzw.pojo.JingPai;
 
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,4 +28,14 @@ public interface ItemMapper {
      void  del(BigInteger tzw_item_id);
 
      Item findItemById(BigInteger tzw_item_id);
+
+    void  addItem(Item item);
+
+   void addChouJiang(Choujiang choujiang);
+   void addJiFen(JiFen jiFen);
+   void addJingPai(JingPai jingPai);
+
+   // this.itemMapper.findItemByName(item.getTzw_item_name(),item.getTzw_item_num(),item.getTzw_item_price());
+
+   Item findItemByName(HashMap<String,Object> map);
 }

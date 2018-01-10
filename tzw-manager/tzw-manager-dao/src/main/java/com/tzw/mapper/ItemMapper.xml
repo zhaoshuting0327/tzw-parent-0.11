@@ -11,13 +11,11 @@
     </select>
 
     <select id="findItemById" parameterType="bigInteger" resultType="com.tzw.pojo.Item">
-          select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
-        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc
+         select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
+        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_jingpai,
+        t1.tzw_item_choujiang,t1.tzw_item_jifen
          from tzw_item t1 WHERE t1.tzw_item_id=#{t1.tzw_item_id}
     </select>
-
-
-
 
     <select id="selectByMap" resultType="com.tzw.pojo.Item" parameterType="map">
         select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
@@ -64,5 +62,78 @@
     <delete id="del" parameterType="bigInteger" >
         DELETE  from tzw_item where tzw_item_id=#{tzw_item_id}
     </delete>
+
+
+    <insert id="addItem" parameterType="com.tzw.pojo.Item">
+        insert into tzw_item(tzw_item_name,
+                              tzw_item_price,
+                              tzw_item_num,
+                              tzw_item_status,
+                              tzw_item_picture,
+                              tzw_item_createDate,
+                              tzw_item_jifen,
+                              tzw_item_jingpai,
+                              tzw_item_choujiang
+                              )
+                      values(#{tzw_item_name},
+                              #{tzw_item_price},
+                              #{tzw_item_num},
+                              #{tzw_item_status},
+                              #{tzw_item_picture},
+                              #{tzw_item_createDate},
+                              #{tzw_item_jifen},
+                              #{tzw_item_jingpai},
+                              #{tzw_item_choujiang}
+                             )
+    </insert>
+
+    <!--void addChouJiang(Choujiang choujiang);
+   void addJiFen(JiFen jiFen);
+   void addJingPai(JingPai jingPai);-->
+
+    <insert id="addChouJiang" parameterType="com.tzw.pojo.Choujiang">
+         insert into tzw_choujiang (tzw_choujiang_item_id,
+                                      tzw_choujiang_houNum,
+                                      tzw_choujiang_preNum,
+                                      tzw_choujiang_createDate
+                         ) values (
+                         #{tzw_choujiang_item_id},
+                         #{tzw_choujiang_houNum},
+                         #{tzw_choujiang_preNum},
+                         #{tzw_choujiang_createDate}
+                         );
+    </insert>
+
+         <insert id="addJiFen" parameterType="com.tzw.pojo.JiFen">
+         insert into tzw_jifen (tzw_jifen_createDate,
+                                      tzw_jifen_item_id,
+                                      tzw_jifen_num
+                         ) values (
+                         #{tzw_jifen_createDate},
+                         #{tzw_jifen_item_id},
+                         #{tzw_jifen_num}
+                         );
+         </insert>
+
+         <insert id="addJingPai" parameterType="com.tzw.pojo.JingPai">
+         insert into tzw_jingpai (tzw_jingpai_createDate,
+                                      tzw_jingpai_item_id,
+                                      tzw_jingpai_num
+                         ) values (
+                         #{tzw_jingpai_createDate},
+                         #{tzw_jingpai_item_id},
+                         #{tzw_jingpai_num}
+                         );
+         </insert>
+
+<!--
+    Item findItemByName(HashMap<String,Object> map);
+-->
+
+    <select id="findItemByName" parameterType="map" resultType="com.tzw.pojo.Item">
+        SELECT * from tzw_item  where tzw_item_name=#{tzw_item_name}
+                                 AND tzw_item_num=#{tzw_item_num}
+                                 AND tzw_item_price=#{tzw_item_price}
+    </select>
 
 </mapper>

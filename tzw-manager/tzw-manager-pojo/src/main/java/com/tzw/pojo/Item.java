@@ -11,7 +11,7 @@ public class Item {
     private BigInteger  tzw_item_id;
     private String  tzw_item_name;
     private Double  tzw_item_price;
-    private BigInteger  tzw_item_num;
+    private Integer  tzw_item_num;
 
     private Integer  tzw_item_status;
     private String  tzw_item_status1;
@@ -25,6 +25,102 @@ public class Item {
 
     private String tzw_item_createDate;
     private String tzw_item_updateDate;
+
+    private Integer tzw_item_choujiang;
+    private Integer tzw_item_jifen;
+    private Integer tzw_item_jingpai;
+
+    private String tzw_choujiang_preNum;
+    private String tzw_choujiang_createDate;
+    private Integer tzw_choujiang_houNum;
+
+
+    private String tzw_jifen_createDate;
+    private Integer tzw_jifen_num;
+
+    private Integer tzw_jingpai_num;
+    private String tzw_jingpai_createDate;
+
+
+    public String getTzw_choujiang_preNum() {
+        return tzw_choujiang_preNum;
+    }
+
+    public void setTzw_choujiang_preNum(String tzw_choujiang_preNum) {
+        this.tzw_choujiang_preNum = tzw_choujiang_preNum;
+    }
+
+    public String getTzw_choujiang_createDate() {
+        return tzw_choujiang_createDate;
+    }
+
+    public void setTzw_choujiang_createDate(String tzw_choujiang_createDate) {
+        this.tzw_choujiang_createDate = tzw_choujiang_createDate;
+    }
+
+    public Integer getTzw_choujiang_houNum() {
+        return tzw_choujiang_houNum;
+    }
+
+    public void setTzw_choujiang_houNum(Integer tzw_choujiang_houNum) {
+        this.tzw_choujiang_houNum = tzw_choujiang_houNum;
+    }
+
+    public String getTzw_jifen_createDate() {
+        return tzw_jifen_createDate;
+    }
+
+    public void setTzw_jifen_createDate(String tzw_jifen_createDate) {
+        this.tzw_jifen_createDate = tzw_jifen_createDate;
+    }
+
+    public Integer getTzw_jifen_num() {
+        return tzw_jifen_num;
+    }
+
+    public void setTzw_jifen_num(Integer tzw_jifen_num) {
+        this.tzw_jifen_num = tzw_jifen_num;
+    }
+
+    public Integer getTzw_jingpai_num() {
+        return tzw_jingpai_num;
+    }
+
+    public void setTzw_jingpai_num(Integer tzw_jingpai_num) {
+        this.tzw_jingpai_num = tzw_jingpai_num;
+    }
+
+    public String getTzw_jingpai_createDate() {
+        return tzw_jingpai_createDate;
+    }
+
+    public void setTzw_jingpai_createDate(String tzw_jingpai_createDate) {
+        this.tzw_jingpai_createDate = tzw_jingpai_createDate;
+    }
+
+    public Integer getTzw_item_choujiang() {
+        return tzw_item_choujiang;
+    }
+
+    public void setTzw_item_choujiang(Integer tzw_item_choujiang) {
+        this.tzw_item_choujiang = tzw_item_choujiang;
+    }
+
+    public Integer getTzw_item_jifen() {
+        return tzw_item_jifen;
+    }
+
+    public void setTzw_item_jifen(Integer tzw_item_jifen) {
+        this.tzw_item_jifen = tzw_item_jifen;
+    }
+
+    public Integer getTzw_item_jingpai() {
+        return tzw_item_jingpai;
+    }
+
+    public void setTzw_item_jingpai(Integer tzw_item_jingpai) {
+        this.tzw_item_jingpai = tzw_item_jingpai;
+    }
 
     public String getTzw_item_status1() {
         return tzw_item_status1;
@@ -92,14 +188,13 @@ public class Item {
         this.tzw_item_price = tzw_item_price;
     }
 
-    public BigInteger getTzw_item_num() {
+    public Integer getTzw_item_num() {
         return tzw_item_num;
     }
 
-    public void setTzw_item_num(BigInteger tzw_item_num) {
+    public void setTzw_item_num(Integer tzw_item_num) {
         this.tzw_item_num = tzw_item_num;
     }
-
 
     public Integer getTzw_item_status() {
         return tzw_item_status;

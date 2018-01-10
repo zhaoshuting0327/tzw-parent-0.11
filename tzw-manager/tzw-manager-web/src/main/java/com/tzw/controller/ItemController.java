@@ -2,7 +2,10 @@ package com.tzw.controller;
 
 import com.tzw.common.pojo.EasyUIDataGridResult;
 import com.tzw.common.utils.Fenye;
+import com.tzw.pojo.Choujiang;
 import com.tzw.pojo.Item;
+import com.tzw.pojo.JiFen;
+import com.tzw.pojo.JingPai;
 import com.tzw.service.ItemService;
 import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,16 +51,6 @@ public class ItemController {
 
         List<Item> list = this.itemService.getItemList(Integer.parseInt(cpages),size,lname);
 
-     /*   for (int i=0;i<list.size();i++) {
-            Item o = (Item) list.get(i);
-
-            String s = o.getTzw_item_createDate() + "";
-            String s1 = o.getTzw_item_updateDate() + "";
-
-            o.setTzw_item_createDate(s.substring(0, s.length() - 2));
-            o.setTzw_item_updateDate(s1.substring(0, s1.length() - 2));
-
-        }*/
             HashMap<String, Object> m = new HashMap<>();
             m.put("list", list);
             m.put("cpage", cpages);
@@ -134,11 +127,45 @@ public class ItemController {
         HashMap<String,Object> map=new HashMap<>();
 
         int i=0;
-        //验证商品名不能为空
+
+        Item item=new Item();
+    /*  {"itemname":itemname,
+                    "itemprice":itemprice,
+                    "itemnum":itemnum,
+                    "itemstatus":itemstatus,
+                    "itemdesc":itemdesc,
+                    "choujiang":choujiang,
+                    "jifen":jifen,
+                    "jingpai":jingpai,
+                    "preNum":preNum,
+                    "houNum":houNum,
+                    "scoreNum":scoreNum,
+                    "jingpaiNum":jingpaiNum,
+                    "imageStr":imageStr
+                },*/
         String itemname = request.getParameter("itemname");
         String itemprice = request.getParameter("itemprice");
-        String content = request.getParameter("content");
+        String itemdesc = request.getParameter("itemdesc");
+        String itemNum = request.getParameter("itemnum");
+        String itemstatus = request.getParameter("itemstatus");
+        String choujiang = request.getParameter("choujiang");
+        String jifen = request.getParameter("jifen");
+        String jingpai = request.getParameter("jingpai");
+        String preNum = request.getParameter("preNum");
+        String houNum = request.getParameter("houNum");
+        String scoreNum = request.getParameter("scoreNum");
+        System.out.println(scoreNum+"===scoreNum===");
+        String jingpaiNum = request.getParameter("jingpaiNum");
+        String imageStr = request.getParameter("imageStr");
 
+
+
+
+
+        System.out.println(itemname+"itemname");
+        System.out.println(itemprice+"itemprice");
+        System.out.println(itemdesc+"itemdesc");
+        //验证商品名不能为空
         if(itemname==null||("".equals(itemname)))
         {
             map.put("itemname","商品名称不能为空");
@@ -147,7 +174,7 @@ public class ItemController {
             i++;
         }
 
-        String regex1="^[1-9]\\d*(\\.\\d{1,2})?$";
+       String regex1="^[1-9]\\d*(\\.\\d{1,2})?$";
         String regex2="^0(\\.\\d{1,2})?$";
 
         if(itemprice==null||("".equals(itemprice)))
@@ -161,9 +188,9 @@ public class ItemController {
             i++;
         }
 
-        String itemNum = request.getParameter("itemnum");
 
-        String regex3="^\\d+$";
+        i++;
+      /*   String regex3="^\\d+$";
 
         if (itemNum==null||("".equals(itemNum)))
         {
@@ -175,8 +202,7 @@ public class ItemController {
         {
             i++;
         }
-
-        String itemstatus = request.getParameter("itemstatus");
+*/
         if (itemstatus==null||("".equals(itemstatus)))
         {
            map.put("itemstatus","商品商品状态必须选择");
@@ -185,9 +211,53 @@ public class ItemController {
             i++;
         }
 
+
+
+        JiFen jifen1=new JiFen();
+        JingPai jingpai1=new JingPai();
+        Choujiang choujiang1=new Choujiang();
+
+        if(scoreNum==null||("".equals(scoreNum)))
+        {
+        }else {
+            jifen1.setTzw_jifen_num(Integer.parseInt(scoreNum));
+        }
+
+
+        if(jingpaiNum==null||("".equals(jingpaiNum)))
+        {
+        }else
+        {
+            jingpai1.setTzw_jingpai_num(Integer.parseInt(jingpaiNum));
+
+        }
+
+        if(preNum==null||("".equals(preNum)))
+        {
+
+        }else
+        {
+            choujiang1.setTzw_choujiang_preNum(preNum);
+            choujiang1.setTzw_choujiang_houNum(Integer.parseInt(houNum));
+        }
+
+
+        System.out.println(i+"=============");
         map.put("success",0);
-       if(i==4)
+        if(i==4)
        {
+           System.out.println("添加值");
+           item.setTzw_item_status(Integer.parseInt(itemstatus));
+           item.setTzw_item_name(itemname);
+           item.setTzw_item_price(Double.parseDouble(itemprice));
+           item.setTzw_item_desc(itemdesc);
+           item.setTzw_item_num(Integer.parseInt(itemNum));
+           item.setTzw_item_choujiang(Integer.parseInt(choujiang));
+           item.setTzw_item_jifen(Integer.parseInt(jifen));
+           item.setTzw_item_jingpai(Integer.parseInt(jingpai));
+           item.setTzw_item_picture(imageStr);
+           this.itemService.addItem(item,jingpai1,choujiang1,jifen1);
+
            map.put("success",1);
        }
 

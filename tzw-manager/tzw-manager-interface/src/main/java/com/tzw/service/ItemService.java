@@ -1,7 +1,9 @@
 package com.tzw.service;
 
-import com.tzw.common.pojo.EasyUIDataGridResult;
+import com.tzw.pojo.Choujiang;
 import com.tzw.pojo.Item;
+import com.tzw.pojo.JiFen;
+import com.tzw.pojo.JingPai;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -25,5 +27,6 @@ public interface ItemService {
 
     Item findItemById(BigInteger tzw_item_id);
 
+    void  addItem(Item item, JingPai jingpai1, Choujiang choujiang1, JiFen jifen1);
 
 }

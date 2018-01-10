@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - Bootstrap Table</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="js/content.min.js?v=1.0.0"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+  <!--分页-->
+
+    <script type="text/javascript" src="styles/bootstrap/js/jquery.min.js"></script>
+    <script type="text/javascript" src="styles/bootstrap/js/angular.min.js"></script>
+    <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/bootstrap/css/font-awesome.css">
+    <base target="_blank">
+
+</head>
+<body ng-app="MyApp" ng-controller="firstController">
+<div class="container">
+    <div class="now">
+        <div class="col-md-12 col-md-offset-1">
+            <div class="col-md-12">
+
+                <nav  role="navigation">
+                    <h4>抽奖商品列表</h4><br>
+
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                           按商品名称搜索： <input type="text" ng-model="stream.tzw_item_name" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
+                </nav>
+                <form action="">
+                    <table  class="table table-bordered">
+                        <tr>
+                            <td>序号</td>
+                            <td>商品名称</td>
+                            <td>商品价格</td>
+                            <td>库存数量</td>
+                            <td>抽奖号码前缀</td>
+                            <td>抽奖号码</td>
+                            <td>创建日期</td>
+<!--
+                            <td colspan="10">操作</td>
+-->
+                        </tr>
+                        <tr ng-repeat="s in show | filter:stream">
+                            <!--
+    private String tzw_choujiang_preNum;
+    private String tzw_choujiang_createDate;
+    private Integer tzw_choujiang_houNum;
+
+
+    private String tzw_jifen_createDate;
+    private Integer tzw_jifen_num;
+
+    private Integer tzw_jingpai_num;
+    private String tzw_jingpai_createDate;-->
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{s.tzw_item_name}}</td>
+                            <td>{{s.tzw_item_price}}</td>
+                            <td>{{s.tzw_item_num}}</td>
+                            <td>{{s.tzw_choujiang_preNum}}</td>
+                            <td>{{s.tzw_choujiang_houNum}}</td>
+                            <td>{{s.tzw_choujiang_createDate}}</td>
+                       <!--   <td><input type="button" value="修改" ng-click="update(s.tzw_item_id)" class="btn btn-danger update" ></td>
+                            <td><input type="button" value="删除" ng-click="del(s.tzw_item_id)" class="btn btn-danger del" >
+                          </td>-->
+                        </tr>
+                    </table>
+                </form>
+                <ul class="pagination">
+                    <li><a class="btn">首页</a></li>&nbsp;
+                    <li><a class="btn">上一页</a></li>&nbsp;
+                    <input type="hidden" id="a" value="{{cpage-1}}">
+                    <li><a class="btn">下一页</a></li>&nbsp;
+                    <input type="hidden" id="b" value="{{cpage}}">
+                    <li><a class="btn">尾页</a></li>&nbsp;
+                    <input type="hidden" id="c" value="{{epage}}">
+                  <span id="m"></span>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+        angular.module("MyApp",[])
+        .controller("firstController",function($rootScope,$scope,$http){
+            $http.get("choujiang_listJson").then(function(msg){
+                $scope.show = msg.data.list;
+                $scope.epage = msg.data.epage;
+                $scope.cpage = msg.data.cpage;
+                $scope.total = msg.data.total;
+                $scope.totalnum = msg.data.totalnum;
+                var total= msg.data.total;
+                var cpage= msg.data.cpage;
+                var totalnum= msg.data.totalnum;
+                $("#m").html("<span style='color: #00a2d4'>"+"第"+cpage+"/"+total+"页/共"+totalnum+"条"+"</span>");
+            });
+          /*  $scope.del = function(id){
+                if(confirm("确认删除?")){
+                    $http({
+                        method:"get",
+                        url:"item/del",
+                        params:{tzw_item_id:id}
+                    }).success(function(data){
+                        if(data>0){
+                            alert("删除成功!");
+                            location.reload();
+                        }else{
+                            alert("刪除失败");
+                        }
+                    })
+                }
+            }*/
+            $scope.update = function(id){
+                location.href="toUpdateItem?tzw_item_id="+id;
+                /* $http({
+                     method:"get",
+                     url:"toUpdateItem",
+                     params:{"tzw_item_id":id}
+                 }).success(function(data){
+                     if(data>0){
+                         alert("删除成功!");
+                         location.reload();
+                     }else{
+                        location.href="/itemUpdateJsp";
+                     }
+                 })*/
+            }
+
+            $(" li a").click(function(){
+                var str = $(this).text();
+                if(str=="首页"){
+                    var id = 1;
+                }else if(str=="上一页"){
+                    var id = $("#a").val();
+                }else if(str=="下一页"){
+                    d = $("#b").val();
+                    var id = Number(d)+1;
+                }else if(str=="尾页"){
+                    var id = $("#c").val();
+                }
+                $http({
+                    method:"post",
+                    url:"choujiang_listJson",
+                    params:{cpage:id}
+                }).then(function(msg){
+                    $scope.show = msg.data.list;
+                    $scope.epage = msg.data.epage;
+                    $scope.cpage = msg.data.cpage;
+                    $scope.total = msg.data.total;
+                    $scope.totalnum = msg.data.totalnum;
+
+                    var total= msg.data.total;
+                    var cpage= msg.data.cpage;
+                    var totalnum= msg.data.totalnum;
+                    $("#m").html("<span style='color: #00a2d4'>"+"第"+cpage+"/"+total+"页/共"+totalnum+"条"+"</span>");
+
+                });
+
+
+            });
+
+        });
+
+
+</script>
+</body>
+</html>
