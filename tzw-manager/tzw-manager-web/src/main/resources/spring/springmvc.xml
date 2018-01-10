@@ -20,6 +20,7 @@
 	<mvc:resources location="/styles/" mapping="/styles/**"/>
 	<mvc:resources location="/upload/" mapping="/upload/**"/>
 	<mvc:resources location="/plugins/" mapping="/plugins/**"/>
+	<mvc:resources location="/ueditor/" mapping="/ueditor/**"/>
 
 	<mvc:annotation-driven />
 

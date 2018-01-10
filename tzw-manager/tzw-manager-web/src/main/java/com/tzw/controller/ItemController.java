@@ -260,7 +260,23 @@ public class ItemController {
 
            map.put("success",1);
        }
-
         return map;
+    }
+
+    @RequestMapping(value="hhh",method = RequestMethod.POST)
+    public String hhh(HttpServletRequest request,String content)
+    {
+        String html = request.getParameter("editorValue");
+        request.setAttribute("edit", html);
+        System.out.println(html);
+        System.out.println(content);
+       return  "success";
+    }
+
+    @RequestMapping(value="hh")
+    public String hh(HttpServletRequest request,String content)
+    {
+
+       return  "hhh";
     }
 }
