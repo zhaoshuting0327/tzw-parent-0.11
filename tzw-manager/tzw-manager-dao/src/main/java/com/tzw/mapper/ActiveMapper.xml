@@ -46,12 +46,55 @@
     </delete>
 
     <delete id="deleteJiFen" parameterType="bigInteger">
-      delete from tzw_choujiang where tzw_choujiang_item_id=#{tzw_item_id}
+      delete from tzw_jifen where tzw_jifen_item_id=#{tzw_item_id}
     </delete>
 
-    <delete id="deleteChouJiang" parameterType="bigInteger">
-      delete from tzw_choujiang where tzw_choujiang_item_id=#{tzw_item_id}
+    <delete id="deleteJingPai" parameterType="bigInteger">
+      delete from tzw_jingpai where tzw_jingpai_item_id=#{tzw_item_id}
     </delete>
+<!--删除需要修改表-->
+    <update id="upItemChou" parameterType="bigInteger">
+        UPDATE tzw_item set tzw_item_choujiang=4 where tzw_item_id=#{tzw_item_id}
+    </update>
+    <update id="upItemJi" parameterType="bigInteger">
+        UPDATE tzw_item set tzw_item_jifen=6 where tzw_item_id=#{tzw_item_id}
+    </update>
+    <update id="upItemJing" parameterType="bigInteger">
+        UPDATE tzw_item set tzw_item_jingpai=8 where tzw_item_id=#{tzw_item_id}
+    </update>
+    <!--修改回显-->
+    <select id="findcByItemId" parameterType="bigInteger" resultType="com.tzw.pojo.Item">
+        SELECT  * from tzw_item a,tzw_choujiang b where a.tzw_item_id=b.tzw_choujiang_item_id AND a.tzw_item_id=#{tzw_item_id}
+    </select>
 
+    <select id="findjiByItemId" parameterType="bigInteger" resultType="com.tzw.pojo.Item">
+        SELECT  * from tzw_item a,tzw_jifen b where a.tzw_item_id=b.tzw_jifen_item_id AND a.tzw_item_id=#{tzw_item_id}
+    </select>
+
+    <select id="findjByItemId" parameterType="bigInteger" resultType="com.tzw.pojo.Item">
+        SELECT  * from tzw_item a,tzw_jingpai b where a.tzw_item_id=b.tzw_jingpai_item_id AND a.tzw_item_id=#{tzw_item_id}
+    </select>
+
+    <!--修改抽奖提交-->
+    <update id="updatecByItemId" parameterType="com.tzw.pojo.Choujiang">
+        update tzw_choujiang SET tzw_choujiang_updateDate=#{tzw_choujiang_updateDate},
+                                   tzw_choujiang_houNum=#{tzw_choujiang_houNum},
+                                   tzw_choujiang_preNum=#{tzw_choujiang_preNum}
+                                   where tzw_choujiang_item_id=#{tzw_choujiang_item_id}
+    </update>
+
+    <!--修改积分提交-->
+    <update id="updatejiByItemId" parameterType="com.tzw.pojo.JiFen">
+        update tzw_jifen SET tzw_jifen_updateDate=#{tzw_jifen_updateDate},
+                                   tzw_jifen_num=#{tzw_jifen_num}
+                                   where tzw_jifen_item_id=#{tzw_jifen_item_id}
+    </update>
+
+    <!--修改竞拍提交-->
+    <update id="updatejByItemId" parameterType="com.tzw.pojo.JingPai">
+        update tzw_jingpai SET tzw_jingpai_updateDate=#{tzw_jingpai_updateDate},
+                                   tzw_jingpai_num=#{tzw_jingpai_num}
+                            where tzw_jingpai_item_id=#{tzw_jingpai_item_id}
+    </update>
 
 </mapper>

@@ -171,11 +171,7 @@ public class UserController {
     @RequestMapping("toUpdateUser")
     public String toUpdateItem(BigInteger tzw_user_id,Model model)
     {
-
-        System.out.println(tzw_user_id+"kkkkkkkkkkkkkkk");
-
-        model.addAttribute("tzw_user_id",tzw_user_id);
-
+       model.addAttribute("tzw_user_id",tzw_user_id);
         return "user_update";
     }
 

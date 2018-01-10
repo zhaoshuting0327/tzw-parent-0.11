@@ -22,4 +22,23 @@ public interface ActiveMapper {
    int chouJiangCount();
    int jiFenCount();
    int jingPaiCount();
+
+
+   void deleteChouJiang(BigInteger tzw_item_id);
+   void deleteJiFen(BigInteger tzw_item_id);
+   void deleteJingPai(BigInteger tzw_item_id);
+
+   void upItemChou(BigInteger tzw_item_id);
+   void upItemJi(BigInteger tzw_item_id);
+   void upItemJing(BigInteger tzw_item_id);
+
+   Item findcByItemId(BigInteger tzw_item_id);
+   Item findjiByItemId(BigInteger tzw_item_id);
+   Item findjByItemId(BigInteger tzw_item_id);
+
+   void  updatecByItemId(Choujiang choujiang);
+   void  updatejiByItemId(JiFen jiFen);
+   void  updatejByItemId(JingPai jingPai);
+
+
 }

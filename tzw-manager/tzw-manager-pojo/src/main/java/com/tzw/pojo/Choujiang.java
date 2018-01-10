@@ -11,7 +11,16 @@ public class Choujiang {
     private BigInteger tzw_choujiang_item_id;
     private String tzw_choujiang_preNum;
     private String tzw_choujiang_createDate;
+    private String tzw_choujiang_updateDate;
     private Integer tzw_choujiang_houNum;
+
+    public String getTzw_choujiang_updateDate() {
+        return tzw_choujiang_updateDate;
+    }
+
+    public void setTzw_choujiang_updateDate(String tzw_choujiang_updateDate) {
+        this.tzw_choujiang_updateDate = tzw_choujiang_updateDate;
+    }
 
     public BigInteger getTzw_choujiang_id() {
         return tzw_choujiang_id;

@@ -1,16 +1,17 @@
 package com.tzw.controller;
 
 import com.tzw.common.utils.Fenye;
-import com.tzw.pojo.Item;
-import com.tzw.pojo.User;
+import com.tzw.pojo.*;
 import com.tzw.service.ActiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,5 +145,159 @@ public class ActiveController {
         return map;
     }
 
+    @RequestMapping("active/delChouJiang")
+    @ResponseBody
+    public int deleteChouJiang(BigInteger tzw_item_id)
+    {
+        this.activeService.deleteChouJiang(tzw_item_id);
+        return 1;
+    }
+   @RequestMapping("active/delJiFen")
+    @ResponseBody
+    public int deleteJiFen(BigInteger tzw_item_id)
+    {
+        this.activeService.deleteJiFen(tzw_item_id);
+        return 1;
+    }
+
+   @RequestMapping("active/delJingPai")
+    @ResponseBody
+    public int deleteJingPai(BigInteger tzw_item_id)
+    {
+        this.activeService.deleteJingPai(tzw_item_id);
+        return 1;
+    }
+
+    //修改抽奖
+    @RequestMapping("toUpdateChouJiang")
+    public String toUpdateChouJiang(BigInteger tzw_item_id,Model model)
+    {
+        System.out.println("进来了");
+        model.addAttribute("tzw_item_id",tzw_item_id);
+        return "choujiang_update";
+    }
+
+    //修改回显
+    @RequestMapping("huixianChouJiang")
+    @ResponseBody
+    public Item huixianChouJiang(HttpServletRequest request)
+    {
+        String tzw_user_id = request.getParameter("tzw_item_id");
+        String tzw_user_createDate = request.getParameter("tzw_choujiang_createDate");
+
+        int i = Integer.parseInt(tzw_user_id);
+
+        Item item = this.activeService.findcByItemId(BigInteger.valueOf(i));
+
+        return item;
+    }
+
+    //修改提交
+    @RequestMapping("choujiang_update_commit")
+    @ResponseBody
+    public boolean user_update_commit(HttpServletRequest request)
+    {
+        String tzw_item_id = request.getParameter("tzw_item_id");
+        String tzw_choujiang_preNum = request.getParameter("tzw_choujiang_preNum");
+        String tzw_choujiang_houNum = request.getParameter("tzw_choujiang_houNum");
+
+        Choujiang u=new Choujiang();
+
+        u.setTzw_choujiang_houNum(Integer.parseInt(tzw_choujiang_houNum));
+
+        int i = Integer.parseInt(tzw_item_id);
+        u.setTzw_choujiang_item_id(BigInteger.valueOf(i));
+
+        u.setTzw_choujiang_preNum(tzw_choujiang_preNum);
+
+        this.activeService.updatecByItemId(u);
+        return true;
+    }
+
+    //修改积分
+    @RequestMapping("toUpdateJiFen")
+    public String toUpdateJiFen(BigInteger tzw_item_id,Model model)
+    {
+        System.out.println("进来了");
+        model.addAttribute("tzw_item_id",tzw_item_id);
+        return "jifen_update";
+    }
+
+    //修改回显
+    @RequestMapping("huixianJiFen")
+    @ResponseBody
+    public Item huixianJiFen(HttpServletRequest request)
+    {
+        String tzw_item_id = request.getParameter("tzw_item_id");
+        String tzw_jifen_createDate = request.getParameter("tzw_jifen_createDate");
+
+        int i = Integer.parseInt(tzw_item_id);
+
+        Item item = this.activeService.findjiByItemId(BigInteger.valueOf(i));
+
+        return item;
+    }
+
+    //修改提交
+    @RequestMapping("jifen_update_commit")
+    @ResponseBody
+    public boolean jifen_update_commit(HttpServletRequest request)
+    {
+        String tzw_item_id = request.getParameter("tzw_item_id");
+        String tzw_jifen_num = request.getParameter("tzw_jifen_num");
+
+        JiFen u=new JiFen();
+
+        u.setTzw_jifen_num(Integer.parseInt(tzw_jifen_num));
+
+        int i = Integer.parseInt(tzw_item_id);
+        u.setTzw_jifen_item_id(BigInteger.valueOf(i));
+
+        this.activeService.updatejiByItemId(u);
+        return true;
+    }
+
+    //修改竞拍
+    @RequestMapping("toUpdateJingPai")
+    public String toUpdateJingPai(BigInteger tzw_item_id,Model model)
+    {
+        System.out.println("进来了");
+        model.addAttribute("tzw_item_id",tzw_item_id);
+        return "jingpai_update";
+    }
+
+    //修改回显
+    @RequestMapping("huixianJingPai")
+    @ResponseBody
+    public Item huixianJingPai(HttpServletRequest request)
+    {
+        String tzw_item_id = request.getParameter("tzw_item_id");
+        String tzw_jingpai_createDate = request.getParameter("tzw_jingpai_createDate");
+
+        int i = Integer.parseInt(tzw_item_id);
+
+        Item item = this.activeService.findjByItemId(BigInteger.valueOf(i));
+
+        return item;
+    }
+
+    //修改提交
+    @RequestMapping("jingpai_update_commit")
+    @ResponseBody
+    public boolean jingpai_update_commit(HttpServletRequest request)
+    {
+        String tzw_item_id = request.getParameter("tzw_item_id");
+        String tzw_jingpai_num = request.getParameter("tzw_jingpai_num");
+
+        JingPai u=new JingPai();
+
+        u.setTzw_jingpai_num(Integer.parseInt(tzw_jingpai_num));
+
+        int i = Integer.parseInt(tzw_item_id);
+        u.setTzw_jingpai_item_id(BigInteger.valueOf(i));
+
+        this.activeService.updatejByItemId(u);
+        return true;
+    }
 
 }

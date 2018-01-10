@@ -11,6 +11,15 @@ public class JingPai {
     private BigInteger tzw_jingpai_item_id;
     private Integer tzw_jingpai_num;
     private String tzw_jingpai_createDate;
+    private String tzw_jingpai_updateDate;
+
+    public String getTzw_jingpai_updateDate() {
+        return tzw_jingpai_updateDate;
+    }
+
+    public void setTzw_jingpai_updateDate(String tzw_jingpai_updateDate) {
+        this.tzw_jingpai_updateDate = tzw_jingpai_updateDate;
+    }
 
     public BigInteger getTzw_jingpai_id() {
         return tzw_jingpai_id;

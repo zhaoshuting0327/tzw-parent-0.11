@@ -77,9 +77,9 @@
                             <td>{{s.tzw_item_num}}</td>
                             <td>{{s.tzw_jingpai_num}}</td>
                             <td>{{s.tzw_jingpai_createDate}}</td>
-                       <!--   <td><input type="button" value="修改" ng-click="update(s.tzw_item_id)" class="btn btn-danger update" ></td>
+                          <td><input type="button" value="修改" ng-click="update(s.tzw_item_id)" class="btn btn-danger update" ></td>
                             <td><input type="button" value="删除" ng-click="del(s.tzw_item_id)" class="btn btn-danger del" >
-                          </td>-->
+                          </td>
                         </tr>
                     </table>
                 </form>
@@ -112,11 +112,11 @@
                 var totalnum= msg.data.totalnum;
                 $("#m").html("<span style='color: #00a2d4'>"+"第"+cpage+"/"+total+"页/共"+totalnum+"条"+"</span>");
             });
-          /*  $scope.del = function(id){
+            $scope.del = function(id){
                 if(confirm("确认删除?")){
                     $http({
                         method:"get",
-                        url:"item/del",
+                        url:"active/delJingPai",
                         params:{tzw_item_id:id}
                     }).success(function(data){
                         if(data>0){
@@ -127,9 +127,9 @@
                         }
                     })
                 }
-            }*/
+            }
             $scope.update = function(id){
-                location.href="toUpdateItem?tzw_item_id="+id;
+                location.href="toUpdateJingPai?tzw_item_id="+id;
                 /* $http({
                      method:"get",
                      url:"toUpdateItem",

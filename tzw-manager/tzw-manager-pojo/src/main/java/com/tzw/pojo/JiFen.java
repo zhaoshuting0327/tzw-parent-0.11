@@ -10,7 +10,16 @@ public class JiFen {
     private BigInteger tzw_jifen_id;
     private BigInteger tzw_jifen_item_id;
     private String tzw_jifen_createDate;
+    private String tzw_jifen_updateDate;
     private Integer tzw_jifen_num;
+
+    public String getTzw_jifen_updateDate() {
+        return tzw_jifen_updateDate;
+    }
+
+    public void setTzw_jifen_updateDate(String tzw_jifen_updateDate) {
+        this.tzw_jifen_updateDate = tzw_jifen_updateDate;
+    }
 
     public BigInteger getTzw_jifen_id() {
         return tzw_jifen_id;

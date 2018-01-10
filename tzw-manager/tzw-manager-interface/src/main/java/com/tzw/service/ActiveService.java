@@ -1,7 +1,11 @@
 package com.tzw.service;
 
+import com.tzw.pojo.Choujiang;
 import com.tzw.pojo.Item;
+import com.tzw.pojo.JiFen;
+import com.tzw.pojo.JingPai;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -18,4 +22,18 @@ public interface ActiveService {
     int chouJiangCount();
     int jiFenCount();
     int jingPaiCount();
+
+
+    void deleteChouJiang(BigInteger tzw_item_id);
+    void deleteJiFen(BigInteger tzw_item_id);
+    void deleteJingPai(BigInteger tzw_item_id);
+
+    Item findcByItemId(BigInteger tzw_item_id);
+    Item findjiByItemId(BigInteger tzw_item_id);
+    Item findjByItemId(BigInteger tzw_item_id);
+
+    void  updatecByItemId(Choujiang choujiang);
+    void  updatejiByItemId(JiFen jiFen);
+    void  updatejByItemId(JingPai jingPai);
+
 }
