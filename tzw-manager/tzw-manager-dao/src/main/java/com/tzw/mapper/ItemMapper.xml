@@ -6,6 +6,7 @@
     <select id="itemList" resultType="com.tzw.pojo.Item">
 
         select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
+        t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_jingpai,
         t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_status1
          from tzw_item t1
     </select>
@@ -19,7 +20,8 @@
 
     <select id="selectByMap" resultType="com.tzw.pojo.Item" parameterType="map">
         select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
-        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_createDate,t1.tzw_item_updateDate
+        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_createDate,t1.tzw_item_updateDate,
+        t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_jingpai
         from tzw_item t1
 
     <if test="lname!=null">
@@ -135,5 +137,33 @@
                                  AND tzw_item_num=#{tzw_item_num}
                                  AND tzw_item_price=#{tzw_item_price}
     </select>
+
+    <update id="updateById">
+
+        UPDATE tzw_item SET tzw_item_name=#{tzw_item_name},
+                              tzw_item_num=#{tzw_item_num},
+                              tzw_item_status=#{tzw_item_status},
+                              tzw_item_picture=#{tzw_item_picture},
+                              tzw_item_createDate=#{tzw_item_updateDate},
+                              tzw_item_jifen=#{tzw_item_jifen},
+                              tzw_item_jingpai=#{tzw_item_jingpai},
+                              tzw_item_choujiang=#{tzw_item_choujiang}
+                        WHERE  tzw_item_id=#{tzw_item_id}
+
+    </update>
+
+
+    <!--从抽奖表里删除-->
+    <delete id="delChoujiang" parameterType="bigInteger">
+        DELETE  from tzw_choujiang WHERE  tzw_choujiang_item_id=#{tzw_item_id}
+    </delete>
+    <!--从积分表里删除-->
+    <delete id="delJiFen" parameterType="bigInteger">
+        DELETE  from tzw_jifen WHERE  tzw_jifen_item_id=#{tzw_item_id}
+    </delete>
+    <!--从竞拍表里删除-->
+    <delete id="delJingPai" parameterType="bigInteger">
+        DELETE  from tzw_jingpai WHERE  tzw_jingpai_item_id=#{tzw_item_id}
+    </delete>
 
 </mapper>

@@ -38,4 +38,10 @@ public interface ItemMapper {
    // this.itemMapper.findItemByName(item.getTzw_item_name(),item.getTzw_item_num(),item.getTzw_item_price());
 
    Item findItemByName(HashMap<String,Object> map);
+
+    void updateById(Item item);
+
+   void delChoujiang(BigInteger tzw_item_id);
+   void delJiFen(BigInteger tzw_item_id);
+   void delJingPai(BigInteger tzw_item_id);
 }

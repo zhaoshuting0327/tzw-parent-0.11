@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:c="">
 <head>
 
     <meta charset="utf-8">
@@ -54,8 +54,11 @@
                             <td>商品名称</td>
                             <td>商品价格</td>
                             <td>库存数量</td>
-                            <td>商品描述</td>
+                            <!--<td>商品图片</td>-->
                             <td>商品状态</td>
+                            <td>抽奖商品</td>
+                            <td>积分商品</td>
+                            <td>竞拍商品</td>
                             <td>创建日期</td>
                             <td>修改日期</td>
                             <td colspan="10">操作</td>
@@ -66,8 +69,13 @@
                             <td>{{s.tzw_item_name}}</td>
                             <td>{{s.tzw_item_price}}</td>
                             <td>{{s.tzw_item_num}}</td>
-                            <td>{{s.tzw_item_desc}}</td>
+                         <!--   <td>
+                            <img src="/upload/{{s.tzw_item_picture}}" alt="无上传图片" style="height: 30px;width: 50px">
+                            </td>-->
                             <td>{{s.tzw_item_status1}}</td>
+                            <td>{{s.tzw_item_choujiang1}}</td>
+                            <td>{{s.tzw_item_jifen1}}</td>
+                            <td>{{s.tzw_item_jingpai1}}</td>
                             <td>{{s.tzw_item_createDate}}</td>
                             <td>{{s.tzw_item_updateDate}}</td>
                           <td><input type="button" value="修改" ng-click="update(s.tzw_item_id)" class="btn btn-danger update" ></td>

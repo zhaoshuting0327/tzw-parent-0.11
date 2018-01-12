@@ -30,6 +30,10 @@ public class Item {
     private Integer tzw_item_jifen;
     private Integer tzw_item_jingpai;
 
+    private String tzw_item_choujiang1;
+    private String tzw_item_jifen1;
+    private String tzw_item_jingpai1;
+
     private String tzw_choujiang_preNum;
     private String tzw_choujiang_createDate;
     private Integer tzw_choujiang_houNum;
@@ -41,6 +45,29 @@ public class Item {
     private Integer tzw_jingpai_num;
     private String tzw_jingpai_createDate;
 
+    public String getTzw_item_choujiang1() {
+        return tzw_item_choujiang1;
+    }
+
+    public void setTzw_item_choujiang1(String tzw_item_choujiang1) {
+        this.tzw_item_choujiang1 = tzw_item_choujiang1;
+    }
+
+    public String getTzw_item_jifen1() {
+        return tzw_item_jifen1;
+    }
+
+    public void setTzw_item_jifen1(String tzw_item_jifen1) {
+        this.tzw_item_jifen1 = tzw_item_jifen1;
+    }
+
+    public String getTzw_item_jingpai1() {
+        return tzw_item_jingpai1;
+    }
+
+    public void setTzw_item_jingpai1(String tzw_item_jingpai1) {
+        this.tzw_item_jingpai1 = tzw_item_jingpai1;
+    }
 
     public String getTzw_choujiang_preNum() {
         return tzw_choujiang_preNum;

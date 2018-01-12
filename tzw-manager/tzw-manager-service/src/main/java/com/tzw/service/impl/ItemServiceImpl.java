@@ -30,11 +30,39 @@ public class ItemServiceImpl implements ItemService {
         List<Item> items = this.itemMapper.itemList();
 
         for(int i=0;i<items.size();i++)
-
         {
             //查询购买用户数
             int peopleNum = peopleNum(items.get(i).getTzw_item_id());
             items.get(i).setPeopleNum(peopleNum);
+
+            //1下架  2未下架
+            if ( items.get(i).getTzw_item_status()==1)
+            {
+                items.get(i).setTzw_item_status1("上架");
+            }else {
+                items.get(i).setTzw_item_status1("不上架");
+            }
+
+            if ( items.get(i).getTzw_item_choujiang()==3)
+            {
+                items.get(i).setTzw_item_choujiang1("是");
+            }else {
+                items.get(i).setTzw_item_choujiang1("不是");
+            }
+
+            if ( items.get(i).getTzw_item_jifen()==5)
+            {
+            items.get(i).setTzw_item_jifen1("是");
+            }else {
+            items.get(i).setTzw_item_jifen1("不是");
+            }
+
+            if ( items.get(i).getTzw_item_jingpai()==7)
+            {
+                items.get(i).setTzw_item_jingpai1("是");
+            }else {
+                items.get(i).setTzw_item_jingpai1("不是");
+            }
         }
         return items;
     }
@@ -84,6 +112,25 @@ public class ItemServiceImpl implements ItemService {
             }else {
                 items.get(i).setTzw_item_status1("不上架");
             }
+            if ( items.get(i).getTzw_item_choujiang()==3)
+            {
+                items.get(i).setTzw_item_choujiang1("是");
+            }else {
+                items.get(i).setTzw_item_choujiang1("不是");
+            }
+            if ( items.get(i).getTzw_item_jifen()==5)
+            {
+                items.get(i).setTzw_item_jifen1("是");
+            }else {
+                items.get(i).setTzw_item_jifen1("不是");
+            }
+            if ( items.get(i).getTzw_item_jingpai()==7)
+            {
+                items.get(i).setTzw_item_jingpai1("是");
+            }else {
+                items.get(i).setTzw_item_jingpai1("不是");
+            }
+
         }
         return items;
     }
@@ -147,6 +194,56 @@ public class ItemServiceImpl implements ItemService {
             this.itemMapper.addJingPai(jingpai1);
 
         }
+    }
+
+    //修改提交
+    @Override
+    public void updateById(Item item) {
+
+        Date date=new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String updateDate = simpleDateFormat.format(date);
+        //返回id值
+        item.setTzw_item_updateDate(updateDate);
+        //抽奖商品修改
+        if(item.getTzw_item_choujiang()==3)
+        {
+            //将信息填入抽奖表
+            Choujiang choujiang=new Choujiang();
+            choujiang.setTzw_choujiang_preNum(item.getTzw_choujiang_preNum());
+            choujiang.setTzw_choujiang_houNum(item.getTzw_choujiang_houNum());
+            choujiang.setTzw_choujiang_item_id(item.getTzw_item_id());
+            choujiang.setTzw_choujiang_createDate(updateDate);
+            this.itemMapper.addChouJiang(choujiang);
+        }else {
+            //如果抽奖表存在，从抽奖表里边删除 取消为抽奖商品
+            this.itemMapper.delChoujiang(item.getTzw_item_id());
+        }
+
+         if(item.getTzw_item_jifen()==5)
+         {
+             //将信息填入积分表
+             JiFen jiFen=new JiFen();
+
+             jiFen.setTzw_jifen_createDate(updateDate);
+             jiFen.setTzw_jifen_num(item.getTzw_jifen_num());
+             jiFen.setTzw_jifen_item_id(item.getTzw_item_id());
+             this.itemMapper.addJiFen(jiFen);
+         }
+         else {
+            this.itemMapper.delJiFen(item.getTzw_item_id());
+         }
+
+         if(item.getTzw_item_jingpai()==7)
+         {
+             JingPai jingPai = new JingPai();
+
+             jingPai.setTzw_jingpai_createDate(updateDate);
+             jingPai.setTzw_jingpai_item_id(item.getTzw_item_id());
+             jingPai.setTzw_jingpai_num(item.getTzw_jingpai_num());
+             this.itemMapper.addJingPai(jingPai);
+         }
+        this.itemMapper.updateById(item);
     }
 
 

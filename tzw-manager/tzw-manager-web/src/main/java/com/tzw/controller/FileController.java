@@ -120,12 +120,12 @@ public class FileController {
             }
 
             //封装到map返回
-
+/*
             Map result=new HashMap();
             result.put("error",0);
             result.put("url","/upload/"+fileName);
 
-            return JsonUtils.objectToJson(result);
+            return JsonUtils.objectToJson(result);*/
 
         }
         //封装到map返回

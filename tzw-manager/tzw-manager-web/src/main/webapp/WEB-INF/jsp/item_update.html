@@ -203,7 +203,7 @@
 
 
 
-            $("#add").click(function(){
+  /*          $("#update").click(function(){
 
                 alert(str+"添加提交")
                 var imageStr=str;
@@ -228,9 +228,9 @@
                 scoreNum=$("#scoreNum").val();
                 jingpaiNum=$("#jingpaiNum").val();
 
-                /*
+                /!*
                  alert(itemstatus+"itemstatus");
-                 */
+                 *!/
                 alert("itemdesc"+itemdesc);
                 $.post(
                     "item_add_commit",
@@ -254,10 +254,13 @@
                         $("#citemprice").text(data.itemprice);
                         $("#citemnum").text(data.itemnum);
 
+
+                        $(":radio[value="+user.tzw_user_sex+"]").attr("checked",true);
+                        $(":radio[value="+user.tzw_user_vip+"]").attr("checked",true);
                     },
                     "json"
                 )
-            });
+            });*/
         })
 
     </script>
@@ -289,31 +292,83 @@
                 $(":radio[value="+item.tzw_item_choujiang+"]").attr("checked",true);
                 $(":radio[value="+item.tzw_item_jifen+"]").attr("checked",true);
                 $(":radio[value="+item.tzw_item_jingpai+"]").attr("checked",true);
+
+//                回显商品图片
+                var stritem=item.tzw_item_picture;
+
+               var str2=stritem.substring(1);
+
+               console.log(stritem)
+
+          var str3=  str2.split(",");
+
+                for (var k = 0, length = str3.length; k < length; k++) {
+                    alert(str3[k]);
+                    $("#aaa").append("<img src='/upload/"+str3[k]+"' alt='没有图片' style='width: 100px;height: 60px'>");
+                    $("#aaa").append("<button id=''  value='"+str3[k]+"' class='btn btn-default' class='delbnt'> 删除图片</button>");
+                }
             },
             "json"
                     )
+/*
+        var delImg="";
+        $(".delbnt").bind('click',function () {
+            delImg+=$(this).val();
+            delImg+=","+delImg;
+            alert("删除了"+delImg)
+        });*/
+
+
         $("#back").click(function () {
             history.back(-1);
         })
 
 
+
         $("#update").click(function(){
+            var imageStr=str;
             var itemname=$("#itemname").val();
+            var tzw_item_id=$("#tzw_item_id").val();
             var itemprice=$("#itemprice").val();
             var itemnum=$("#itemnum").val();
-            var content=$("#content").val();
-            var itemstatus=$(":radio:checked").val();
+            var itemdesc=$("#itemdesc").code();
+            var itemstatus=$("[name='itemstatus']:checked").val();
+            var choujiang=$("[name='choujiang']:checked").val();
+            var jingpai=$("[name='jingpai']:checked").val();
+            var jifen=$("[name='jifen']:checked").val();
+
+            var preNum="";
+            var houNum="";
+
+            var scoreNum="";
+
+            var jingpaiNum="";
+
+            preNum=$("#preNum").val();
+            houNum=$("#houNum").val();
+            scoreNum=$("#scoreNum").val();
+            jingpaiNum=$("#jingpaiNum").val();
 
             $.post(
                 "item_update_commit",
                 {"itemname":itemname,
+                   "itemid":tzw_item_id,
                     "itemprice":itemprice,
                     "itemnum":itemnum,
                     "itemstatus":itemstatus,
-                    "content":content
+                    "itemdesc":itemdesc,
+                    "choujiang":choujiang,
+                    "jifen":jifen,
+                    "jingpai":jingpai,
+                    "preNum":preNum,
+                    "houNum":houNum,
+                    "scoreNum":scoreNum,
+                    "jingpaiNum":jingpaiNum,
+                    "imageStr":imageStr
                 },
                 function (data) {
-
+                    alert("提交成功！！");
+                    location.replace(document.referrer);
                 },
                 "json"
             )
@@ -357,7 +412,6 @@
                     <div class="col-sm-8">
                         <input id="itemnum" name="itemnum" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
                         <span id="citemnum" style="color: red"></span>
-
                     </div>
                 </div>
                 <div class="form-group">
@@ -377,6 +431,7 @@
                 </div>
 
 
+
                 <div class="form-group">
                     <label class="col-sm-3 control-label">是否为抽奖商品：</label>
 
@@ -391,6 +446,30 @@
                     </div>
 
                 </div>
+
+                <!--如果选中为抽奖商品-->
+                <div style="border:red 2px solid;display: none;padding-top: 20px;margin-bottom: 10px;" id="choujiang">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">号码前缀：</label>
+                        <div class="col-sm-8">
+                            <input id="preNum" name="preNum" class="form-control" type="text">
+                            <!--
+                                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请输入商品名称</span>
+                            -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">号码：</label>
+                        <div class="col-sm-8">
+                            <input id="houNum" name="houNum" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许输入数字</span>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label">是否为积分商品：</label>
@@ -409,7 +488,17 @@
                 </div>
 
 
+                <!--如果选中为积分商品-->
 
+                <div style="border:red 2px solid;display: none;padding-top: 20px;margin-bottom: 10px;" id="jifene">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入所需积分数：</label>
+                        <div class="col-sm-8">
+                            <input id="scoreNum" name="scoreNum" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 多少积分可以兑换此商品,只允许整数</span>
+                        </div>
+                    </div>
+                </div>
 
 
                 <div class="form-group">
@@ -427,6 +516,18 @@
 
                 </div>
 
+                <!--如果选中为竞拍商品-->
+
+                <div style="border:red 2px solid;display: none;padding-top: 20px;margin-bottom: 10px;" id="jingpaie">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入每次加价额：</label>
+                        <div class="col-sm-8">
+                            <input id="jingpaiNum" name="jingpaiNum" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许整数</span>
+                        </div>
+                    </div>
+                </div>
+
 
 
                 <div class="form-group">
@@ -437,13 +538,16 @@
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
                                     <div class="ibox-tools">
-
                                     </div>
                                 </div>
                                 <div class="ibox-content">
                                     <div class="page-container">
 
                                         <div id="uploader" class="wu-example">
+
+                                            <!--商品图片回显-->
+                                            <div id="aaa"><!--<img src="upload/1.jpg">-->
+                                            </div>
 
                                             <div class="wrapper wrapper-content animated fadeIn">
 
@@ -601,7 +705,7 @@
                     <div class="form-group">
                         <div class="col-sm-8 col-sm-offset-3">
                             <input type="button" value="取消" class="btn btn-primary" id="back">
-                            <input type="button" value="提交" class="btn btn-primary" id="add">
+                            <input type="button" value="提交" class="btn btn-primary" id="update">
                         </div>
                     </div>
             </form>
