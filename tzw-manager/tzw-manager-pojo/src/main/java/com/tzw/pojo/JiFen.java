@@ -12,6 +12,24 @@ public class JiFen {
     private String tzw_jifen_createDate;
     private String tzw_jifen_updateDate;
     private Integer tzw_jifen_num;
+    private Integer tzw_jifen_yue;
+    private Integer tzw_jifen_xianjin;
+
+    public Integer getTzw_jifen_yue() {
+        return tzw_jifen_yue;
+    }
+
+    public void setTzw_jifen_yue(Integer tzw_jifen_yue) {
+        this.tzw_jifen_yue = tzw_jifen_yue;
+    }
+
+    public Integer getTzw_jifen_xianjin() {
+        return tzw_jifen_xianjin;
+    }
+
+    public void setTzw_jifen_xianjin(Integer tzw_jifen_xianjin) {
+        this.tzw_jifen_xianjin = tzw_jifen_xianjin;
+    }
 
     public String getTzw_jifen_updateDate() {
         return tzw_jifen_updateDate;

@@ -12,7 +12,34 @@ public class Choujiang {
     private String tzw_choujiang_preNum;
     private String tzw_choujiang_createDate;
     private String tzw_choujiang_updateDate;
+    private Integer tzw_choujiang_yue;
+    private Integer tzw_choujiang_jifen;
     private Integer tzw_choujiang_houNum;
+    private Integer tzw_choujiang_xianjin;
+
+    public Integer getTzw_choujiang_yue() {
+        return tzw_choujiang_yue;
+    }
+
+    public void setTzw_choujiang_yue(Integer tzw_choujiang_yue) {
+        this.tzw_choujiang_yue = tzw_choujiang_yue;
+    }
+
+    public Integer getTzw_choujiang_jifen() {
+        return tzw_choujiang_jifen;
+    }
+
+    public void setTzw_choujiang_jifen(Integer tzw_choujiang_jifen) {
+        this.tzw_choujiang_jifen = tzw_choujiang_jifen;
+    }
+
+    public Integer getTzw_choujiang_xianjin() {
+        return tzw_choujiang_xianjin;
+    }
+
+    public void setTzw_choujiang_xianjin(Integer tzw_choujiang_xianjin) {
+        this.tzw_choujiang_xianjin = tzw_choujiang_xianjin;
+    }
 
     public String getTzw_choujiang_updateDate() {
         return tzw_choujiang_updateDate;

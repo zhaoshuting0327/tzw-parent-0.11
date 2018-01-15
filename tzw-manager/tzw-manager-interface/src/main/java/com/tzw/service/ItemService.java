@@ -29,6 +29,6 @@ public interface ItemService {
 
     void  addItem(Item item, JingPai jingpai1, Choujiang choujiang1, JiFen jifen1);
 
-    void updateById(Item item);
+    void updateById(Item item, Choujiang choujiang1, JiFen jifen1, JingPai jingpai1);
 
 }

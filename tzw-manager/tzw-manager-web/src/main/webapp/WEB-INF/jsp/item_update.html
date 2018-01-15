@@ -50,7 +50,7 @@
     </script>
 
 
-    <script type="text/javascript">
+    <script type="text/javascript"> var str="";
         $(function(){
 
             var str="";
@@ -288,12 +288,44 @@
                 $("#itemprice").val(item.tzw_item_price);
                 $("#itemnum").val(item.tzw_item_num);
 
+
+/*
+                var sHTML = $('.summernote').eq(1).code();
+*/
+
+
+                $('.summernote').code( item.tzw_item_desc);
+                //$('#itemdesc').summernote('code', item.tzw_item_desc);
+                //var itemdesc=item.tzw_item_desc;
+               // $("#itemdesc").html(item.tzw_item_desc);
+                //alert(itemdesc);
                 $(":radio[value="+item.tzw_item_status+"]").attr("checked",true);
                 $(":radio[value="+item.tzw_item_choujiang+"]").attr("checked",true);
                 $(":radio[value="+item.tzw_item_jifen+"]").attr("checked",true);
                 $(":radio[value="+item.tzw_item_jingpai+"]").attr("checked",true);
 
 //                回显商品图片
+                /*var stritem=item.tzw_item_picture;
+
+               var str2=stritem.substring(1);
+
+               console.log(stritem)
+
+          var str3=  str2.split(",");
+
+                for (var k = 0, length = str3.length; k < length; k++) {
+
+                    $("#aaa").append("<img src='/upload/"+str3[k]+"' alt='没有图片' style='width: 100px;height: 60px'>");
+                    $("#aaa").append("<input type='button' id='"+str3[k]+"'  value='删除图片' class='btn btn-default' /> ");
+
+                   $("[type='button'][value='删除图片']").on('click',function(){
+                        alert(111);
+                        $(this).prev().remove();
+                        $(this).remove();
+                    });
+
+                }*/
+
                 var stritem=item.tzw_item_picture;
 
                var str2=stritem.substring(1);
@@ -303,20 +335,13 @@
           var str3=  str2.split(",");
 
                 for (var k = 0, length = str3.length; k < length; k++) {
-                    alert(str3[k]);
-                    $("#aaa").append("<img src='/upload/"+str3[k]+"' alt='没有图片' style='width: 100px;height: 60px'>");
-                    $("#aaa").append("<button id=''  value='"+str3[k]+"' class='btn btn-default' class='delbnt'> 删除图片</button>");
+
+                    $("#aaa").append("<img src='/upload/" + str3[k] + "' alt='没有图片' style='width: 100px;height: 60px'>");
+
                 }
             },
             "json"
                     )
-/*
-        var delImg="";
-        $(".delbnt").bind('click',function () {
-            delImg+=$(this).val();
-            delImg+=","+delImg;
-            alert("删除了"+delImg)
-        });*/
 
 
         $("#back").click(function () {
@@ -367,7 +392,7 @@
                     "imageStr":imageStr
                 },
                 function (data) {
-                    alert("提交成功！！");
+                  alert("提交成功！！");
                     location.replace(document.referrer);
                 },
                 "json"
@@ -466,6 +491,34 @@
 
                         </div>
                     </div>
+
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入所需积分数：</label>
+                        <div class="col-sm-8">
+                            <input id="tzw_choujiang_jifen" name="tzw_choujiang_jifen" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle">
+
+                            </i> 多少积分可以兑换此商品,只允许整数</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入所需余额：</label>
+                        <div class="col-sm-8">
+                            <input id="tzw_choujiang_yue" name="tzw_choujiang_yue" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许整数</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入所需现金：</label>
+                        <div class="col-sm-8">
+                            <input id="tzw_choujiang_xianjin" name="tzw_choujiang_xianjin" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许整数</span>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -498,6 +551,23 @@
                             <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 多少积分可以兑换此商品,只允许整数</span>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入所需余额：</label>
+                        <div class="col-sm-8">
+                            <input id="tzw_jinfen_yue" name="tzw_jinfen_yue" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 多少积分可以兑换此商品,只允许整数</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入所需现金：</label>
+                        <div class="col-sm-8">
+                            <input id="tzw_jinfen_xianjin" name="tzw_jinfen_xianjin" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 多少积分可以兑换此商品,只允许整数</span>
+                        </div>
+                    </div>
+
                 </div>
 
 
@@ -526,8 +596,34 @@
                             <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许整数</span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">流拍：</label>
+                        <div class="col-sm-8">
+                            <input id="tzw_jingpai_liupai" name="tzw_jingpai_liupai" class="form-control" type="text">
+                            <span class="help-block m-b-none">
+                                <i class="fa fa-info-circle"></i> 输入0-100</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">请输入所需积分：</label>
+                        <div class="col-sm-8">
+                            <input id="tzw_jingpai_jifen" name="tzw_jingpai_jifen" class="form-control" type="text">
+                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许整数</span>
+                        </div>
+                    </div><div class="form-group">
+                    <label class="col-sm-3 control-label">请输入所需余额：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_jingpai_yue" name="tzw_jingpai_yue" class="form-control" type="text">
+                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许整数</span>
+                    </div>
+                </div><div class="form-group">
+                    <label class="col-sm-3 control-label">请输入所需现金：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_jingpai_xianjin" name="tzw_jingpai_xianjin" class="form-control" type="text">
+                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许整数</span>
+                    </div>
                 </div>
-
+                </div>
 
 
                 <div class="form-group">

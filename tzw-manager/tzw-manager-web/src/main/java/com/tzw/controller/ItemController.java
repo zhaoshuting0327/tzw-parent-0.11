@@ -8,6 +8,7 @@ import com.tzw.pojo.JiFen;
 import com.tzw.pojo.JingPai;
 import com.tzw.service.ItemService;
 import org.apache.http.HttpRequest;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,11 +53,11 @@ public class ItemController {
 
         List<Item> list = this.itemService.getItemList(Integer.parseInt(cpages), size, lname);
 
-        for (int i = 0; i < list.size(); i++) {
+     /*   for (int i = 0; i < list.size(); i++) {
             System.out.println("jingpai" + list.get(i).getTzw_item_jingpai1());
             System.out.println("choujiang" + list.get(i).getTzw_item_choujiang1());
             System.out.println("jifen" + list.get(i).getTzw_item_jifen1());
-        }
+        }*/
         HashMap<String, Object> m = new HashMap<>();
         m.put("list", list);
         m.put("cpage", cpages);
@@ -164,27 +165,31 @@ public class ItemController {
             i++;
         }
 
-
-        i++;
-      /*   String regex3="^\\d+$";
-
-        if (itemNum==null||("".equals(itemNum)))
-        {
-           map.put("itemnum","商品库存不能为空");
-        }else if(!regex3.matches(itemNum))
-        {
-           map.put("itemnum","商品库存必须为数字");
-        }else
-        {
-            i++;
-        }
-*/
         if (itemstatus == null || ("".equals(itemstatus))) {
             map.put("itemstatus", "商品商品状态必须选择");
         } else {
             i++;
         }
 
+/*            var tzw_choujiang_jifen=$("#tzw_choujiang_jifen").val();
+            var tzw_choujiang_yue=$("#tzw_choujiang_yue").val();
+            var tzw_choujiang_xianjin=$("#tzw_choujiang_xianjin").val();
+
+            var tzw_jifen_yue=$("#tzw_jifen_yue").val();
+            var tzw_jinfen_xianjin=$("#tzw_jinfen_xianjin").val();
+
+            var tzw_jingpai_liupai=$("#tzw_jingpai_liupai").val();
+            var tzw_jingpai_jifen=$("#tzw_jingpai_jifen").val();
+            var tzw_jingpai_yue=$("#tzw_jingpai_yue").val();
+            var tzw_jingpai_xianjin=$("#tzw_jingpai_xianjin").val();*/
+
+
+
+
+        String tzw_jingpai_liupai = request.getParameter("tzw_choujiang_liupai");
+        String tzw_jingpai_jifen = request.getParameter("tzw_jingpai_jifen");
+        String tzw_jingpai_yue = request.getParameter("tzw_jingpai_yue");
+        String tzw_jingpai_xianjin = request.getParameter("tzw_jingpai_xianjin");
 
         JiFen jifen1 = new JiFen();
         JingPai jingpai1 = new JingPai();
@@ -195,6 +200,62 @@ public class ItemController {
             jifen1.setTzw_jifen_num(Integer.parseInt(scoreNum));
         }
 
+        //竞拍后加
+        if (tzw_jingpai_liupai == null || ("".equals(tzw_jingpai_liupai))) {
+        } else {
+           jingpai1.setTzw_jingpai_liupai(Integer.parseInt(tzw_jingpai_liupai));
+        }
+        if (tzw_jingpai_jifen == null || ("".equals(tzw_jingpai_jifen))) {
+        } else {
+            jingpai1.setTzw_jingpai_jifen(Integer.parseInt(tzw_jingpai_jifen));
+        }
+        if (tzw_jingpai_yue == null || ("".equals(tzw_jingpai_yue))) {
+        } else {
+            jingpai1.setTzw_jingpai_yue(Integer.parseInt(tzw_jingpai_yue));
+        }
+        if (tzw_jingpai_xianjin == null || ("".equals(tzw_jingpai_xianjin))) {
+        } else {
+           jingpai1.setTzw_jingpai_xianjin(Integer.parseInt(tzw_jingpai_xianjin));
+        }
+
+        //积分后加
+        String tzw_jifen_yue = request.getParameter("tzw_jifen_yue");
+        String tzw_jifen_xianjin = request.getParameter("tzw_jifen_xianjin");
+
+        if (tzw_jifen_yue == null || ("".equals(tzw_jifen_yue))) {
+        } else {
+           jifen1.setTzw_jifen_yue(Integer.parseInt(tzw_jifen_yue));
+
+        }
+        if (tzw_jifen_xianjin == null || ("".equals(tzw_jifen_xianjin))) {
+        } else {
+           jifen1.setTzw_jifen_xianjin(Integer.parseInt(tzw_jifen_xianjin));
+
+        }
+
+        //抽奖后加
+        String tzw_choujiang_jifen = request.getParameter("tzw_choujiang_jifen");
+        String tzw_choujiang_yue = request.getParameter("tzw_choujiang_yue");
+        String tzw_choujiang_xianjin = request.getParameter("tzw_choujiang_xianjin");
+
+
+        if (tzw_choujiang_jifen == null || ("".equals(tzw_choujiang_jifen))) {
+        } else {
+           choujiang1.setTzw_choujiang_jifen(Integer.parseInt(tzw_choujiang_jifen));
+
+        }
+
+        if (tzw_choujiang_yue == null || ("".equals(tzw_choujiang_yue))) {
+        } else {
+           choujiang1.setTzw_choujiang_yue(Integer.parseInt(tzw_choujiang_yue));
+
+        }
+
+        if (tzw_choujiang_xianjin == null || ("".equals(tzw_choujiang_xianjin))) {
+        } else {
+           choujiang1.setTzw_choujiang_xianjin(Integer.parseInt(tzw_choujiang_xianjin));
+
+        }
 
         if (jingpaiNum == null || ("".equals(jingpaiNum))) {
         } else {
@@ -208,7 +269,6 @@ public class ItemController {
             choujiang1.setTzw_choujiang_preNum(preNum);
             choujiang1.setTzw_choujiang_houNum(Integer.parseInt(houNum));
         }
-
 
         System.out.println(i + "=============");
         map.put("success", 0);
@@ -257,47 +317,7 @@ public class ItemController {
         String jingpaiNum = request.getParameter("jingpaiNum");
         String imageStr = request.getParameter("imageStr");
 
-        System.out.println(itemname + "itemname");
-        System.out.println(itemprice + "itemprice");
-        System.out.println(itemdesc + "itemdesc");
-        //验证商品名不能为空
-        if (itemname == null || ("".equals(itemname))) {
-            map.put("itemname", "商品名称不能为空");
-        } else {
-            i++;
-        }
 
-        String regex1 = "^[1-9]\\d*(\\.\\d{1,2})?$";
-        String regex2 = "^0(\\.\\d{1,2})?$";
-
-        if (itemprice == null || ("".equals(itemprice))) {
-            map.put("itemprice", "商品价格不能为空");
-        } else if (!itemprice.matches(regex1) && !itemprice.matches(regex2)) {
-            map.put("itemprice", "商品价格必须是数字且最多只允许俩位小数");
-        } else {
-            i++;
-        }
-
-
-        i++;
-      /*   String regex3="^\\d+$";
-
-        if (itemNum==null||("".equals(itemNum)))
-        {
-           map.put("itemnum","商品库存不能为空");
-        }else if(!regex3.matches(itemNum))
-        {
-           map.put("itemnum","商品库存必须为数字");
-        }else
-        {
-            i++;
-        }
-*/
-        if (itemstatus == null || ("".equals(itemstatus))) {
-            map.put("itemstatus", "商品商品状态必须选择");
-        } else {
-            i++;
-        }
         JiFen jifen1 = new JiFen();
         JingPai jingpai1 = new JingPai();
         Choujiang choujiang1 = new Choujiang();
@@ -305,22 +325,95 @@ public class ItemController {
         if (scoreNum == null || ("".equals(scoreNum))) {
         } else {
             item.setTzw_jifen_num(Integer.parseInt(scoreNum));
+            jifen1.setTzw_jifen_num(Integer.parseInt(scoreNum));
         }
 
 
         if (jingpaiNum == null || ("".equals(jingpaiNum))) {
         } else {
+            jingpai1.setTzw_jingpai_num(Integer.parseInt(jingpaiNum));
             item.setTzw_jingpai_num(Integer.parseInt(jingpaiNum));
         }
 
         if (preNum == null || ("".equals(preNum))) {
         } else {
+            choujiang1.setTzw_choujiang_preNum(preNum);
+            choujiang1.setTzw_choujiang_houNum(Integer.parseInt(houNum));
             item.setTzw_choujiang_preNum(preNum);
             item.setTzw_choujiang_houNum(Integer.parseInt(houNum));
         }
+
+
+        String tzw_jingpai_liupai = request.getParameter("tzw_choujiang_liupai");
+        String tzw_jingpai_jifen = request.getParameter("tzw_jingpai_jifen");
+        String tzw_jingpai_yue = request.getParameter("tzw_jingpai_yue");
+        String tzw_jingpai_xianjin = request.getParameter("tzw_jingpai_xianjin");
+
+        if (scoreNum == null || ("".equals(scoreNum))) {
+        } else {
+            jifen1.setTzw_jifen_num(Integer.parseInt(scoreNum));
+        }
+
+        //竞拍后加
+        if (tzw_jingpai_liupai == null || ("".equals(tzw_jingpai_liupai))) {
+        } else {
+            jingpai1.setTzw_jingpai_liupai(Integer.parseInt(tzw_jingpai_liupai));
+        }
+        if (tzw_jingpai_jifen == null || ("".equals(tzw_jingpai_jifen))) {
+        } else {
+            jingpai1.setTzw_jingpai_jifen(Integer.parseInt(tzw_jingpai_jifen));
+        }
+        if (tzw_jingpai_yue == null || ("".equals(tzw_jingpai_yue))) {
+        } else {
+            jingpai1.setTzw_jingpai_yue(Integer.parseInt(tzw_jingpai_yue));
+        }
+        if (tzw_jingpai_xianjin == null || ("".equals(tzw_jingpai_xianjin))) {
+        } else {
+            jingpai1.setTzw_jingpai_xianjin(Integer.parseInt(tzw_jingpai_xianjin));
+        }
+
+        //积分后加
+        String tzw_jifen_yue = request.getParameter("tzw_jifen_yue");
+        String tzw_jifen_xianjin = request.getParameter("tzw_jifen_xianjin");
+
+        if (tzw_jifen_yue == null || ("".equals(tzw_jifen_yue))) {
+        } else {
+            jifen1.setTzw_jifen_yue(Integer.parseInt(tzw_jifen_yue));
+
+        }
+        if (tzw_jifen_xianjin == null || ("".equals(tzw_jifen_xianjin))) {
+        } else {
+            jifen1.setTzw_jifen_xianjin(Integer.parseInt(tzw_jifen_xianjin));
+
+        }
+
+        //抽奖后加
+        String tzw_choujiang_jifen = request.getParameter("tzw_choujiang_jifen");
+        String tzw_choujiang_yue = request.getParameter("tzw_choujiang_yue");
+        String tzw_choujiang_xianjin = request.getParameter("tzw_choujiang_xianjin");
+
+
+        if (tzw_choujiang_jifen == null || ("".equals(tzw_choujiang_jifen))) {
+        } else {
+            choujiang1.setTzw_choujiang_jifen(Integer.parseInt(tzw_choujiang_jifen));
+
+        }
+
+        if (tzw_choujiang_yue == null || ("".equals(tzw_choujiang_yue))) {
+        } else {
+            choujiang1.setTzw_choujiang_yue(Integer.parseInt(tzw_choujiang_yue));
+
+        }
+
+        if (tzw_choujiang_xianjin == null || ("".equals(tzw_choujiang_xianjin))) {
+        } else {
+            choujiang1.setTzw_choujiang_xianjin(Integer.parseInt(tzw_choujiang_xianjin));
+
+        }
+
         System.out.println(i + "=============");
         map.put("success", 0);
-        if (i == 4) {
+
             System.out.println("添加值");
             int i1 = Integer.parseInt(itemid);
             item.setTzw_item_id(BigInteger.valueOf(i1));
@@ -333,10 +426,12 @@ public class ItemController {
             item.setTzw_item_jifen(Integer.parseInt(jifen));
             item.setTzw_item_jingpai(Integer.parseInt(jingpai));
             item.setTzw_item_picture(imageStr);
-            this.itemService.updateById(item);
+
+            this.itemService.updateById(item,choujiang1,jifen1,jingpai1);
+
 
             map.put("success", 1);
-        }
+
         return map;
     }
 
@@ -353,4 +448,17 @@ public class ItemController {
     public String hh(HttpServletRequest request, String content) {
         return "hhh";
     }
+
+    @RequestMapping("/editnote")
+    public String userinfo( HttpServletRequest request) {
+        return "editnote";
+    }
+
+    @RequestMapping("/shoudao")
+    public void shoudao(  HttpServletRequest request) {
+        String content = request.getParameter("mycontent");
+        System.out.println("收到数据了");
+    }
+
+
 }

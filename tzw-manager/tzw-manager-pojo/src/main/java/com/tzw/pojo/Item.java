@@ -38,12 +38,93 @@ public class Item {
     private String tzw_choujiang_createDate;
     private Integer tzw_choujiang_houNum;
 
+    private Integer tzw_choujiang_yue;
+    private Integer tzw_choujiang_jifen;
+    private Integer tzw_choujiang_xianjin;
 
     private String tzw_jifen_createDate;
     private Integer tzw_jifen_num;
+    private Integer tzw_jifen_yue;
+    private Integer tzw_jifen_xianjin;
 
     private Integer tzw_jingpai_num;
     private String tzw_jingpai_createDate;
+    private Integer tzw_jingpai_xianjin;
+    private Integer tzw_jingpai_yue;
+    private Integer tzw_jingpai_jifen;
+    private Integer tzw_jingpai_liupai;
+
+    public Integer getTzw_choujiang_yue() {
+        return tzw_choujiang_yue;
+    }
+
+    public void setTzw_choujiang_yue(Integer tzw_choujiang_yue) {
+        this.tzw_choujiang_yue = tzw_choujiang_yue;
+    }
+
+    public Integer getTzw_choujiang_jifen() {
+        return tzw_choujiang_jifen;
+    }
+
+    public void setTzw_choujiang_jifen(Integer tzw_choujiang_jifen) {
+        this.tzw_choujiang_jifen = tzw_choujiang_jifen;
+    }
+
+    public Integer getTzw_choujiang_xianjin() {
+        return tzw_choujiang_xianjin;
+    }
+
+    public void setTzw_choujiang_xianjin(Integer tzw_choujiang_xianjin) {
+        this.tzw_choujiang_xianjin = tzw_choujiang_xianjin;
+    }
+
+    public Integer getTzw_jifen_yue() {
+        return tzw_jifen_yue;
+    }
+
+    public void setTzw_jifen_yue(Integer tzw_jifen_yue) {
+        this.tzw_jifen_yue = tzw_jifen_yue;
+    }
+
+    public Integer getTzw_jifen_xianjin() {
+        return tzw_jifen_xianjin;
+    }
+
+    public void setTzw_jifen_xianjin(Integer tzw_jifen_xianjin) {
+        this.tzw_jifen_xianjin = tzw_jifen_xianjin;
+    }
+
+    public Integer getTzw_jingpai_xianjin() {
+        return tzw_jingpai_xianjin;
+    }
+
+    public void setTzw_jingpai_xianjin(Integer tzw_jingpai_xianjin) {
+        this.tzw_jingpai_xianjin = tzw_jingpai_xianjin;
+    }
+
+    public Integer getTzw_jingpai_yue() {
+        return tzw_jingpai_yue;
+    }
+
+    public void setTzw_jingpai_yue(Integer tzw_jingpai_yue) {
+        this.tzw_jingpai_yue = tzw_jingpai_yue;
+    }
+
+    public Integer getTzw_jingpai_jifen() {
+        return tzw_jingpai_jifen;
+    }
+
+    public void setTzw_jingpai_jifen(Integer tzw_jingpai_jifen) {
+        this.tzw_jingpai_jifen = tzw_jingpai_jifen;
+    }
+
+    public Integer getTzw_jingpai_liupai() {
+        return tzw_jingpai_liupai;
+    }
+
+    public void setTzw_jingpai_liupai(Integer tzw_jingpai_liupai) {
+        this.tzw_jingpai_liupai = tzw_jingpai_liupai;
+    }
 
     public String getTzw_item_choujiang1() {
         return tzw_item_choujiang1;

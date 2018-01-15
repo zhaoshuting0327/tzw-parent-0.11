@@ -191,6 +191,7 @@ public class ItemServiceImpl implements ItemService {
             //添加进竞拍表
             jingpai1.setTzw_jingpai_createDate(createDate);
             jingpai1.setTzw_jingpai_item_id(bigInteger);
+
             this.itemMapper.addJingPai(jingpai1);
 
         }
@@ -198,7 +199,7 @@ public class ItemServiceImpl implements ItemService {
 
     //修改提交
     @Override
-    public void updateById(Item item) {
+    public void updateById(Item item, Choujiang choujiang1, JiFen jifen1, JingPai jingpai1) {
 
         Date date=new Date();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -214,6 +215,10 @@ public class ItemServiceImpl implements ItemService {
             choujiang.setTzw_choujiang_houNum(item.getTzw_choujiang_houNum());
             choujiang.setTzw_choujiang_item_id(item.getTzw_item_id());
             choujiang.setTzw_choujiang_createDate(updateDate);
+
+            choujiang.setTzw_choujiang_jifen(choujiang1.getTzw_choujiang_jifen());
+            choujiang.setTzw_choujiang_xianjin(choujiang1.getTzw_choujiang_xianjin());
+            choujiang.setTzw_choujiang_yue(choujiang1.getTzw_choujiang_yue());
             this.itemMapper.addChouJiang(choujiang);
         }else {
             //如果抽奖表存在，从抽奖表里边删除 取消为抽奖商品
@@ -228,6 +233,9 @@ public class ItemServiceImpl implements ItemService {
              jiFen.setTzw_jifen_createDate(updateDate);
              jiFen.setTzw_jifen_num(item.getTzw_jifen_num());
              jiFen.setTzw_jifen_item_id(item.getTzw_item_id());
+
+             jiFen.setTzw_jifen_yue(jifen1.getTzw_jifen_yue());
+             jiFen.setTzw_jifen_xianjin(jifen1.getTzw_jifen_xianjin());
              this.itemMapper.addJiFen(jiFen);
          }
          else {
@@ -241,6 +249,11 @@ public class ItemServiceImpl implements ItemService {
              jingPai.setTzw_jingpai_createDate(updateDate);
              jingPai.setTzw_jingpai_item_id(item.getTzw_item_id());
              jingPai.setTzw_jingpai_num(item.getTzw_jingpai_num());
+
+             jingPai.setTzw_jingpai_yue(jingpai1.getTzw_jingpai_yue());
+             jingPai.setTzw_jingpai_jifen(jingpai1.getTzw_jingpai_jifen());
+             jingPai.setTzw_jingpai_xianjin(jingpai1.getTzw_jingpai_xianjin());
+             jingPai.setTzw_jingpai_liupai(jingpai1.getTzw_jingpai_liupai());
              this.itemMapper.addJingPai(jingPai);
          }
         this.itemMapper.updateById(item);

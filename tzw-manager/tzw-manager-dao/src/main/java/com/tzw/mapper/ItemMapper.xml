@@ -32,24 +32,11 @@
         limit #{cpage},#{size}
     </select>
 
-    <!--SELECT count(*) from tzw_order m where m.tzw_order_user_id;
--->
-
     <select id="peopleNum" resultType="int" parameterType="bigInteger">
     SELECT count(*) from tzw_order m where m.tzw_order_user_id=#{tzw_order_user_id}
     </select>
 
-<!--
-    searchItemList
--->
-    <!--<select id="searchItemList" resultType="com.tzw.pojo.Item" parameterType="map">
 
-        select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
-        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc
-        from tzw_item t1 where t1.tzw_item_name LIKE  concat('%',#{lname},'%')
-    </select>
--->
-    <!--getTotal-->
     <select id="getTotal" resultType="int" parameterType="map">
 
         select count(*) from tzw_item t1
@@ -71,6 +58,7 @@
                               tzw_item_price,
                               tzw_item_num,
                               tzw_item_status,
+                              tzw_item_desc,
                               tzw_item_picture,
                               tzw_item_createDate,
                               tzw_item_jifen,
@@ -81,6 +69,7 @@
                               #{tzw_item_price},
                               #{tzw_item_num},
                               #{tzw_item_status},
+                              #{tzw_item_desc},
                               #{tzw_item_picture},
                               #{tzw_item_createDate},
                               #{tzw_item_jifen},
@@ -97,11 +86,17 @@
          insert into tzw_choujiang (tzw_choujiang_item_id,
                                       tzw_choujiang_houNum,
                                       tzw_choujiang_preNum,
+                                      tzw_choujiang_jifen,
+                                      tzw_choujiang_yue,
+                                      tzw_choujiang_xianjin,
                                       tzw_choujiang_createDate
                          ) values (
                          #{tzw_choujiang_item_id},
                          #{tzw_choujiang_houNum},
                          #{tzw_choujiang_preNum},
+                         #{tzw_choujiang_jifen},
+                         #{tzw_choujiang_yue},
+                         #{tzw_choujiang_xianjin},
                          #{tzw_choujiang_createDate}
                          );
     </insert>
@@ -109,10 +104,14 @@
          <insert id="addJiFen" parameterType="com.tzw.pojo.JiFen">
          insert into tzw_jifen (tzw_jifen_createDate,
                                       tzw_jifen_item_id,
+                                      tzw_jifen_yue,
+                                      tzw_jifen_xianjin,
                                       tzw_jifen_num
                          ) values (
                          #{tzw_jifen_createDate},
                          #{tzw_jifen_item_id},
+                         #{tzw_jifen_yue},
+                         #{tzw_jifen_xianjin},
                          #{tzw_jifen_num}
                          );
          </insert>
@@ -120,10 +119,20 @@
          <insert id="addJingPai" parameterType="com.tzw.pojo.JingPai">
          insert into tzw_jingpai (tzw_jingpai_createDate,
                                       tzw_jingpai_item_id,
+
+                                      tzw_jingpai_liupai,
+                                      tzw_jingpai_jifen,
+                                      tzw_jingpai_yue,
+                                      tzw_jingpai_xianjin,
                                       tzw_jingpai_num
                          ) values (
                          #{tzw_jingpai_createDate},
+
                          #{tzw_jingpai_item_id},
+                         #{tzw_jingpai_item_liupai},
+                         #{tzw_jingpai_item_jifen},
+                         #{tzw_jingpai_item_yue},
+                         #{tzw_jingpai_item_jingpai},
                          #{tzw_jingpai_num}
                          );
          </insert>
@@ -143,8 +152,11 @@
         UPDATE tzw_item SET tzw_item_name=#{tzw_item_name},
                               tzw_item_num=#{tzw_item_num},
                               tzw_item_status=#{tzw_item_status},
-                              tzw_item_picture=#{tzw_item_picture},
-                              tzw_item_createDate=#{tzw_item_updateDate},
+                            <if test="tzw_item_picture!=null and tzw_item_picture!=''">
+                                tzw_item_picture=#{tzw_item_picture},
+                            </if>
+                              tzw_item_updateDate=#{tzw_item_updateDate},
+                              tzw_item_desc=#{tzw_item_desc},
                               tzw_item_jifen=#{tzw_item_jifen},
                               tzw_item_jingpai=#{tzw_item_jingpai},
                               tzw_item_choujiang=#{tzw_item_choujiang}

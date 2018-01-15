@@ -54,6 +54,8 @@
                             <td>商品价格</td>
                             <td>库存数量</td>
                             <td>所需积分</td>
+                            <td>所需余额</td>
+                            <td>所需现金</td>
                             <td>创建日期</td>
 <!--
                             <td colspan="10">操作</td>
@@ -76,6 +78,8 @@
                             <td>{{s.tzw_item_price}}</td>
                             <td>{{s.tzw_item_num}}</td>
                             <td>{{s.tzw_jifen_num}}</td>
+                            <td>{{s.tzw_jifen_yue}}</td>
+                            <td>{{s.tzw_jifen_xianjin}}</td>
                             <td>{{s.tzw_jifen_createDate}}</td>
                           <td><input type="button" value="修改" ng-click="update(s.tzw_item_id)" class="btn btn-danger update" ></td>
                             <td><input type="button" value="删除" ng-click="del(s.tzw_item_id)" class="btn btn-danger del" >

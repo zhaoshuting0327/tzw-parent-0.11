@@ -60,7 +60,14 @@
                     $("#tzw_item_price").text(item.tzw_item_price);
                     $("#tzw_item_num").text(item.tzw_item_num);
                     $("#tzw_jingpai_createDate").text(item.tzw_jingpai_createDate);
+                    $("#tzw_jingpai_liupai").text(item.tzw_jingpai_liupai);
+                    $("#tzw_jingpai_jifen").text(item.tzw_jingpai_jifen);
+                    $("#tzw_jingpai_yue").text(item.tzw_jingpai_yue);
+                    $("#tzw_jingpai_xianjin").text(item.tzw_jingpai_xianjin);
                     $("#tzw_jingpai_num").val(item.tzw_jingpai_num);
+                    alert(item.tzw_jingpai_xianjin)
+                    alert(item.tzw_jingpai_yue)
+                    alert(item.tzw_jingpai_jifen)
                     /*
                      $(":radio[value="+user.tzw_user_sex+"]").attr("checked",true);
                      $(":radio[value="+user.tzw_user_vip+"]").attr("checked",true);*/
@@ -78,7 +85,11 @@
                 $.post(
                     "jingpai_update_commit",
                     {"tzw_item_id":tzw_item_id,
-                        "tzw_jingpai_num":tzw_jingpai_num
+                        "tzw_jingpai_num":tzw_jingpai_num,
+                        "tzw_jingpai_jifen":tzw_jingpai_jifen,
+                        "tzw_jingpai_yue":tzw_jingpai_yue,
+                        "tzw_jingpai_xianjin":tzw_jingpai_xianjin,
+                        "tzw_jingpai_liupai":tzw_jingpai_liupai
                     },
                     function (data) {
 
@@ -156,6 +167,46 @@
                     <label class="col-sm-3 control-label">每次加价额：</label>
                     <div class="col-sm-8">
                         <input id="tzw_jingpai_num" name="tzw_jingpai_num" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
+                        <!--
+                                                <span id="ctzw_user_address" style="color: red"></span>
+                        -->
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">流拍：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_jingpai_liupai" name="tzw_jingpai_liupai" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
+                        <!--
+                                                <span id="ctzw_user_address" style="color: red"></span>
+                        -->
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所需积分：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_jingpai_jifen" name="tzw_jingpai_jifen" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
+                        <!--
+                                                <span id="ctzw_user_address" style="color: red"></span>
+                        -->
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所需余额：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_jingpai_yue" name="tzw_jingpai_yue" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
+                        <!--
+                                                <span id="ctzw_user_address" style="color: red"></span>
+                        -->
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所需现金：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_jingpai_xianjin" name="tzw_jingpai_xianjin" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
                         <!--
                                                 <span id="ctzw_user_address" style="color: red"></span>
                         -->

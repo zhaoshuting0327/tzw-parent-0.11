@@ -84,6 +84,10 @@ public class ActiveController {
         Integer epage =  (Integer) fen.get("epage");
         List<Item> userList = this.activeService.loadJiFen(Integer.parseInt(cpages), size);
 
+
+
+
+
         HashMap<String,Object> map=new HashMap<>();
 
         map.put("list",userList);
@@ -234,6 +238,10 @@ public class ActiveController {
         int i = Integer.parseInt(tzw_item_id);
 
         Item item = this.activeService.findjiByItemId(BigInteger.valueOf(i));
+
+
+        System.out.println("积分余额："+item.getTzw_jifen_yue());
+        System.out.println("积分现金："+item.getTzw_jifen_xianjin());
 
         return item;
     }

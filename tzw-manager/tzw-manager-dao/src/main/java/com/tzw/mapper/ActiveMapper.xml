@@ -79,20 +79,31 @@
     <update id="updatecByItemId" parameterType="com.tzw.pojo.Choujiang">
         update tzw_choujiang SET tzw_choujiang_updateDate=#{tzw_choujiang_updateDate},
                                    tzw_choujiang_houNum=#{tzw_choujiang_houNum},
-                                   tzw_choujiang_preNum=#{tzw_choujiang_preNum}
+                                   tzw_choujiang_preNum=#{tzw_choujiang_preNum},
+
+                                   tzw_choujiang_jifen=#{tzw_choujiang_jifen},
+                                   tzw_choujiang_yue=#{tzw_choujiang_yue},
+                                   tzw_choujiang_xianjin=#{tzw_choujiang_xianjin}
+
                                    where tzw_choujiang_item_id=#{tzw_choujiang_item_id}
     </update>
 
     <!--修改积分提交-->
     <update id="updatejiByItemId" parameterType="com.tzw.pojo.JiFen">
         update tzw_jifen SET tzw_jifen_updateDate=#{tzw_jifen_updateDate},
-                                   tzw_jifen_num=#{tzw_jifen_num}
+                              tzw_jifen_xianjin=#{tzw_jifen_xianjin},
+                              tzw_jifen_yue=#{tzw_jifen_yue},
+                              tzw_jifen_num=#{tzw_jifen_num}
                                    where tzw_jifen_item_id=#{tzw_jifen_item_id}
     </update>
 
     <!--修改竞拍提交-->
     <update id="updatejByItemId" parameterType="com.tzw.pojo.JingPai">
         update tzw_jingpai SET tzw_jingpai_updateDate=#{tzw_jingpai_updateDate},
+                                   tzw_jingpai_liupai=#{tzw_jingpai_liupai},
+                                   tzw_jingpai_yue=#{tzw_jingpai_yue},
+                                   tzw_jingpai_jifen=#{tzw_jingpai_jifen},
+                                   tzw_jingpai_xianjin=#{tzw_jingpai_xianjin},
                                    tzw_jingpai_num=#{tzw_jingpai_num}
                             where tzw_jingpai_item_id=#{tzw_jingpai_item_id}
     </update>
