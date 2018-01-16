@@ -155,8 +155,12 @@ public class ItemServiceImpl implements ItemService {
         String createDate = simpleDateFormat.format(date);
         //返回id值
         item.setTzw_item_createDate(createDate);
-        System.out.println("添加service");
+        System.out.println("添加service1");
         this.itemMapper.addItem(item);
+
+        System.out.println("tzw_item_content:::"+item.getTzw_item_content());
+        System.out.println("添加service2");
+
 
         /*查询id*/
         HashMap<String,Object> map=new HashMap<>();
@@ -192,6 +196,7 @@ public class ItemServiceImpl implements ItemService {
             jingpai1.setTzw_jingpai_createDate(createDate);
             jingpai1.setTzw_jingpai_item_id(bigInteger);
 
+            System.out.println("流拍："+jingpai1.getTzw_jingpai_liupai());
             this.itemMapper.addJingPai(jingpai1);
 
         }

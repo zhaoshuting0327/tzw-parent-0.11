@@ -124,6 +124,8 @@ public class ItemController {
     @RequestMapping("item_add_commit")
     @ResponseBody
     public HashMap<String, Object> item_add_commit(HttpServletRequest request, Model model) {
+
+        System.out.println("添加提交");
         HashMap<String, Object> map = new HashMap<>();
 
         int i = 0;
@@ -150,7 +152,7 @@ public class ItemController {
         System.out.println(itemprice + "itemprice");
         System.out.println(itemdesc + "itemdesc");
         //验证商品名不能为空
-        if (itemname == null || ("".equals(itemname))) {
+      /*  if (itemname == null || ("".equals(itemname))) {
             map.put("itemname", "商品名称不能为空");
         } else {
             i++;
@@ -171,7 +173,7 @@ public class ItemController {
             map.put("itemstatus", "商品商品状态必须选择");
         } else {
             i++;
-        }
+        }*/
 
 /*            var tzw_choujiang_jifen=$("#tzw_choujiang_jifen").val();
             var tzw_choujiang_yue=$("#tzw_choujiang_yue").val();
@@ -188,7 +190,7 @@ public class ItemController {
 
 
 
-        String tzw_jingpai_liupai = request.getParameter("tzw_choujiang_liupai");
+        String tzw_jingpai_liupai = request.getParameter("tzw_jingpai_liupai");
         String tzw_jingpai_jifen = request.getParameter("tzw_jingpai_jifen");
         String tzw_jingpai_yue = request.getParameter("tzw_jingpai_yue");
         String tzw_jingpai_xianjin = request.getParameter("tzw_jingpai_xianjin");
@@ -274,7 +276,7 @@ public class ItemController {
 
         System.out.println(i + "=============");
         map.put("success", 0);
-        if (i == 4) {
+
             System.out.println("添加值");
             item.setTzw_item_status(Integer.parseInt(itemstatus));
             item.setTzw_item_name(itemname);
@@ -291,7 +293,7 @@ public class ItemController {
             this.itemService.addItem(item, jingpai1, choujiang1, jifen1);
 
             map.put("success", 1);
-        }
+
         return map;
     }
 
@@ -351,7 +353,7 @@ public class ItemController {
         }
 
 
-        String tzw_jingpai_liupai = request.getParameter("tzw_choujiang_liupai");
+        String tzw_jingpai_liupai = request.getParameter("tzw_jingpai_liupai");
         String tzw_jingpai_jifen = request.getParameter("tzw_jingpai_jifen");
         String tzw_jingpai_yue = request.getParameter("tzw_jingpai_yue");
         String tzw_jingpai_xianjin = request.getParameter("tzw_jingpai_xianjin");
@@ -435,6 +437,7 @@ public class ItemController {
             item.setTzw_item_picture(imageStr);
         item.setTzw_item_content(tzw_item_content);
         item.setTzw_item_new(tzw_item_new);
+
             this.itemService.updateById(item,choujiang1,jifen1,jingpai1);
 
 
