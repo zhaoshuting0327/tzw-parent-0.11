@@ -143,6 +143,8 @@ public class ItemController {
         System.out.println(scoreNum + "===scoreNum===");
         String jingpaiNum = request.getParameter("jingpaiNum");
         String imageStr = request.getParameter("imageStr");
+        String tzw_item_content = request.getParameter("tzw_item_content");
+        String tzw_item_new= request.getParameter("tzw_item_new");
 
         System.out.println(itemname + "itemname");
         System.out.println(itemprice + "itemprice");
@@ -283,6 +285,9 @@ public class ItemController {
             item.setTzw_item_jifen(Integer.parseInt(jifen));
             item.setTzw_item_jingpai(Integer.parseInt(jingpai));
             item.setTzw_item_picture(imageStr);
+            item.setTzw_item_content(tzw_item_content);
+            item.setTzw_item_new(tzw_item_new);
+
             this.itemService.addItem(item, jingpai1, choujiang1, jifen1);
 
             map.put("success", 1);
@@ -317,6 +322,8 @@ public class ItemController {
         String jingpaiNum = request.getParameter("jingpaiNum");
         String imageStr = request.getParameter("imageStr");
 
+        String tzw_item_content = request.getParameter("tzw_item_content");
+        String tzw_item_new= request.getParameter("tzw_item_new");
 
         JiFen jifen1 = new JiFen();
         JingPai jingpai1 = new JingPai();
@@ -426,7 +433,8 @@ public class ItemController {
             item.setTzw_item_jifen(Integer.parseInt(jifen));
             item.setTzw_item_jingpai(Integer.parseInt(jingpai));
             item.setTzw_item_picture(imageStr);
-
+        item.setTzw_item_content(tzw_item_content);
+        item.setTzw_item_new(tzw_item_new);
             this.itemService.updateById(item,choujiang1,jifen1,jingpai1);
 
 
@@ -435,6 +443,7 @@ public class ItemController {
         return map;
     }
 
+/*
     @RequestMapping(value = "hhh", method = RequestMethod.POST)
     public String hhh(HttpServletRequest request, String content) {
         String html = request.getParameter("editorValue");
@@ -448,7 +457,8 @@ public class ItemController {
     public String hh(HttpServletRequest request, String content) {
         return "hhh";
     }
-
+*/
+/*
     @RequestMapping("/editnote")
     public String userinfo( HttpServletRequest request) {
         return "editnote";
@@ -458,7 +468,7 @@ public class ItemController {
     public void shoudao(  HttpServletRequest request) {
         String content = request.getParameter("mycontent");
         System.out.println("收到数据了");
-    }
+    }*/
 
 
 }

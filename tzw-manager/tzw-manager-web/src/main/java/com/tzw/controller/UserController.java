@@ -2,6 +2,7 @@ package com.tzw.controller;
 
 import com.tzw.common.utils.CookieUtils;
 import com.tzw.common.utils.Fenye;
+import com.tzw.common.utils.Listener01;
 import com.tzw.common.utils.MD5Util;
 import com.tzw.pojo.*;
 import com.tzw.service.LoginService;
@@ -49,6 +50,8 @@ public class UserController {
 
         model.addAttribute("username",username);
         model.addAttribute("img",img);
+        model.addAttribute("count",Listener01.count);
+
         return "index";
     }
     @RequestMapping(value = "/loginForm",method = RequestMethod.POST)

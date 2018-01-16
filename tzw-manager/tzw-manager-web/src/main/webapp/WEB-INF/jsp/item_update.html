@@ -53,7 +53,7 @@
     <script type="text/javascript"> var str="";
         $(function(){
 
-            var str="";
+         //   var str="";
             jQuery(function() {
                 var $ = jQuery,
                     $list = $('#fileList'),
@@ -94,7 +94,7 @@
                 // 当有文件添加进来的时候，创建img显示缩略图使用
                 uploader.on( 'fileQueued', function( file ) {
 
-                    str+=","+ file.name;
+                    str+="http://192.168.1.17:8081/upload/"+ file.name;
 
                     var $li = $(
                             '<div id="' + file.id + '" class="file-item thumbnail">' +
@@ -200,67 +200,6 @@
             $("#optionsRadios8").click(function(){
                 $("#jingpaie").hide();
             });
-
-
-
-  /*          $("#update").click(function(){
-
-                alert(str+"添加提交")
-                var imageStr=str;
-                var itemname=$("#itemname").val();
-                var itemprice=$("#itemprice").val();
-                var itemnum=$("#itemnum").val();
-                var itemdesc=$("#itemdesc").code();
-                var itemstatus=$("[name='itemstatus']:checked").val();
-                var choujiang=$("[name='choujiang']:checked").val();
-                var jingpai=$("[name='jingpai']:checked").val();
-                var jifen=$("[name='jifen']:checked").val();
-
-                var preNum="";
-                var houNum="";
-
-                var scoreNum="";
-
-                var jingpaiNum="";
-
-                preNum=$("#preNum").val();
-                houNum=$("#houNum").val();
-                scoreNum=$("#scoreNum").val();
-                jingpaiNum=$("#jingpaiNum").val();
-
-                /!*
-                 alert(itemstatus+"itemstatus");
-                 *!/
-                alert("itemdesc"+itemdesc);
-                $.post(
-                    "item_add_commit",
-                    {"itemname":itemname,
-                        "itemprice":itemprice,
-                        "itemnum":itemnum,
-                        "itemstatus":itemstatus,
-                        "itemdesc":itemdesc,
-                        "choujiang":choujiang,
-                        "jifen":jifen,
-                        "jingpai":jingpai,
-                        "preNum":preNum,
-                        "houNum":houNum,
-                        "scoreNum":scoreNum,
-                        "jingpaiNum":jingpaiNum,
-                        "imageStr":imageStr
-                    },
-                    function (data) {
-
-                        $("#citemname").text(data.itemname);
-                        $("#citemprice").text(data.itemprice);
-                        $("#citemnum").text(data.itemnum);
-
-
-                        $(":radio[value="+user.tzw_user_sex+"]").attr("checked",true);
-                        $(":radio[value="+user.tzw_user_vip+"]").attr("checked",true);
-                    },
-                    "json"
-                )
-            });*/
         })
 
     </script>
@@ -287,6 +226,8 @@
                 $("#itemname").val(item.tzw_item_name);
                 $("#itemprice").val(item.tzw_item_price);
                 $("#itemnum").val(item.tzw_item_num);
+                $("#tzw_item_content").val(item.tzw_item_content);
+                $("#tzw_item_new").val(item.tzw_item_new);
 
 
 /*
@@ -328,17 +269,8 @@
 
                 var stritem=item.tzw_item_picture;
 
-               var str2=stritem.substring(1);
-
-               console.log(stritem)
-
-          var str3=  str2.split(",");
-
-                for (var k = 0, length = str3.length; k < length; k++) {
-
-                    $("#aaa").append("<img src='/upload/" + str3[k] + "' alt='没有图片' style='width: 100px;height: 60px'>");
-
-                }
+                alert(stritem)
+                $("#aaa").append("<img src='"+stritem+"' alt='没有图片' style='width: 200px;height: 120px'>");
             },
             "json"
                     )
@@ -352,10 +284,14 @@
 
         $("#update").click(function(){
             var imageStr=str;
+            alert(imageStr+"修改提交===")
             var itemname=$("#itemname").val();
             var tzw_item_id=$("#tzw_item_id").val();
             var itemprice=$("#itemprice").val();
             var itemnum=$("#itemnum").val();
+            var tzw_item_content=$("#tzw_item_content").val();
+            var tzw_item_new=$("#tzw_item_new").val();
+
             var itemdesc=$("#itemdesc").code();
             var itemstatus=$("[name='itemstatus']:checked").val();
             var choujiang=$("[name='choujiang']:checked").val();
@@ -389,10 +325,14 @@
                     "houNum":houNum,
                     "scoreNum":scoreNum,
                     "jingpaiNum":jingpaiNum,
+                    "tzw_item_content":tzw_item_content,
+                    "tzw_item_new":tzw_item_new,
                     "imageStr":imageStr
                 },
                 function (data) {
                   alert("提交成功！！");
+                    $("#aaa").empty();
+
                     location.replace(document.referrer);
                 },
                 "json"
@@ -404,7 +344,6 @@
 </head>
 
 <body class="gray-bg">
-
 <div class="col-sm-12">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -437,6 +376,12 @@
                     <div class="col-sm-8">
                         <input id="itemnum" name="itemnum" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
                         <span id="citemnum" style="color: red"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">活跃度：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_item_new" name="tzw_item_new" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
                     </div>
                 </div>
                 <div class="form-group">
@@ -643,6 +588,8 @@
 
                                             <!--商品图片回显-->
                                             <div id="aaa"><!--<img src="upload/1.jpg">-->
+                                                <!--<img src="http://192.168.1.17:8081/upload/1.jpg" alt='没有图片' style='width: 200px;height: 120px'>-->
+
                                             </div>
 
                                             <div class="wrapper wrapper-content animated fadeIn">
@@ -650,7 +597,7 @@
                                                 <div id="uploader-demo">
                                                     <div id="fileList" class="uploader-list"></div>
                                                     <div id="upInfo" ></div>
-                                                    <div id="filePicker" >选择文件</div>
+                                                    <div id="filePicker" >重新选择文件</div>
                                                     <input type="button" id="btn" value="开始上传" >
                                                 </div>
 
@@ -662,6 +609,14 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">图片文字：</label>
+                        <div class="col-sm-8" >
+                        <textarea   id="tzw_item_content" name="tzw_item_content"  style="height: auto;width: 900px;" >
+
+                        </textarea>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">商品描述：</label>
 

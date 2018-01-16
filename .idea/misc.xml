@@ -3,6 +3,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/tzw-common" />
     <file type="web" url="file://$PROJECT_DIR$/tzw-manager" />
+    <file type="web" url="file://$PROJECT_DIR$/tzw-portal" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -10,6 +11,7 @@
         <option value="$PROJECT_DIR$/tzw-parent/pom.xml" />
         <option value="$PROJECT_DIR$/tzw-common/pom.xml" />
         <option value="$PROJECT_DIR$/tzw-manager/pom.xml" />
+        <option value="$PROJECT_DIR$/tzw-portal/pom.xml" />
       </list>
     </option>
   </component>

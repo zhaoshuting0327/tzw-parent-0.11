@@ -12,6 +12,11 @@
         <module name="tzw-manager-pojo" />
         <module name="tzw-manager-service" />
         <module name="tzw-manager-web" />
+        <module name="tzw-portal-dao" />
+        <module name="tzw-portal-interface" />
+        <module name="tzw-portal-pojo" />
+        <module name="tzw-portal-service" />
+        <module name="tzw-portal-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -23,6 +28,12 @@
       <module name="tzw-manager-service" target="1.7" />
       <module name="tzw-manager-web" target="1.7" />
       <module name="tzw-parent" target="1.7" />
+      <module name="tzw-portal" target="1.7" />
+      <module name="tzw-portal-dao" target="1.7" />
+      <module name="tzw-portal-interface" target="1.7" />
+      <module name="tzw-portal-pojo" target="1.7" />
+      <module name="tzw-portal-service" target="1.7" />
+      <module name="tzw-portal-web" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

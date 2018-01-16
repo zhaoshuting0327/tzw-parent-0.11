@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="tzw-portal-web:war">
+    <output-path>$PROJECT_DIR$/tzw-portal/tzw-portal-web/target</output-path>
+    <root id="archive" name="tzw-portal-web.war">
+      <element id="artifact" artifact-name="tzw-portal-web:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -3,15 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tzw.mapper.ActiveMapper" >
 
-    <!--   Item loadChouJiang(Map<String,Object> map);
-   Item loadJiFen(Map<String,Object> map);
-   Item loadJingPai(Map<String,Object> map);
-
-   int chouJiangCount();
-   int jiFenCount();
-   int jingPaiCount();-->
-
-    <select id="loadChouJiang" parameterType="map" resultType="com.tzw.pojo.Item">
+   <select id="loadChouJiang" parameterType="map" resultType="com.tzw.pojo.Item">
      SELECT * from tzw_item t,tzw_choujiang c
       where t.tzw_item_id=c.tzw_choujiang_item_id and t.tzw_item_choujiang=3
       limit #{cpage},#{size}

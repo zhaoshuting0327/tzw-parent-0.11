@@ -10,6 +10,12 @@
       <module fileurl="file://$PROJECT_DIR$/tzw-manager/tzw-manager-service/tzw-manager-service.iml" filepath="$PROJECT_DIR$/tzw-manager/tzw-manager-service/tzw-manager-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/tzw-manager/tzw-manager-web/tzw-manager-web.iml" filepath="$PROJECT_DIR$/tzw-manager/tzw-manager-web/tzw-manager-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/tzw-parent/tzw-parent.iml" filepath="$PROJECT_DIR$/tzw-parent/tzw-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-portal/tzw-portal.iml" filepath="$PROJECT_DIR$/tzw-portal/tzw-portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-portal/tzw-portal-dao/tzw-portal-dao.iml" filepath="$PROJECT_DIR$/tzw-portal/tzw-portal-dao/tzw-portal-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-portal/tzw-portal-interface/tzw-portal-interface.iml" filepath="$PROJECT_DIR$/tzw-portal/tzw-portal-interface/tzw-portal-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-portal/tzw-portal-pojo/tzw-portal-pojo.iml" filepath="$PROJECT_DIR$/tzw-portal/tzw-portal-pojo/tzw-portal-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-portal/tzw-portal-service/tzw-portal-service.iml" filepath="$PROJECT_DIR$/tzw-portal/tzw-portal-service/tzw-portal-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tzw-portal/tzw-portal-web/tzw-portal-web.iml" filepath="$PROJECT_DIR$/tzw-portal/tzw-portal-web/tzw-portal-web.iml" />
     </modules>
   </component>
 </project>

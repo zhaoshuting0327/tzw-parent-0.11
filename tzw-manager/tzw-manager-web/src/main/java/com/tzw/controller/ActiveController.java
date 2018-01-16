@@ -204,10 +204,17 @@ public class ActiveController {
         String tzw_item_id = request.getParameter("tzw_item_id");
         String tzw_choujiang_preNum = request.getParameter("tzw_choujiang_preNum");
         String tzw_choujiang_houNum = request.getParameter("tzw_choujiang_houNum");
+        String tzw_choujiang_jifen = request.getParameter("tzw_choujiang_jifen");
+        String tzw_choujiang_yue = request.getParameter("tzw_choujiang_yue");
+        String tzw_choujiang_xianjin = request.getParameter("tzw_choujiang_xianjin");
 
         Choujiang u=new Choujiang();
 
         u.setTzw_choujiang_houNum(Integer.parseInt(tzw_choujiang_houNum));
+
+        u.setTzw_choujiang_xianjin(Integer.parseInt(tzw_choujiang_xianjin));
+        u.setTzw_choujiang_yue(Integer.parseInt(tzw_choujiang_yue));
+        u.setTzw_choujiang_jifen(Integer.parseInt(tzw_choujiang_jifen));
 
         int i = Integer.parseInt(tzw_item_id);
         u.setTzw_choujiang_item_id(BigInteger.valueOf(i));
@@ -254,9 +261,15 @@ public class ActiveController {
         String tzw_item_id = request.getParameter("tzw_item_id");
         String tzw_jifen_num = request.getParameter("tzw_jifen_num");
 
+        String tzw_jifen_yue = request.getParameter("tzw_jifen_yue");
+        String tzw_jifen_xianjin = request.getParameter("tzw_jifen_xianjin");
+
         JiFen u=new JiFen();
 
         u.setTzw_jifen_num(Integer.parseInt(tzw_jifen_num));
+
+        u.setTzw_jifen_yue(Integer.parseInt(tzw_jifen_yue));
+        u.setTzw_jifen_xianjin(Integer.parseInt(tzw_jifen_xianjin));
 
         int i = Integer.parseInt(tzw_item_id);
         u.setTzw_jifen_item_id(BigInteger.valueOf(i));
@@ -282,6 +295,8 @@ public class ActiveController {
         String tzw_item_id = request.getParameter("tzw_item_id");
         String tzw_jingpai_createDate = request.getParameter("tzw_jingpai_createDate");
 
+
+
         int i = Integer.parseInt(tzw_item_id);
 
         Item item = this.activeService.findjByItemId(BigInteger.valueOf(i));
@@ -296,10 +311,19 @@ public class ActiveController {
     {
         String tzw_item_id = request.getParameter("tzw_item_id");
         String tzw_jingpai_num = request.getParameter("tzw_jingpai_num");
+        String tzw_jingpai_liupai = request.getParameter("tzw_jingpai_liupai");
+        String tzw_jingpai_jifen = request.getParameter("tzw_jingpai_jifen");
+        String tzw_jingpai_yue = request.getParameter("tzw_jingpai_yue");
+        String tzw_jingpai_xianjin = request.getParameter("tzw_jingpai_xianjin");
 
         JingPai u=new JingPai();
 
         u.setTzw_jingpai_num(Integer.parseInt(tzw_jingpai_num));
+
+        u.setTzw_jingpai_liupai(Integer.parseInt(tzw_jingpai_liupai));
+        u.setTzw_jingpai_yue(Integer.parseInt(tzw_jingpai_yue));
+        u.setTzw_jingpai_xianjin(Integer.parseInt(tzw_jingpai_xianjin));
+        u.setTzw_jingpai_jifen(Integer.parseInt(tzw_jingpai_jifen));
 
         int i = Integer.parseInt(tzw_item_id);
         u.setTzw_jingpai_item_id(BigInteger.valueOf(i));

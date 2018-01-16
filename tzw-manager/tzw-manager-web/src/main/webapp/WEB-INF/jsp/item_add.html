@@ -95,7 +95,7 @@
         // 当有文件添加进来的时候，创建img显示缩略图使用
         uploader.on( 'fileQueued', function( file ) {
 
-           str+=","+ file.name;
+           str+="http://192.168.1.17:8081/upload/"+ file.name;
 
             var $li = $(
                     '<div id="' + file.id + '" class="file-item thumbnail">' +
@@ -227,6 +227,8 @@
             var tzw_jingpai_jifen=$("#tzw_jingpai_jifen").val();
             var tzw_jingpai_yue=$("#tzw_jingpai_yue").val();
             var tzw_jingpai_xianjin=$("#tzw_jingpai_xianjin").val();
+            var tzw_item_concent=$("#tzw_item_concent").val();
+            var tzw_item_new=$("#tzw_item_new").val();
 
             var itemdesc=$("#itemdesc").code();
             var itemstatus=$("[name='itemstatus']:checked").val();
@@ -264,6 +266,8 @@
                     "houNum":houNum,
                     "scoreNum":scoreNum,
                     "jingpaiNum":jingpaiNum,
+                    "tzw_item_content":tzw_item_content,
+                    "tzw_item_new":tzw_item_new,
                     "imageStr":imageStr
                 },
                 function (data) {
@@ -319,6 +323,13 @@
                         <input id="itemnum" name="itemnum" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
                         <span id="citemnum" style="color: red"></span>
 
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">活跃度：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_item_new" name="tzw_item_new" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
                     </div>
                 </div>
                 <div class="form-group">
@@ -537,6 +548,14 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">图片文字：</label>
+                    <div class="col-sm-8" >
+                        <textarea   id="tzw_item_content" name="tzw_item_content"  style="height: auto;width: 900px;" >
+
+                        </textarea>
+                    </div>
+                </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">商品描述：</label>
 

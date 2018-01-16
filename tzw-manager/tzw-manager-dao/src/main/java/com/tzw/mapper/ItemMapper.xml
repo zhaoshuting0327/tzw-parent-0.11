@@ -14,14 +14,14 @@
     <select id="findItemById" parameterType="bigInteger" resultType="com.tzw.pojo.Item">
          select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
         t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_jingpai,
-        t1.tzw_item_choujiang,t1.tzw_item_jifen
+        t1.tzw_item_choujiang,t1.tzw_item_content,t1.tzw_item_new,t1.tzw_item_jifen
          from tzw_item t1 WHERE t1.tzw_item_id=#{t1.tzw_item_id}
     </select>
 
     <select id="selectByMap" resultType="com.tzw.pojo.Item" parameterType="map">
         select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
         t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_createDate,t1.tzw_item_updateDate,
-        t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_jingpai
+        t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_content,t1.tzw_item_new,t1.tzw_item_jingpai
         from tzw_item t1
 
     <if test="lname!=null">
@@ -63,6 +63,8 @@
                               tzw_item_createDate,
                               tzw_item_jifen,
                               tzw_item_jingpai,
+                              tzw_item_content,
+                              tzw_item_new,
                               tzw_item_choujiang
                               )
                       values(#{tzw_item_name},
@@ -74,6 +76,8 @@
                               #{tzw_item_createDate},
                               #{tzw_item_jifen},
                               #{tzw_item_jingpai},
+                              #{tzw_item_content},
+                              #{tzw_item_new},
                               #{tzw_item_choujiang}
                              )
     </insert>
@@ -127,12 +131,11 @@
                                       tzw_jingpai_num
                          ) values (
                          #{tzw_jingpai_createDate},
-
                          #{tzw_jingpai_item_id},
-                         #{tzw_jingpai_item_liupai},
-                         #{tzw_jingpai_item_jifen},
-                         #{tzw_jingpai_item_yue},
-                         #{tzw_jingpai_item_jingpai},
+                         #{tzw_jingpai_liupai},
+                         #{tzw_jingpai_jifen},
+                         #{tzw_jingpai_yue},
+                         #{tzw_jingpai_xianjin},
                          #{tzw_jingpai_num}
                          );
          </insert>
@@ -159,7 +162,9 @@
                               tzw_item_desc=#{tzw_item_desc},
                               tzw_item_jifen=#{tzw_item_jifen},
                               tzw_item_jingpai=#{tzw_item_jingpai},
-                              tzw_item_choujiang=#{tzw_item_choujiang}
+                              tzw_item_choujiang=#{tzw_item_choujiang},
+                              tzw_item_content=#{tzw_item_content},
+                              tzw_item_new=#{tzw_item_new}
                         WHERE  tzw_item_id=#{tzw_item_id}
 
     </update>

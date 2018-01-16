@@ -9,5 +9,11 @@
     <file url="file://$PROJECT_DIR$/tzw-manager/tzw-manager-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/tzw-manager/tzw-manager-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/tzw-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tzw-portal" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tzw-portal/tzw-portal-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tzw-portal/tzw-portal-interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tzw-portal/tzw-portal-pojo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tzw-portal/tzw-portal-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tzw-portal/tzw-portal-web" charset="UTF-8" />
   </component>
 </project>

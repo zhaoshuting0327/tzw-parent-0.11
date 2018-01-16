@@ -60,10 +60,10 @@
                     $("#tzw_item_price").text(item.tzw_item_price);
                     $("#tzw_item_num").text(item.tzw_item_num);
                     $("#tzw_jingpai_createDate").text(item.tzw_jingpai_createDate);
-                    $("#tzw_jingpai_liupai").text(item.tzw_jingpai_liupai);
-                    $("#tzw_jingpai_jifen").text(item.tzw_jingpai_jifen);
-                    $("#tzw_jingpai_yue").text(item.tzw_jingpai_yue);
-                    $("#tzw_jingpai_xianjin").text(item.tzw_jingpai_xianjin);
+                    $("#tzw_jingpai_liupai").val(item.tzw_jingpai_liupai);
+                    $("#tzw_jingpai_jifen").val(item.tzw_jingpai_jifen);
+                    $("#tzw_jingpai_yue").val(item.tzw_jingpai_yue);
+                    $("#tzw_jingpai_xianjin").val(item.tzw_jingpai_xianjin);
                     $("#tzw_jingpai_num").val(item.tzw_jingpai_num);
                     alert(item.tzw_jingpai_xianjin)
                     alert(item.tzw_jingpai_yue)
@@ -78,6 +78,12 @@
             $("#update").click(function(){
                 var tzw_jingpai_num=$("#tzw_jingpai_num").val();
                 var tzw_item_id=$("#tzw_item_id").val();
+
+                var tzw_jingpai_liupai=$("#tzw_jingpai_liupai").val();
+                var tzw_jingpai_jifen=$("#tzw_jingpai_jifen").val();
+                var tzw_jingpai_yue=$("#tzw_jingpai_yue").val();
+                var tzw_jingpai_xianjin=$("#tzw_jingpai_xianjin").val();
+
                /*
                 var tzw_user_sex=$("[name='tzw_user_sex']:checked").val();
                 var tzw_user_vip=$("[name='tzw_user_vip']:checked").val();*/
