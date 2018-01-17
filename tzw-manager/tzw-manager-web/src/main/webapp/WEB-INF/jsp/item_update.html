@@ -244,6 +244,8 @@
                 $(":radio[value="+item.tzw_item_choujiang+"]").attr("checked",true);
                 $(":radio[value="+item.tzw_item_jifen+"]").attr("checked",true);
                 $(":radio[value="+item.tzw_item_jingpai+"]").attr("checked",true);
+                $(":radio[value="+item.tzw_item_type+"]").attr("checked",true);
+                $(":radio[value="+item.tzw_item_leibie+"]").attr("checked",true);
 
 //                回显商品图片
                 /*var stritem=item.tzw_item_picture;
@@ -297,6 +299,8 @@
             var choujiang=$("[name='choujiang']:checked").val();
             var jingpai=$("[name='jingpai']:checked").val();
             var jifen=$("[name='jifen']:checked").val();
+            var itemtype=$("[name='itemtype']:checked").val();
+            var itemleibie=$("[name='itemleibie']:checked").val();
 
             var preNum="";
             var houNum="";
@@ -310,6 +314,21 @@
             scoreNum=$("#scoreNum").val();
             jingpaiNum=$("#jingpaiNum").val();
 
+            var tzw_choujiang_jifen=$("#tzw_choujiang_jifen").val();
+            var tzw_choujiang_yue=$("#tzw_choujiang_yue").val();
+            var tzw_choujiang_xianjin=$("#tzw_choujiang_xianjin").val();
+
+            var tzw_jifen_yue=$("#tzw_jifen_yue").val();
+            var tzw_jifen_xianjin=$("#tzw_jifen_xianjin").val();
+
+            var tzw_jingpai_liupai=$("#tzw_jingpai_liupai").val();
+            var tzw_jingpai_jifen=$("#tzw_jingpai_jifen").val();
+            var tzw_jingpai_yue=$("#tzw_jingpai_yue").val();
+            var tzw_jingpai_xianjin=$("#tzw_jingpai_xianjin").val();
+            var tzw_item_content=$("#tzw_item_content").val();
+            var tzw_item_new=$("#tzw_item_new").val();
+
+
             $.post(
                 "item_update_commit",
                 {"itemname":itemname,
@@ -318,6 +337,8 @@
                     "itemnum":itemnum,
                     "itemstatus":itemstatus,
                     "itemdesc":itemdesc,
+                    "itemtype":itemtype,
+                    "itemleibie":itemleibie,
                     "choujiang":choujiang,
                     "jifen":jifen,
                     "jingpai":jingpai,
@@ -577,6 +598,41 @@
                         <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 只允许整数</span>
                     </div>
                 </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品类型：</label>
+
+
+                    <div class="radio" class="" >
+                        <label>
+                            <input type="radio" checked="" value="9" id="optionsRadios9" name="itemtype">翡翠</label>
+
+                        <label>
+                            <input type="radio" value="10" id="optionsRadios10" name="itemtype">珍珠</label>
+                        <label>
+                            <input type="radio" value="11" id="optionsRadios11" name="itemtype">彩宝</label>
+                        <label>
+                            <input type="radio" value="12" id="optionsRadios12" name="itemtype">文玩</label>
+                        <label>
+                            <input type="radio" value="13" id="optionsRadios13" name="itemtype">生活用品</label>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品类别：</label>
+
+                    <div class="radio" class="" >
+                        <label>
+                            <input type="radio" checked="" value="14" id="optionsRadios14" name="itemleibie">热卖商品</label>
+
+                        <label>
+                            <input type="radio" value="15" id="optionsRadios15" name="itemleibie">新品</label>
+                        <label>
+                            <input type="radio" value="16" id="optionsRadios16" name="itemleibie">其他</label>
+                    </div>
+
                 </div>
 
 

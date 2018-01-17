@@ -26,6 +26,15 @@ public class User {
 
     private Integer  tzw_user_vip;
     private String  tzw_user_vip1;
+    private String  tzw_user_birthday;
+
+    public String getTzw_user_birthday() {
+        return tzw_user_birthday;
+    }
+
+    public void setTzw_user_birthday(String tzw_user_birthday) {
+        this.tzw_user_birthday = tzw_user_birthday;
+    }
 
     public String getTzw_user_vip1() {
         return tzw_user_vip1;

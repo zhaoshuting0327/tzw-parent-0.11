@@ -147,48 +147,12 @@ public class ItemController {
         String imageStr = request.getParameter("imageStr");
         String tzw_item_content = request.getParameter("tzw_item_content");
         String tzw_item_new= request.getParameter("tzw_item_new");
+        String tzw_item_type = request.getParameter("itemtype");
+        String tzw_item_leibie= request.getParameter("itemleibie");
 
         System.out.println(itemname + "itemname");
         System.out.println(itemprice + "itemprice");
         System.out.println(itemdesc + "itemdesc");
-        //验证商品名不能为空
-      /*  if (itemname == null || ("".equals(itemname))) {
-            map.put("itemname", "商品名称不能为空");
-        } else {
-            i++;
-        }
-
-        String regex1 = "^[1-9]\\d*(\\.\\d{1,2})?$";
-        String regex2 = "^0(\\.\\d{1,2})?$";
-
-        if (itemprice == null || ("".equals(itemprice))) {
-            map.put("itemprice", "商品价格不能为空");
-        } else if (!itemprice.matches(regex1) && !itemprice.matches(regex2)) {
-            map.put("itemprice", "商品价格必须是数字且最多只允许俩位小数");
-        } else {
-            i++;
-        }
-
-        if (itemstatus == null || ("".equals(itemstatus))) {
-            map.put("itemstatus", "商品商品状态必须选择");
-        } else {
-            i++;
-        }*/
-
-/*            var tzw_choujiang_jifen=$("#tzw_choujiang_jifen").val();
-            var tzw_choujiang_yue=$("#tzw_choujiang_yue").val();
-            var tzw_choujiang_xianjin=$("#tzw_choujiang_xianjin").val();
-
-            var tzw_jifen_yue=$("#tzw_jifen_yue").val();
-            var tzw_jinfen_xianjin=$("#tzw_jinfen_xianjin").val();
-
-            var tzw_jingpai_liupai=$("#tzw_jingpai_liupai").val();
-            var tzw_jingpai_jifen=$("#tzw_jingpai_jifen").val();
-            var tzw_jingpai_yue=$("#tzw_jingpai_yue").val();
-            var tzw_jingpai_xianjin=$("#tzw_jingpai_xianjin").val();*/
-
-
-
 
         String tzw_jingpai_liupai = request.getParameter("tzw_jingpai_liupai");
         String tzw_jingpai_jifen = request.getParameter("tzw_jingpai_jifen");
@@ -283,6 +247,8 @@ public class ItemController {
             item.setTzw_item_price(Double.parseDouble(itemprice));
             item.setTzw_item_desc(itemdesc);
             item.setTzw_item_num(Integer.parseInt(itemNum));
+            item.setTzw_item_type(Integer.parseInt(tzw_item_type));
+            item.setTzw_item_leibie(Integer.parseInt(tzw_item_leibie));
             item.setTzw_item_choujiang(Integer.parseInt(choujiang));
             item.setTzw_item_jifen(Integer.parseInt(jifen));
             item.setTzw_item_jingpai(Integer.parseInt(jingpai));
@@ -323,6 +289,9 @@ public class ItemController {
         System.out.println(scoreNum + "===scoreNum===");
         String jingpaiNum = request.getParameter("jingpaiNum");
         String imageStr = request.getParameter("imageStr");
+
+        String tzw_item_type = request.getParameter("itemtype");
+        String tzw_item_leibie= request.getParameter("itemleibie");
 
         String tzw_item_content = request.getParameter("tzw_item_content");
         String tzw_item_new= request.getParameter("tzw_item_new");
@@ -456,10 +425,7 @@ public class ItemController {
         return "success";
     }
 
-    @RequestMapping(value = "hh")
-    public String hh(HttpServletRequest request, String content) {
-        return "hhh";
-    }
+
 */
 /*
     @RequestMapping("/editnote")
@@ -473,5 +439,16 @@ public class ItemController {
         System.out.println("收到数据了");
     }*/
 
+    @RequestMapping(value = "hhh")
+    public String hh() {
+        return "hhh";
+    }
 
+
+    @RequestMapping(value = "pay")
+    public String hhh() {
+
+        System.out.println("支付宝======================================支付宝");
+        return "hhh";
+    }
 }

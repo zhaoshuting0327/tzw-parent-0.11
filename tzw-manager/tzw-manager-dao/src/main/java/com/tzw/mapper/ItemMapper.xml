@@ -7,21 +7,21 @@
 
         select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
         t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_jingpai,
-        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_status1
+        t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_status1,tzw_item_type,tzw_item_leibie
          from tzw_item t1
     </select>
 
     <select id="findItemById" parameterType="bigInteger" resultType="com.tzw.pojo.Item">
          select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
         t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_jingpai,
-        t1.tzw_item_choujiang,t1.tzw_item_content,t1.tzw_item_new,t1.tzw_item_jifen
+        t1.tzw_item_choujiang,t1.tzw_item_content,t1.tzw_item_new,t1.tzw_item_jifen,tzw_item_type,tzw_item_leibie
          from tzw_item t1 WHERE t1.tzw_item_id=#{t1.tzw_item_id}
     </select>
 
     <select id="selectByMap" resultType="com.tzw.pojo.Item" parameterType="map">
         select t1.tzw_item_id,t1.tzw_item_name,t1.tzw_item_price,t1.tzw_item_num,
         t1.tzw_item_status,t1.tzw_item_picture,t1.tzw_item_desc,t1.tzw_item_createDate,t1.tzw_item_updateDate,
-        t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_content,t1.tzw_item_new,t1.tzw_item_jingpai
+        t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_content,t1.tzw_item_new,t1.tzw_item_jingpai,tzw_item_type,tzw_item_leibie
         from tzw_item t1
 
     <if test="lname!=null">
@@ -65,6 +65,8 @@
                               tzw_item_jingpai,
                               tzw_item_content,
                               tzw_item_new,
+                              tzw_item_type,
+                              tzw_item_leibie,
                               tzw_item_choujiang
                               )
                       values(#{tzw_item_name},
@@ -78,6 +80,8 @@
                               #{tzw_item_jingpai},
                               #{tzw_item_content},
                               #{tzw_item_new},
+                              #{tzw_item_type},
+                              #{tzw_item_leibie},
                               #{tzw_item_choujiang}
                              )
     </insert>

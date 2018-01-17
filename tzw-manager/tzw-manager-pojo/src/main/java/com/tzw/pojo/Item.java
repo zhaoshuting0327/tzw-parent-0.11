@@ -57,6 +57,52 @@ public class Item {
     private Integer tzw_jingpai_jifen;
     private Integer tzw_jingpai_liupai;
 
+    private Integer tzw_item_type;
+    private Integer tzw_item_leibie;
+    private String tzw_item_type1;
+    private String tzw_item_leibie1;
+    private Integer tzw_item_dianzanshu;
+
+
+    public String getTzw_item_type1() {
+        return tzw_item_type1;
+    }
+
+    public void setTzw_item_type1(String tzw_item_type1) {
+        this.tzw_item_type1 = tzw_item_type1;
+    }
+
+    public String getTzw_item_leibie1() {
+        return tzw_item_leibie1;
+    }
+
+    public void setTzw_item_leibie1(String tzw_item_leibie1) {
+        this.tzw_item_leibie1 = tzw_item_leibie1;
+    }
+
+    public Integer getTzw_item_type() {
+        return tzw_item_type;
+    }
+
+    public void setTzw_item_type(Integer tzw_item_type) {
+        this.tzw_item_type = tzw_item_type;
+    }
+
+    public Integer getTzw_item_leibie() {
+        return tzw_item_leibie;
+    }
+
+    public void setTzw_item_leibie(Integer tzw_item_leibie) {
+        this.tzw_item_leibie = tzw_item_leibie;
+    }
+
+    public Integer getTzw_item_dianzanshu() {
+        return tzw_item_dianzanshu;
+    }
+
+    public void setTzw_item_dianzanshu(Integer tzw_item_dianzanshu) {
+        this.tzw_item_dianzanshu = tzw_item_dianzanshu;
+    }
 
     public String getTzw_item_content() {
         return tzw_item_content;

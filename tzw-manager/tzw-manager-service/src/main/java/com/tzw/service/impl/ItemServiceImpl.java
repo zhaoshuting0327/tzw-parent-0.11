@@ -131,6 +131,68 @@ public class ItemServiceImpl implements ItemService {
                 items.get(i).setTzw_item_jingpai1("不是");
             }
 
+
+            /*  <label>
+                            <input type="radio" checked="" value="9" id="optionsRadios9" name="itemtype">翡翠</label>
+
+                        <label>
+                            <input type="radio" value="10" id="optionsRadios10" name="itemtype">珍珠</label>
+                        <label>
+                            <input type="radio" value="11" id="optionsRadios11" name="itemtype">彩宝</label>
+                        <label>
+                            <input type="radio" value="12" id="optionsRadios12" name="itemtype">文玩</label>
+                        <label>
+                            <input type="radio" value="13" id="optionsRadios13" name="itemtype">生活用品</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">商品类别：</label>
+
+                    <div class="radio" class="" >
+                        <label>
+                            <input type="radio" checked="" value="14" id="optionsRadios14" name="itemleibie">热卖商品</label>
+
+                        <label>
+                            <input type="radio" value="15" id="optionsRadios15" name="itemleibie">新品</label>
+                        <label>
+                            <input type="radio" value="16" id="optionsRadios16" name="itemleibie">其他</label>
+                    </div>*/
+            if ( items.get(i).getTzw_item_type()==9)
+            {
+                items.get(i).setTzw_item_type1("翡翠");
+            }
+            else  if(items.get(i).getTzw_item_type()==10)
+            {
+                items.get(i).setTzw_item_type1("珍珠");
+            }
+              else  if(items.get(i).getTzw_item_type()==11)
+            {
+                items.get(i).setTzw_item_type1("彩宝");
+            }
+              else  if(items.get(i).getTzw_item_type()==12)
+            {
+                items.get(i).setTzw_item_type1("文玩");
+            }
+              else  if(items.get(i).getTzw_item_type()==13)
+            {
+                items.get(i).setTzw_item_type1("生活用品");
+            }
+
+
+            if ( items.get(i).getTzw_item_leibie()==14)
+            {
+                items.get(i).setTzw_item_leibie1("热卖商品");
+            }
+            else  if(items.get(i).getTzw_item_leibie()==15)
+            {
+                items.get(i).setTzw_item_leibie1("新品");
+            }
+            else  if(items.get(i).getTzw_item_leibie()==16)
+            {
+                items.get(i).setTzw_item_leibie1("其他");
+            }
+
+
         }
         return items;
     }
@@ -211,8 +273,10 @@ public class ItemServiceImpl implements ItemService {
         String updateDate = simpleDateFormat.format(date);
         //返回id值
         item.setTzw_item_updateDate(updateDate);
+
+        Item itemById = this.itemMapper.findItemById(item.getTzw_item_id());
         //抽奖商品修改
-        if(item.getTzw_item_choujiang()==3)
+        if(item.getTzw_item_choujiang()==3&&itemById.getTzw_item_choujiang()==4)
         {
             //将信息填入抽奖表
             Choujiang choujiang=new Choujiang();
@@ -230,7 +294,7 @@ public class ItemServiceImpl implements ItemService {
             this.itemMapper.delChoujiang(item.getTzw_item_id());
         }
 
-         if(item.getTzw_item_jifen()==5)
+         if(item.getTzw_item_jifen()==5&&itemById.getTzw_item_jifen()==6)
          {
              //将信息填入积分表
              JiFen jiFen=new JiFen();
@@ -247,7 +311,7 @@ public class ItemServiceImpl implements ItemService {
             this.itemMapper.delJiFen(item.getTzw_item_id());
          }
 
-         if(item.getTzw_item_jingpai()==7)
+         if(item.getTzw_item_jingpai()==7&&itemById.getTzw_item_jingpai()==8)
          {
              JingPai jingPai = new JingPai();
 
