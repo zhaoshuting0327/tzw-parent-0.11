@@ -42,9 +42,7 @@
         select count(*) from tzw_item t1
 
         <if test="lname!=null">
-
             WHERE t1.tzw_item_name LIKE  concat('%',#{lname},'%')
-
         </if>
     </select>
 
@@ -67,6 +65,7 @@
                               tzw_item_new,
                               tzw_item_type,
                               tzw_item_leibie,
+                              tzw_item_little,
                               tzw_item_choujiang
                               )
                       values(#{tzw_item_name},
@@ -82,6 +81,7 @@
                               #{tzw_item_new},
                               #{tzw_item_type},
                               #{tzw_item_leibie},
+                              #{tzw_item_little},
                               #{tzw_item_choujiang}
                              )
     </insert>
@@ -168,6 +168,9 @@
                               tzw_item_jingpai=#{tzw_item_jingpai},
                               tzw_item_choujiang=#{tzw_item_choujiang},
                               tzw_item_content=#{tzw_item_content},
+                              tzw_item_type=#{tzw_item_type},
+                              tzw_item_leibie=#{tzw_item_leibie},
+                              tzw_item_little=#{tzw_item_little},
                               tzw_item_new=#{tzw_item_new}
                         WHERE  tzw_item_id=#{tzw_item_id}
 

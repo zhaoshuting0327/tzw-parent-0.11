@@ -66,75 +66,49 @@ public class FileController {
         System.out.println("接收完毕");
     }
 
-   @RequestMapping("shangchuan1")
-    public String shangchuan1(HttpSession session)
-    {
+    @RequestMapping("uploader2")
+    public void upload2(HttpServletRequest request, HttpServletResponse response) {
 
-        return "picture_add";
-    }
+        System.out.println("收到图片!");
+        int counter = 0;
 
+        MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest) request;
+        Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
+        String upaloadUrl = request.getSession().getServletContext().getRealPath("/") + "upload2/";//得到当前工程路径拼接上文件名
 
-
-    @RequestMapping(value="/pic/upload",produces= MediaType.TEXT_PLAIN_VALUE+";utf-8")
-    @ResponseBody
-    public String uploadFile(MultipartFile uploadFile,HttpSession httpSession,HttpServletRequest request) {
-        System.out.println("oooooooo"+uploadFile+"wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-       /* //把图片上传到图片服务器
-
-        try {
-         FastDFSClient fastDFSClient= new FastDFSClient("/upload");
-            //取文件扩展名
-
-            String originalFilename = uploadFile.getOriginalFilename();
-
-            String extName = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
-
-            //得到一个图片的地址和文件名
-            String url = fastDFSClient.uploadFile(uploadFile.getBytes(), extName);
-            //补充为完整的url
-            url=url;
-            System.out.println(url+"===============");*/
-
-        String upaloadUrl = request.getSession().getServletContext().getRealPath("/") + "upload/";//得到当前工程路径拼接上文件名
         File dir = new File(upaloadUrl);
         System.out.println(upaloadUrl);
         if (!dir.exists())//目录不存在则创建
         {
             dir.mkdirs();
         }
-        String fileName = uploadFile.getOriginalFilename();
-        File tagetFile = new File(upaloadUrl + fileName);//创建文件对象
-        System.out.println(fileName+"文件名");
-        if (!tagetFile.exists()) {//文件名不存在 则新建文件，并将文件复制到新建文件中
-            try {
-                tagetFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+        for (MultipartFile file : files.values()) {
+            counter++;
+            String fileName = file.getOriginalFilename();
+            File tagetFile = new File(upaloadUrl + fileName);//创建文件对象
+            System.out.println(fileName+"文件名");
+            if (!tagetFile.exists()) {//文件名不存在 则新建文件，并将文件复制到新建文件中
+                try {
+                    tagetFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    file.transferTo(tagetFile);
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
-            try {
-                uploadFile.transferTo(tagetFile);
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //封装到map返回
-/*
-            Map result=new HashMap();
-            result.put("error",0);
-            result.put("url","/upload/"+fileName);
-
-            return JsonUtils.objectToJson(result);*/
-
         }
-        //封装到map返回
+        System.out.println("接收完毕");
+    }
 
-        Map result=new HashMap();
-        result.put("error",0);
-       // result.put("url",url);
 
-        return  JsonUtils.objectToJson(result);
-        }
+
+
+
 
     }

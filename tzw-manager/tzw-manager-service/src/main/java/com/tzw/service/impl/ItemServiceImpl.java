@@ -131,32 +131,6 @@ public class ItemServiceImpl implements ItemService {
                 items.get(i).setTzw_item_jingpai1("不是");
             }
 
-
-            /*  <label>
-                            <input type="radio" checked="" value="9" id="optionsRadios9" name="itemtype">翡翠</label>
-
-                        <label>
-                            <input type="radio" value="10" id="optionsRadios10" name="itemtype">珍珠</label>
-                        <label>
-                            <input type="radio" value="11" id="optionsRadios11" name="itemtype">彩宝</label>
-                        <label>
-                            <input type="radio" value="12" id="optionsRadios12" name="itemtype">文玩</label>
-                        <label>
-                            <input type="radio" value="13" id="optionsRadios13" name="itemtype">生活用品</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">商品类别：</label>
-
-                    <div class="radio" class="" >
-                        <label>
-                            <input type="radio" checked="" value="14" id="optionsRadios14" name="itemleibie">热卖商品</label>
-
-                        <label>
-                            <input type="radio" value="15" id="optionsRadios15" name="itemleibie">新品</label>
-                        <label>
-                            <input type="radio" value="16" id="optionsRadios16" name="itemleibie">其他</label>
-                    </div>*/
             if ( items.get(i).getTzw_item_type()==9)
             {
                 items.get(i).setTzw_item_type1("翡翠");

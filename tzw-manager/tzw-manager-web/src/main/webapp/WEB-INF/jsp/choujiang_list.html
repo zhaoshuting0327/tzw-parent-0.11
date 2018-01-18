@@ -43,7 +43,10 @@
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                            按商品名称搜索： <input type="text" ng-model="stream.tzw_item_name" class="form-control" placeholder="Search">
-                        </div>
+                            <input type="button" value="刷新" ng-click="refreshm()" class="btn btn-danger update" style="margin-left: 700px" >
+
+
+                       </div>
                     </form>
                 </nav>
                 <form action="">
@@ -151,7 +154,11 @@
                      }
                  })*/
             }
+            $scope.refreshm= function(id){
 
+                location.reload();
+
+            }
             $(" li a").click(function(){
                 var str = $(this).text();
                 if(str=="首页"){

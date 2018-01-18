@@ -228,6 +228,7 @@
                 $("#itemnum").val(item.tzw_item_num);
                 $("#tzw_item_content").val(item.tzw_item_content);
                 $("#tzw_item_new").val(item.tzw_item_new);
+                $("#tzw_item_little").val(item.tzw_item_little);
 
 
 /*
@@ -292,6 +293,7 @@
             var itemprice=$("#itemprice").val();
             var itemnum=$("#itemnum").val();
             var tzw_item_content=$("#tzw_item_content").val();
+            var tzw_item_little=$("#tzw_item_little").val();
             var tzw_item_new=$("#tzw_item_new").val();
 
             var itemdesc=$("#itemdesc").code();
@@ -356,6 +358,7 @@
                     "scoreNum":scoreNum,
                     "jingpaiNum":jingpaiNum,
                     "tzw_item_content":tzw_item_content,
+                    "itemlittle":tzw_item_little,
                     "tzw_item_new":tzw_item_new,
                     "imageStr":imageStr
                 },
@@ -412,6 +415,13 @@
                     <label class="col-sm-3 control-label">活跃度：</label>
                     <div class="col-sm-8">
                         <input id="tzw_item_new" name="tzw_item_new" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">小标签：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_item_little" name="tzw_item_little" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
                     </div>
                 </div>
                 <div class="form-group">
@@ -662,7 +672,7 @@
                                                 <div id="uploader-demo">
                                                     <div id="fileList" class="uploader-list"></div>
                                                     <div id="upInfo" ></div>
-                                                    <div id="filePicker" >重新选择文件</div>
+                                                    <div id="filePicker" >重新选择图片</div>
                                                     <input type="button" id="btn" value="开始上传" >
                                                 </div>
 

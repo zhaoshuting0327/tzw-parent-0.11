@@ -19,6 +19,7 @@
 	<mvc:resources location="/fonts/" mapping="/fonts/**"/>
 	<mvc:resources location="/styles/" mapping="/styles/**"/>
 	<mvc:resources location="/upload/" mapping="/upload/**"/>
+	<mvc:resources location="/upload2/" mapping="/upload2/**"/>
 	<mvc:resources location="/plugins/" mapping="/plugins/**"/>
 	<mvc:resources location="/ueditor/" mapping="/ueditor/**"/>
 	<mvc:resources location="/kind/" mapping="/kind/**"/>

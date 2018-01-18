@@ -49,6 +49,15 @@ public class ActiveServiceImpl implements com.tzw.service.ActiveService{
     }
 
     @Override
+    public List<Activity> loadActive(Integer cpage, Integer size) {
+        Map<String,Object> map=new HashMap<>();
+
+        map.put("cpage",(cpage-1)*size);
+        map.put("size",size);
+        return this.activeMapper.loadActive(map);
+    }
+
+    @Override
     public int chouJiangCount() {
         return this.activeMapper.chouJiangCount();
     }
@@ -61,6 +70,11 @@ public class ActiveServiceImpl implements com.tzw.service.ActiveService{
     @Override
     public int jingPaiCount() {
         return this.activeMapper.jingPaiCount();
+    }
+
+    @Override
+    public int activeCount() {
+        return this.activeMapper.activeCount();
     }
 
     @Override
@@ -139,5 +153,37 @@ public class ActiveServiceImpl implements com.tzw.service.ActiveService{
         jingPai.setTzw_jingpai_updateDate(tzw_jingpai_updateDate);
 
         this.activeMapper.updatejByItemId(jingPai);
+    }
+
+    @Override
+    public void active_add_commit(Activity activity) {
+
+        Date date=new Date();
+
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+
+        String createDate = simpleDateFormat.format(date);
+
+        activity.setTzw_activity_createDate(createDate);
+
+        this.activeMapper.activey_add_commit(activity);
+    }
+
+    @Override
+    public void active_update_commit(Activity activity) {
+        Date date=new Date();
+
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+
+        String updateDate = simpleDateFormat.format(date);
+
+        activity.setTzw_activity_updateDate(updateDate);
+
+        this.activeMapper.active_update_commit(activity);
+    }
+
+    @Override
+    public Activity findActivityById(BigInteger tzw_activity_id) {
+        return this.activeMapper.findActivityById(tzw_activity_id);
     }
 }

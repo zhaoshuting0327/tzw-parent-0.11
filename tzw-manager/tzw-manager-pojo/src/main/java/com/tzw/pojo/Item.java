@@ -61,8 +61,16 @@ public class Item {
     private Integer tzw_item_leibie;
     private String tzw_item_type1;
     private String tzw_item_leibie1;
+    private String tzw_item_little;
     private Integer tzw_item_dianzanshu;
 
+    public String getTzw_item_little() {
+        return tzw_item_little;
+    }
+
+    public void setTzw_item_little(String tzw_item_little) {
+        this.tzw_item_little = tzw_item_little;
+    }
 
     public String getTzw_item_type1() {
         return tzw_item_type1;

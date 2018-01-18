@@ -287,6 +287,15 @@ public class ActiveController {
         return "jingpai_update";
     }
 
+    //修改活动
+    @RequestMapping("toUpdateActive")
+    public String active_update(BigInteger tzw_activity_id,Model model)
+    {
+        System.out.println("进来了");
+        model.addAttribute("tzw_activity_id",tzw_activity_id);
+        return "active_update";
+    }
+
     //修改回显
     @RequestMapping("huixianJingPai")
     @ResponseBody
@@ -302,6 +311,19 @@ public class ActiveController {
         Item item = this.activeService.findjByItemId(BigInteger.valueOf(i));
 
         return item;
+    }
+
+    /*活动回显*/
+    @RequestMapping("huixianActive")
+    @ResponseBody
+    public Activity huixianActive(HttpServletRequest request)
+    {
+        String tzw_activity_id = request.getParameter("tzw_activity_id");
+        int i = Integer.parseInt(tzw_activity_id);
+
+        Activity activity = this.activeService.findActivityById(BigInteger.valueOf(i));
+
+        return activity;
     }
 
     //修改提交
@@ -333,5 +355,95 @@ public class ActiveController {
     }
 
 
+    /*active_add*/
+    @RequestMapping("/active_add")
+    public String active_add()
+    {
+        return "active_add";
+    }
 
+    @RequestMapping("/active_add_commit")
+    @ResponseBody
+    public int active_add_commit(HttpServletRequest request)
+    {
+
+        String tzw_activity_name = request.getParameter("tzw_activity_name");
+        String tzw_activity_rule = request.getParameter("tzw_activity_rule");
+        String tzw_activity_picture = request.getParameter("tzw_activity_picture");
+        Activity activity=new Activity();
+
+        activity.setTzw_activity_rule(tzw_activity_rule);
+        activity.setTzw_activity_name(tzw_activity_name);
+        activity.setTzw_activity_picture(tzw_activity_picture);
+
+        this.activeService.active_add_commit(activity);
+        return 1;
+    }
+
+
+    @RequestMapping("/active_update_commit")
+    @ResponseBody
+    public int active_upload_commit(HttpServletRequest request)
+    {
+
+        String tzw_activity_name = request.getParameter("tzw_activity_name");
+        String tzw_activity_rule = request.getParameter("tzw_activity_rule");
+        String tzw_activity_picture = request.getParameter("tzw_activity_picture");
+        String tzw_activity_id= request.getParameter("tzw_activity_id");
+        Activity activity=new Activity();
+
+        int i = Integer.parseInt(tzw_activity_id);
+        activity.setTzw_activity_id(BigInteger.valueOf(i));
+        activity.setTzw_activity_rule(tzw_activity_rule);
+        activity.setTzw_activity_name(tzw_activity_name);
+        activity.setTzw_activity_picture(tzw_activity_picture);
+
+        this.activeService.active_update_commit(activity);
+        return 1;
+    }
+
+
+    //积分商品
+    @RequestMapping("active_list")
+    public String active_list()
+    {
+        return "active_list";
+    }
+
+    @RequestMapping("active_listJson")
+    @ResponseBody
+    public HashMap<String, Object> active_listJson(HttpServletRequest request, HttpSession httpSession)
+    {
+        String cpage = request.getParameter("cpage");
+        int size = 10;
+        Fenye fenye = new Fenye();
+        int userCount = this.activeService.activeCount();
+        Map<String, Object> fen = fenye.Fenye(request, cpage, size,userCount );
+        String cpages = (String) fen.get("cpage");
+        Integer epage =  (Integer) fen.get("epage");
+        List<Activity> userList = this.activeService.loadActive(Integer.parseInt(cpages), size);
+
+        for (int i=0;i<userList.size();i++)
+        {
+            System.out.println(userList.get(i).getTzw_activity_id());
+        }
+        HashMap<String,Object> map=new HashMap<>();
+
+        map.put("list",userList);
+        map.put("epage",epage);
+        map.put("cpage",cpages);
+        int page=0;
+        if(userCount%10==0)
+        {
+            page=userCount/10;
+        }else
+        {
+            page=userCount/10+1;
+        }
+
+        map.put("total", page);
+        map.put("totalnum", userCount);
+
+        return map;
+    }
 }

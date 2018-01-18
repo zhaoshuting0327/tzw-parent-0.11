@@ -149,6 +149,8 @@ public class ItemController {
         String tzw_item_new= request.getParameter("tzw_item_new");
         String tzw_item_type = request.getParameter("itemtype");
         String tzw_item_leibie= request.getParameter("itemleibie");
+        String tzw_item_little= request.getParameter("itemlittle");
+
 
         System.out.println(itemname + "itemname");
         System.out.println(itemprice + "itemprice");
@@ -255,6 +257,7 @@ public class ItemController {
             item.setTzw_item_picture(imageStr);
             item.setTzw_item_content(tzw_item_content);
             item.setTzw_item_new(tzw_item_new);
+            item.setTzw_item_little(tzw_item_little);
 
             this.itemService.addItem(item, jingpai1, choujiang1, jifen1);
 
@@ -292,6 +295,7 @@ public class ItemController {
 
         String tzw_item_type = request.getParameter("itemtype");
         String tzw_item_leibie= request.getParameter("itemleibie");
+        String tzw_item_little= request.getParameter("itemlittle");
 
         String tzw_item_content = request.getParameter("tzw_item_content");
         String tzw_item_new= request.getParameter("tzw_item_new");
@@ -404,8 +408,12 @@ public class ItemController {
             item.setTzw_item_jifen(Integer.parseInt(jifen));
             item.setTzw_item_jingpai(Integer.parseInt(jingpai));
             item.setTzw_item_picture(imageStr);
-        item.setTzw_item_content(tzw_item_content);
-        item.setTzw_item_new(tzw_item_new);
+            item.setTzw_item_content(tzw_item_content);
+            item.setTzw_item_new(tzw_item_new);
+            item.setTzw_item_little(tzw_item_little);
+
+            item.setTzw_item_type(Integer.parseInt(tzw_item_type));
+            item.setTzw_item_leibie(Integer.parseInt(tzw_item_leibie));
 
             this.itemService.updateById(item,choujiang1,jifen1,jingpai1);
 
@@ -414,30 +422,6 @@ public class ItemController {
 
         return map;
     }
-
-/*
-    @RequestMapping(value = "hhh", method = RequestMethod.POST)
-    public String hhh(HttpServletRequest request, String content) {
-        String html = request.getParameter("editorValue");
-        request.setAttribute("edit", html);
-        System.out.println(html);
-        System.out.println(content);
-        return "success";
-    }
-
-
-*/
-/*
-    @RequestMapping("/editnote")
-    public String userinfo( HttpServletRequest request) {
-        return "editnote";
-    }
-
-    @RequestMapping("/shoudao")
-    public void shoudao(  HttpServletRequest request) {
-        String content = request.getParameter("mycontent");
-        System.out.println("收到数据了");
-    }*/
 
     @RequestMapping(value = "hhh")
     public String hh() {

@@ -35,7 +35,7 @@
 
         angular.module("MyApp",[])
             .controller("firstController",function($rootScope,$scope,$http){
-                $http.get("user_listJson").then(function(msg){
+                $http.get("active_listJson").then(function(msg){
                     $scope.show = msg.data.list;
                     $scope.epage = msg.data.epage;
                     $scope.cpage = msg.data.cpage;
@@ -48,11 +48,11 @@
                     $("#m").html("<span style='color: #00a2d4'>"+"第"+cpage+"/"+total+"页/共"+totalnum+"条"+"</span>");
                 });
 
-                $scope.del = function(id){
+            /*    $scope.del = function(id){
                     if(confirm("确认删除?")){
                         $http({
                             method:"get",
-                            url:"user/del",
+                            url:"active/del",
                             params:{tzw_item_id:id}
                         }).success(function(data){
                             if(data>0){
@@ -63,20 +63,20 @@
                             }
                         })
                     }
-                }
+                }*/
 
                 $scope.refreshm= function(id){
 
                     location.reload();
 
                 }
-                $scope.update = function(id){
+           $scope.update = function(id){
 
                     alert(id)
-                    location.href="toUpdateUser?tzw_user_id="+id;
+                    location.href="toUpdateActive?tzw_activity_id="+id;
 
                               };
-                $scope.score = function(id){
+              /*     $scope.score = function(id){
 
                     alert(id)
                     location.href="scoreMessage?tzw_user_id="+id;
@@ -92,7 +92,7 @@
 
                     alert(id)
                     location.href="orderMessage?tzw_user_id="+id;
-                              }
+                              }*/
 
 
 
@@ -111,7 +111,7 @@
 
                     $http({
                         method:"post",
-                        url:"user_listJson",
+                        url:"active_listJson",
                         params:{cpage:id}
                     }).then(function(msg){
                         $scope.show = msg.data.list;
@@ -141,11 +141,11 @@
             <div class="col-md-12">
 
                 <nav  role="navigation">
-                    <h4>用户列表</h4><br>
+                    <h4>所有活动</h4><br>
 
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            按用户名称搜索： <input type="text" ng-model="stream.tzw_user_username" class="form-control" placeholder="Search">
+                            按活动名称搜索： <input type="text" ng-model="stream.tzw_activity_name" class="form-control" placeholder="Search">
                             <input type="button" value="刷新" ng-click="refreshm()" class="btn btn-danger update" style="margin-left: 700px" >
 
                         </div>
@@ -155,41 +155,22 @@
                     <table  class="table table-bordered">
                         <tr style="height: 100px !important;">
                             <td style="width: 100px !important;">序号</td>
-                            <td style="width: 100px !important;">用户ID</td>
-                            <td style="width: 100px !important;">用户名称</td>
-                            <td style="width: 100px !important;">用户密码</td>
-                            <td style="width: 100px !important;">用户电话</td>
-                            <td style="width: 100px !important;">用户性别</td>
-                            <td style="width: 100px !important;">用户地址</td>
-                            <td style="width: 100px !important;">用户积分</td>
-                            <td style="width: 100px !important;">用户余额</td>
-                            <td style="width: 100px !important;">是否为vip</td>
-                            <td style="width: 100px !important;">用户订单个数</td>
+                            <td style="width: 100px !important;">活动名称</td>
+                            <td style="width: 100px !important;">活动规则</td>
                             <td style="width: 100px !important;">创建日期</td>
-                            <td style="width: 100px !important;">修改日期</td>
                             <td colspan="10" style="width: 100px !important;">操作</td>
                         </tr>
                         <tr ng-repeat="s in show | filter:stream">
                             <td>{{ $index + 1 }}</td>
-                            <td>{{s.tzw_user_id}}</td>
-                            <td>{{s.tzw_user_username}}</td>
+                            <td>{{s.tzw_activity_name}}</td>
                             <td>
-                                {{s.tzw_user_pwd}}
+                                {{s.tzw_activity_rule}}
                             </td>
-                            <td>{{s.tzw_user_phone}}</td>
-                            <td>{{s.tzw_user_sex1}}</td>
-                            <td>{{s.tzw_user_address}}</td>
-                            <td>{{s.tzw_user_score}}</td>
-                            <td>{{s.tzw_user_money}}</td>
-                            <td>{{s.tzw_user_vip1}}</td>
-                            <td>{{s.tzw_user_ordernum}}</td>
-                            <td>{{s.tzw_user_createDate}}</td>
-                            <td>{{s.tzw_user_updateDate}}</td>
-                            <td><input type="button" value="修改" ng-click="update(s.tzw_user_id)" class="btn btn-danger update" ></td>
-                            <td><input type="button" value="删除" ng-click="del(s.tzw_user_id)" class="btn btn-danger del" >
-                            <td><input type="button" value="积分详情" ng-click="score(s.tzw_user_id)" class="btn btn-danger del" >
-                            <td><input type="button" value="余额详情" ng-click="money(s.tzw_user_id)" class="btn btn-danger del" >
-                            <td><input type="button" value="订单详情" ng-click="order(s.tzw_user_id)" class="btn btn-danger del" >
+                            <td>{{s.tzw_activity_createDate}}</td>
+
+                            <td><input type="button" value="修改" ng-click="update(s.tzw_activity_id)" class="btn btn-danger update" ></td>
+                           <!-- <td><input type="button" value="删除" ng-click="del(s.tzw_user_id)" class="btn btn-danger del" >
+                            -->
                         </tr>
                     </table>
                 </form>

@@ -21,6 +21,12 @@
       limit #{cpage},#{size}
     </select>
 
+    <!--所有活动-->
+    <select id="loadActive" parameterType="map" resultType="com.tzw.pojo.Activity">
+      SELECT * from tzw_activity
+      limit #{cpage},#{size}
+    </select>
+
     <select id="chouJiangCount" resultType="int">
  SELECT count(*) from tzw_item t where t.tzw_item_choujiang=3
     </select>
@@ -31,7 +37,12 @@
  SELECT count(*) from tzw_item t where t.tzw_item_jingpai=7
     </select>
 
-<!--从抽奖商品中删除 传商品id-->
+    <!--查询活动个数-->
+    <select id="activeCount" resultType="int">
+     SELECT count(*) from tzw_activity
+    </select>
+
+    <!--从抽奖商品中删除 传商品id-->
 
     <delete id="deleteChouJiang" parameterType="bigInteger">
       delete from tzw_choujiang where tzw_choujiang_item_id=#{tzw_item_id}
@@ -44,7 +55,7 @@
     <delete id="deleteJingPai" parameterType="bigInteger">
       delete from tzw_jingpai where tzw_jingpai_item_id=#{tzw_item_id}
     </delete>
-<!--删除需要修改表-->
+    <!--删除需要修改表-->
     <update id="upItemChou" parameterType="bigInteger">
         UPDATE tzw_item set tzw_item_choujiang=4 where tzw_item_id=#{tzw_item_id}
     </update>
@@ -99,5 +110,44 @@
                                    tzw_jingpai_num=#{tzw_jingpai_num}
                             where tzw_jingpai_item_id=#{tzw_jingpai_item_id}
     </update>
+
+
+<!--
+    活动添加提交
+    activey_add_commit
+-->
+
+    <insert id="activey_add_commit" parameterType="com.tzw.pojo.Activity">
+        INSERT into tzw_activity(
+              tzw_activity_name,
+              tzw_activity_createDate,
+              tzw_activity_picture,
+              tzw_activity_rule
+        ) VALUES (#{tzw_activity_name},
+        #{tzw_activity_createDate},
+        #{tzw_activity_picture},
+        #{tzw_activity_rule})
+    </insert>
+
+<!--    void active_update_commit(Activity activity);
+    Activity findActivityById(BigInteger tzw_activity_id);-->
+
+    <!--活动回显-->
+
+    <select id="findActivityById" parameterType="bigInteger" resultType="com.tzw.pojo.Activity">
+        SELECT * from tzw_activity where tzw_activity_id=#{tzw_activity_id}
+    </select>
+
+    <!--活动修改提交-->
+    <update id="active_update_commit" parameterType="com.tzw.pojo.Activity">
+
+        update tzw_activity set
+               tzw_activity_name=#{tzw_activity_name},
+               tzw_activity_updateDate=#{tzw_activity_updateDate},
+               tzw_activity_picture=#{tzw_activity_picture},
+               tzw_activity_rule=#{tzw_activity_rule}
+        where tzw_activity_id=#{tzw_activity_id}  </update>
+
+
 
 </mapper>

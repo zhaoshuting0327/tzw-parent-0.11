@@ -88,14 +88,10 @@
                 mimeTypes: 'image/*'//mime类型
             }
         });
-
-
-
-
         // 当有文件添加进来的时候，创建img显示缩略图使用
         uploader.on( 'fileQueued', function( file ) {
 
-           str+=","+ file.name;
+            str+="http://192.168.1.17:8081/upload/"+ file.name;
 
             var $li = $(
                     '<div id="' + file.id + '" class="file-item thumbnail">' +
@@ -140,7 +136,7 @@
         uploader.on( 'uploadSuccess', function( file,response) {
             $( '#'+file.id ).addClass('upload-state-done');
             //console.info(response);
-            $("#upInfo").html("<font color='red'>"+response._raw+"</font>");
+            $("#upInfo").html("<font color='red'>"+response._raw+"</font><span>上传成功</span>");
         });
 
         // 文件上传失败                                file:文件对象 ， code：出错代码
@@ -166,7 +162,6 @@
         //   alert(str);//,034.jpg,035.jpg
             console.log("上传...");
             uploader.upload();   //执行手动提交
-            alert("上传成功！！！");
             console.log("上传成功");
         });
     });
@@ -229,6 +224,7 @@
             var tzw_jingpai_xianjin=$("#tzw_jingpai_xianjin").val();
             var tzw_item_content=$("#tzw_item_content").val();
             var tzw_item_new=$("#tzw_item_new").val();
+            var tzw_item_little=$("#tzw_item_little").val();
 
             var itemdesc=$("#itemdesc").code();
             var itemstatus=$("[name='itemstatus']:checked").val();
@@ -261,6 +257,7 @@
                     "itemnum":itemnum,
                     "itemstatus":itemstatus,
                     "itemtype":itemtype,
+                    "itemlittle":tzw_item_little,
                     "itemleibie":itemleibie,
                     "itemdesc":itemdesc,
                     "choujiang":choujiang,
@@ -296,6 +293,9 @@
         });
 
 
+        $("#refreshm").click(function(){
+            location.reload();
+        });
 
 
     })
@@ -343,6 +343,14 @@
                     <label class="col-sm-3 control-label">活跃度：</label>
                     <div class="col-sm-8">
                         <input id="tzw_item_new" name="tzw_item_new" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">小标签：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_item_little" name="tzw_item_little" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error">
                     </div>
                 </div>
 
@@ -567,7 +575,7 @@
                 </div>
 
                 <div class="row">
-                    <label class="col-sm-3 control-label">商品图片：</label>
+                    <label class="col-sm-3 control-label">商品首图：</label>
 
                     <div class="col-sm-8">
                         <div class="ibox float-e-margins">
@@ -587,6 +595,8 @@
                                                 <div id="fileList" class="uploader-list"></div>
                                                 <div id="upInfo" ></div>
                                                 <div id="filePicker" >选择文件</div>
+                                                <input type="button" value="重新选择" id="refreshm" class="btn btn-danger update" >
+
                                                 <input type="button" id="btn" value="开始上传" >
                                             </div>
 

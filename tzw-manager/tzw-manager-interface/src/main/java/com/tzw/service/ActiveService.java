@@ -1,9 +1,6 @@
 package com.tzw.service;
 
-import com.tzw.pojo.Choujiang;
-import com.tzw.pojo.Item;
-import com.tzw.pojo.JiFen;
-import com.tzw.pojo.JingPai;
+import com.tzw.pojo.*;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -18,11 +15,12 @@ public interface ActiveService {
     List<Item>loadChouJiang(Integer cpage, Integer size);
     List<Item> loadJiFen(Integer cpage, Integer size);
     List<Item> loadJingPai(Integer cpage, Integer size);
+    List<Activity> loadActive(Integer cpage, Integer size);
 
     int chouJiangCount();
     int jiFenCount();
     int jingPaiCount();
-
+    int activeCount();
 
     void deleteChouJiang(BigInteger tzw_item_id);
     void deleteJiFen(BigInteger tzw_item_id);
@@ -35,5 +33,10 @@ public interface ActiveService {
     void  updatecByItemId(Choujiang choujiang);
     void  updatejiByItemId(JiFen jiFen);
     void  updatejByItemId(JingPai jingPai);
+
+    void active_add_commit(Activity activity);
+    void active_update_commit(Activity activity);
+
+   Activity  findActivityById(BigInteger tzw_activity_id);
 
 }

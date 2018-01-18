@@ -1,9 +1,6 @@
 package com.tzw.mapper;
 
-import com.tzw.pojo.Choujiang;
-import com.tzw.pojo.Item;
-import com.tzw.pojo.JiFen;
-import com.tzw.pojo.JingPai;
+import com.tzw.pojo.*;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -40,5 +37,12 @@ public interface ActiveMapper {
    void  updatejiByItemId(JiFen jiFen);
    void  updatejByItemId(JingPai jingPai);
 
+   void activey_add_commit(Activity activity);
+   void activey_update_commit(Activity activity);
 
+   List<Activity> loadActive(Map<String,Object> map);
+   int activeCount();
+
+   void active_update_commit(Activity activity);
+   Activity findActivityById(BigInteger tzw_activity_id);
 }

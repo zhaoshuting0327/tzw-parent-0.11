@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 表单验证 jQuery Validation</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/plugins/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="css/demo/webuploader-demo.min.css">
+    <link rel="stylesheet" type="text/css" href="css/plugins/markdown/bootstrap-markdown.min.css" />
+
+    <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <base target="_blank">
+
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="js/content.min.js?v=1.0.0"></script>
+    <script src="js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="js/plugins/validate/messages_zh.min.js"></script>
+    <script src="js/demo/form-validate-demo.min.js"></script>
+
+
+
+
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        var BASE_URL = 'js/plugins/webuploader';
+    </script>
+    <script src="js/plugins/webuploader/webuploader.min.js"></script>
+
+
+
+    <script src="js/plugins/summernote/summernote.min.js"></script>
+    <script src="js/plugins/summernote/summernote-zh-CN.js"></script>
+    <script>
+        $(document).ready(function(){$(".summernote").summernote({lang:"zh-CN"})});var edit=function(){$("#eg").addClass("no-padding");$(".click2edit").summernote({lang:"zh-CN",focus:true})};var save=function(){$("#eg").removeClass("no-padding");var aHTML=$(".click2edit").code();$(".click2edit").destroy()};
+    </script>
+
+
+<script type="text/javascript">
+    $(function(){
+
+        var str="";
+    jQuery(function() {
+        var $ = jQuery,
+            $list = $('#fileList'),
+            // 优化retina, 在retina下这个值是2
+            ratio = window.devicePixelRatio || 1,
+            // 缩略图大小
+            thumbnailWidth = 100 * ratio,
+            thumbnailHeight = 100 * ratio,
+            // Web Uploader实例
+            uploader;
+        // 初始化Web Uploader
+        uploader = WebUploader.create({
+            // 自动上传。
+            auto: false,
+            // swf文件路径
+            swf: BASE_URL + "/Uploader.swf",            // 文件接收服务端。
+            server: 'uploader2',
+            threads:'5',        //同时运行5个线程传输
+            fileNumLimit:'10',  //文件总数量只能选择10个
+
+            // 选择文件的按钮。可选。
+            pick: {id:'#filePicker',  //选择文件的按钮
+                multiple:true},   //允许可以同时选择多个图片
+            // 图片质量，只有type为`image/jpeg`的时候才有效。
+            quality: 90,
+
+            //限制传输文件类型，accept可以不写
+            accept: {
+                title: 'Images',//描述
+                extensions: 'gif,jpg,jpeg,bmp,png,zip',//类型
+                mimeTypes: 'image/*'//mime类型
+            }
+        });
+
+
+
+
+        // 当有文件添加进来的时候，创建img显示缩略图使用
+        uploader.on( 'fileQueued', function( file ) {
+
+            str+="http://192.168.1.17:8081/upload2/"+ file.name;
+
+            var $li = $(
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    '<img>' +
+                    '<div class="info">' + file.name + '</div>' +
+                    '</div>'
+                ),
+                $img = $li.find('img');
+
+            // $list为容器jQuery实例
+            $list.append( $li );
+
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 100 x 100
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+
+                $img.attr( 'src', src );
+            }, thumbnailWidth, thumbnailHeight );
+        });
+
+        // 文件上传过程中创建进度条实时显示。    uploadProgress事件：上传过程中触发，携带上传进度。 file文件对象 percentage传输进度 Nuber类型
+        uploader.on( 'uploadProgress', function( file, percentage ) {
+            var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress span');
+
+            // 避免重复创建
+            if ( !$percent.length ) {
+                $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo( $li )
+                    .find('span');
+            }
+
+            $percent.css( 'width', percentage * 100 + '%' );
+        });
+
+        // 文件上传成功时候触发，给item添加成功class, 用样式标记上传成功。 file：文件对象，    response：服务器返回数据
+        uploader.on( 'uploadSuccess', function( file,response) {
+            $( '#'+file.id ).addClass('upload-state-done');
+            //console.info(response);
+            $("#upInfo").html("<font color='red'>"+response._raw+"</font><span>上传成功</span>");
+//            $error.text('上传成功!');
+        });
+
+        // 文件上传失败                                file:文件对象 ， code：出错代码
+        uploader.on( 'uploadError', function(file,code) {
+            var $li = $( '#'+file.id ),
+                $error = $li.find('div.error');
+
+            // 避免重复创建
+            if ( !$error.length ) {
+                $error = $('<div class="error"></div>').appendTo( $li );
+            }
+
+            $error.text('上传失败!');
+        });
+
+        // 不管成功或者失败，文件上传完成时触发。 file： 文件对象
+        uploader.on( 'uploadComplete', function( file ) {
+            $( '#'+file.id ).find('.progress').remove();
+        });
+
+        //绑定提交事件
+        $("#btn").click(function() {
+        //   alert(str);//,034.jpg,035.jpg
+            console.log("上传...");
+            uploader.upload();   //执行手动提交
+            console.log("上传成功");
+        });
+    });
+
+
+
+        $("#refreshm").click(function(){
+            location.reload();
+        });
+
+
+        $("#add").click(function(){
+
+            alert(str+"添加提交")
+            var imageStr=str;
+            var tzw_item_name=$("#tzw_activity_name").val();
+            var tzw_item_rule=$("#tzw_activity_rule").val();
+
+            $.post(
+                "active_add_commit",
+                {"tzw_activity_name":tzw_item_name,
+                    "tzw_activity_rule":tzw_item_rule,
+                    "tzw_activity_picture":imageStr
+                },
+                function (data) {
+
+
+                    alert("添加成功！")
+                 //       location.replace(document.referrer);
+                },
+                "json"
+            )
+        });
+
+
+
+
+    })
+
+</script>
+</head>
+
+<body class="gray-bg">
+
+  <div class="col-sm-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>活动添加</h5>
+
+        </div>
+        <div class="ibox-content">
+            <form class="form-horizontal m-t"   method="post">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">活动名称：</label>
+                    <div class="col-sm-8">
+                        <input id="tzw_activity_name" name="tzw_activity_name" class="form-control" type="text">
+<!--
+                        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请输入商品名称</span>
+-->
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <label class="col-sm-3 control-label">活动海报：</label>
+
+                    <div class="col-sm-8">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <div class="ibox-tools">
+
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="page-container">
+
+                                    <div id="uploader" class="wu-example">
+
+                                        <div class="wrapper wrapper-content animated fadeIn">
+
+                                            <div id="uploader-demo">
+                                                <div id="fileList" class="uploader-list"></div>
+                                                <div id="upInfo" ></div>
+                                                <div id="filePicker" >选择图片</div>
+
+                                                <input type="button" value="重新选择" id="refreshm" class="btn btn-danger update" >
+
+                                                <input type="button" id="btn" value="开始上传" >
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">活动规则：</label>
+                    <div class="col-sm-8" >
+                        <textarea   id="tzw_activity_rule" name="tzw_activity_rule"  style="height: auto;width: 900px;" >
+
+                        </textarea>
+                    </div>
+                </div>
+、
+                <div class="form-group">
+                    <div class="col-sm-8 col-sm-offset-3">
+                        <!--<input type="button" value="取消" class="btn btn-primary" id="back">-->
+                        <input type="button" value="提交" class="btn btn-primary" id="add">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>
