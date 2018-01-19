@@ -24,6 +24,12 @@ import java.util.Map;
 @Controller
 public class OrderController {
 
+    /*
+    * 1.过期订单：可在［交易通知］中设置拍下未付款，xx分钟便会关闭订单；
+    * 2. 在线退款或标记退款：卖家后台退款后，订单会同步到关闭订单列表中；
+    * 3. 被取消订单：未付款订单被卖家或买家在后台取消后，便成为关闭订单；
+    *
+    * */
     @Autowired
     private OrderService orderService;
 

@@ -40,17 +40,34 @@ public class OrderServiceImpl implements OrderService {
 
             if(o.getTzw_order_status()==1)
             {
-                o.setTzw_order_statusz("待支付");
+                o.setTzw_order_status1("未付款");
             }else if(o.getTzw_order_status()==2)
             {
-                o.setTzw_order_statusz("已支付");
+                o.setTzw_order_status1("已付款");
             }else if(o.getTzw_order_status()==3)
             {
-                o.setTzw_order_statusz("作废");
+                o.setTzw_order_status1("未发货");
             }else if(o.getTzw_order_status()==4)
             {
-                o.setTzw_order_statusz("已取消");
+                o.setTzw_order_status1("已发货");
+            }else if(o.getTzw_order_status()==5)
+            {
+                o.setTzw_order_status1("交易成功");
+            }else if(o.getTzw_order_status()==6)
+            {
+                o.setTzw_order_status1("交易关闭");
             }
+            /*
+        /*                  <td>{{s.tzw_order_id}}</td>
+                            <td>{{s.tzw_user_username}}</td>
+                            <td>{{s.tzw_item_name}}</td>
+                            <td>{{s.tzw_item_num}}</td>
+                            <td>{{s.tzw_receiver_phone}}</td>
+                            <td>{{s.tzw_receiver_address}}</td>
+                            <td>{{s.tzw_order_status1}}</td>
+                            <td>{{s.tzw_order_createDate}}</td>*/
+
+
         }
 
         int total=this.orderMapper.getOrderCount(map);

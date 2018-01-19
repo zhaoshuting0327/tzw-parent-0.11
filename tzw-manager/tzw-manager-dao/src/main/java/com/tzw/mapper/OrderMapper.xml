@@ -7,27 +7,16 @@
 
     <select id="findAllOrder1" resultType="com.tzw.pojo.Order" parameterType="map">
 
-        SELECT t1.tzw_order_id,
-        t1.tzw_order_address,
-        t1.tzw_order_createDate,
-        t1.tzw_order_updateDate,
-        t1.tzw_order_num,
-        t1.tzw_order_beizhu,
-        t1.tzw_order_status,
-        t2.tzw_user_username,
-        t3.tzw_item_name,
-        t1.tzw_order_user_id,
-        t2.tzw_user_phone
-        from tzw_order t1,tzw_user t2, tzw_item t3
-        where t1.tzw_user_id=t2.tzw_user_id and
-        t3.tzw_item_id=t1.tzw_item_id
-
-
-        <if test="lname!=null">
-
-            AND  address LIKE  concat('%',#{lname},'%')
-
-        </if>
+        SELECT t1.tzw_order_id,t4.tzw_user_username,
+              t2.tzw_item_name, t2.tzw_item_num,
+              t3.tzw_receiver_phone,
+              t3.tzw_receiver_address,
+             t1.tzw_order_status,
+             t1.tzw_order_createDate
+        from tzw_order t1,tzw_order_item t2, tzw_order_shipping t3,tzw_user t4
+        where t1.tzw_user_id=t4.tzw_user_id and
+        t3.tzw_order_shipping_id=t1.tzw_order_id AND
+        t2.tzw_order_id=t1.tzw_order_id
         limit #{cpage},#{size}
     </select>
 
@@ -78,20 +67,11 @@
 
     <select id="getOrderCount" parameterType="map" resultType="int">
 
-        SELECT count(*) from tzw_order
-
-
-        <if test="address!=null">
-
-            WHERE  address LIKE  concat('%',#{lname},'%')
-
-        </if>
-
+        SELECT count(*)   from tzw_order t1,tzw_order_item t2, tzw_order_shipping t3,tzw_user t4
+        where t1.tzw_user_id=t4.tzw_user_id and
+        t3.tzw_order_shipping_id=t1.tzw_order_id AND
+        t2.tzw_order_id=t1.tzw_order_id where t1.tzw_user_id=#{tzw_user_id}
     </select>
-
-    <update id="updateOrderStatus">
-        update tzw_order set tzw_order_status=4 where tzw_order_status=1
-    </update>
 
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.tzw.service.impl;
 
+import com.tzw.common.utils.IDUtils;
 import com.tzw.mapper.ItemMapper;
 import com.tzw.pojo.Choujiang;
 import com.tzw.pojo.Item;
@@ -69,7 +70,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public int peopleNum(BigInteger id) {
-        return this.itemMapper.peopleNum(id);
+        return 1;
     }
 
     @Override
@@ -192,6 +193,9 @@ public class ItemServiceImpl implements ItemService {
         //返回id值
         item.setTzw_item_createDate(createDate);
         System.out.println("添加service1");
+        BigInteger n=new BigInteger(IDUtils.genItemId()+"");
+        item.setTzw_item_id(n);
+
         this.itemMapper.addItem(item);
 
         System.out.println("tzw_item_content:::"+item.getTzw_item_content());
@@ -199,13 +203,13 @@ public class ItemServiceImpl implements ItemService {
 
 
         /*查询id*/
-        HashMap<String,Object> map=new HashMap<>();
+  /*      HashMap<String,Object> map=new HashMap<>();
         map.put("tzw_item_name",item.getTzw_item_name());
         map.put("tzw_item_num",item.getTzw_item_num());
         map.put("tzw_item_price",item.getTzw_item_price());
-      Item item1=  this.itemMapper.findItemByName(map);
+      Item item1=  this.itemMapper.findItemByName(map);*/
 
-       BigInteger bigInteger= item1.getTzw_item_id();
+     //  BigInteger bigInteger= item1.getTzw_item_id();
 
 
 
@@ -214,7 +218,7 @@ public class ItemServiceImpl implements ItemService {
         {
             //添加进抽奖表
             choujiang1.setTzw_choujiang_createDate(createDate);
-            choujiang1.setTzw_choujiang_item_id(bigInteger);
+            choujiang1.setTzw_choujiang_item_id(n);
             this.itemMapper.addChouJiang(choujiang1);
         }
         //判断是否为积分商品
@@ -222,7 +226,7 @@ public class ItemServiceImpl implements ItemService {
         {
             //添加进积分表
             jifen1.setTzw_jifen_createDate(createDate);
-            jifen1.setTzw_jifen_item_id(bigInteger);
+            jifen1.setTzw_jifen_item_id(n);
             this.itemMapper.addJiFen(jifen1);
         }
         //判断是否为竞拍商品
@@ -230,7 +234,7 @@ public class ItemServiceImpl implements ItemService {
         {
             //添加进竞拍表
             jingpai1.setTzw_jingpai_createDate(createDate);
-            jingpai1.setTzw_jingpai_item_id(bigInteger);
+            jingpai1.setTzw_jingpai_item_id(n);
 
             System.out.println("流拍："+jingpai1.getTzw_jingpai_liupai());
             this.itemMapper.addJingPai(jingpai1);

@@ -15,7 +15,6 @@ public interface OrderService {
 
     List<Order> findAllOrder1(String lname,int page,int rows);
 
-
     Order findOrderById(BigInteger id);
 
     void updateOrder(Order order);

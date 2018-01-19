@@ -45,7 +45,7 @@ public class UserServiceImpl  implements UserService{
 
            User user= list.get(i);
 
-            int orderNum = this.userMapper.orderNum(user.getTzw_user_id());
+         //   int orderNum = this.userMapper.orderNum(user.getTzw_user_id());
             BigInteger score = this.userMapper.scoreNum(user.getTzw_user_id());
             Double money = this.userMapper.moneyNum(user.getTzw_user_id());
 
@@ -66,7 +66,7 @@ public class UserServiceImpl  implements UserService{
                 user.setTzw_user_money(money);
             }
 
-            user.setTzw_user_ordernum(orderNum);
+        //    user.setTzw_user_ordernum(orderNum);
             //判断用户性别
             if(user.getTzw_user_sex()==1)
             {

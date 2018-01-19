@@ -106,8 +106,7 @@ public class ItemController {
 
         String tzw_item_id = request.getParameter("tzw_item_id");
 
-        int i = Integer.parseInt(tzw_item_id);
-
+        Long i = Long.parseLong(tzw_item_id);
 
         System.out.println(tzw_item_id + "update");
 
@@ -128,11 +127,11 @@ public class ItemController {
         System.out.println("添加提交");
         HashMap<String, Object> map = new HashMap<>();
 
-        int i = 0;
-
         Item item = new Item();
         String itemname = request.getParameter("itemname");
+
         String itemprice = request.getParameter("itemprice");
+
         String itemdesc = request.getParameter("itemdesc");
         String itemNum = request.getParameter("itemnum");
         String itemstatus = request.getParameter("itemstatus");
@@ -166,24 +165,32 @@ public class ItemController {
         Choujiang choujiang1 = new Choujiang();
 
         if (scoreNum == null || ("".equals(scoreNum))) {
+            jifen1.setTzw_jifen_num(0);
         } else {
             jifen1.setTzw_jifen_num(Integer.parseInt(scoreNum));
         }
 
         //竞拍后加
         if (tzw_jingpai_liupai == null || ("".equals(tzw_jingpai_liupai))) {
+            jingpai1.setTzw_jingpai_liupai(0);
+
         } else {
            jingpai1.setTzw_jingpai_liupai(Integer.parseInt(tzw_jingpai_liupai));
         }
         if (tzw_jingpai_jifen == null || ("".equals(tzw_jingpai_jifen))) {
+            jingpai1.setTzw_jingpai_jifen(0);
         } else {
             jingpai1.setTzw_jingpai_jifen(Integer.parseInt(tzw_jingpai_jifen));
         }
         if (tzw_jingpai_yue == null || ("".equals(tzw_jingpai_yue))) {
+            jingpai1.setTzw_jingpai_yue(0);
+
         } else {
             jingpai1.setTzw_jingpai_yue(Integer.parseInt(tzw_jingpai_yue));
         }
         if (tzw_jingpai_xianjin == null || ("".equals(tzw_jingpai_xianjin))) {
+            jingpai1.setTzw_jingpai_xianjin(0);
+
         } else {
            jingpai1.setTzw_jingpai_xianjin(Integer.parseInt(tzw_jingpai_xianjin));
         }
@@ -240,15 +247,35 @@ public class ItemController {
             choujiang1.setTzw_choujiang_houNum(Integer.parseInt(houNum));
         }
 
-        System.out.println(i + "=============");
         map.put("success", 0);
 
             System.out.println("添加值");
-            item.setTzw_item_status(Integer.parseInt(itemstatus));
+        if (itemname == null || ("".equals(itemname))) {
+            item.setTzw_item_name("未命名");
+        } else {
             item.setTzw_item_name(itemname);
+        }
+        if (itemprice == null || ("".equals(itemprice))) {
+            item.setTzw_item_price(Double.parseDouble("0.00"));
+        } else {
             item.setTzw_item_price(Double.parseDouble(itemprice));
+        }
+            item.setTzw_item_status(Integer.parseInt(itemstatus));
+         /*   item.setTzw_item_name(itemname);
+            item.setTzw_item_price(Double.parseDouble(itemprice));*/
+         //   item.setTzw_item_desc(itemdesc);
+          //  item.setTzw_item_num(Integer.parseInt(itemNum));
+        if (itemdesc == null || ("".equals(itemdesc))) {
             item.setTzw_item_desc(itemdesc);
-            item.setTzw_item_num(Integer.parseInt(itemNum));
+        } else {
+            item.setTzw_item_desc(itemdesc);
+        }
+           if (itemNum == null || ("".equals(itemNum))) {
+               item.setTzw_item_num(0);
+        } else {
+               item.setTzw_item_num(Integer.parseInt(itemNum));
+        }
+
             item.setTzw_item_type(Integer.parseInt(tzw_item_type));
             item.setTzw_item_leibie(Integer.parseInt(tzw_item_leibie));
             item.setTzw_item_choujiang(Integer.parseInt(choujiang));
@@ -397,8 +424,9 @@ public class ItemController {
         map.put("success", 0);
 
             System.out.println("添加值");
-            int i1 = Integer.parseInt(itemid);
-            item.setTzw_item_id(BigInteger.valueOf(i1));
+//             Long i1 = Long.parseLong(itemid);
+            BigInteger n=new BigInteger(itemid);
+            item.setTzw_item_id(n);
             item.setTzw_item_status(Integer.parseInt(itemstatus));
             item.setTzw_item_name(itemname);
             item.setTzw_item_price(Double.parseDouble(itemprice));

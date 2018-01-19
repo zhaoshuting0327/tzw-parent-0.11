@@ -14,7 +14,6 @@ public interface OrderMapper {
 
     List<Order> findAllOrder1(Map<String,Object> map);
 
-
     Order findOrderById(BigInteger id);
 
     void updateOrder(Order order);

@@ -54,6 +54,7 @@
     <insert id="addItem" parameterType="com.tzw.pojo.Item">
         insert into tzw_item(tzw_item_name,
                               tzw_item_price,
+                              tzw_item_id,
                               tzw_item_num,
                               tzw_item_status,
                               tzw_item_desc,
@@ -70,6 +71,7 @@
                               )
                       values(#{tzw_item_name},
                               #{tzw_item_price},
+                              #{tzw_item_id},
                               #{tzw_item_num},
                               #{tzw_item_status},
                               #{tzw_item_desc},
