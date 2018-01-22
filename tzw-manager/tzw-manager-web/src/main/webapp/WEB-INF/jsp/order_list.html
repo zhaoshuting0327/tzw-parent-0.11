@@ -64,13 +64,13 @@
                         })
                     }
                 }
-           /*     $scope.update = function(id){
+             $scope.send = function(id){
 
             alert(id)
             location.href="toUpdateOrder?tzw_user_id="+id;
 
             }
-*/
+
 
 
 
@@ -160,6 +160,7 @@
                             <td><input type="button" value="修改" ng-click="update(s.tzw_order_id)" class="btn btn-danger update" ></td>
 -->
                             <td><input type="button" value="删除" ng-click="del(s.tzw_order_id)" class="btn btn-danger del" >
+                            <td><input type="button" value="发货" ng-click="send(s.tzw_order_id)" class="btn btn-danger del" >
                         </tr>
                     </table>
                 </form>

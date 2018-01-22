@@ -205,7 +205,7 @@
 
         $("#add").click(function(){
 
-            alert(str+"添加提交")
+        //    alert(str+"添加提交")
             var imageStr=str;
             var itemname=$("#itemname").val();
             var itemprice=$("#itemprice").val();
@@ -227,6 +227,13 @@
             var tzw_item_little=$("#tzw_item_little").val();
 
             var itemdesc=$("#itemdesc").code();
+
+            //过滤style标签
+            var patrn="/style=\"(.*)\"/";
+            var match = patrn.replace(gi, ' ');
+
+            patrn
+
             var itemstatus=$("[name='itemstatus']:checked").val();
             var choujiang=$("[name='choujiang']:checked").val();
             var jingpai=$("[name='jingpai']:checked").val();
@@ -249,7 +256,7 @@
 /*
             alert(itemstatus+"itemstatus");
 */
-            alert("itemdesc"+itemdesc);
+        //    alert("itemdesc"+itemdesc);
             $.post(
                 "item_add_commit",
                 {"itemname":itemname,
@@ -259,7 +266,7 @@
                     "itemtype":itemtype,
                     "itemlittle":tzw_item_little,
                     "itemleibie":itemleibie,
-                    "itemdesc":itemdesc,
+                    "itemdesc":match,
                     "choujiang":choujiang,
                     "jifen":jifen,
                     "jingpai":jingpai,

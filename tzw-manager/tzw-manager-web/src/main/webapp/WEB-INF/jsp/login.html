@@ -84,16 +84,16 @@
                         "password":password},
                     function(data){
 
-                        alert(1)
+                  //      alert(1)
                         if(data.ok==1)
                         {
                             var username=data.username;
                             var img=data.img;
-                            alert(2)
+                         //   alert(2)
                             location.href="/index?username="+username+"&img="+img;
                         }else {
 
-                            alert(3)
+                         //   alert(3)
                             $("[name='username']").text()=="";
                             $("[password='password']").text()=="";
                             $("#err").text(data.messg);

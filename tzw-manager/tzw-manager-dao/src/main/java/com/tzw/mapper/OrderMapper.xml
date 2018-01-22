@@ -20,6 +20,20 @@
         limit #{cpage},#{size}
     </select>
 
+<!--  <select id="findOrderById" resultType="com.tzw.pojo.Order" parameterType="bigInteger">
+
+        SELECT t1.tzw_order_id,t4.tzw_user_username,
+              t2.tzw_item_name, t2.tzw_item_num,
+              t3.tzw_receiver_phone,
+              t3.tzw_receiver_address,
+             t1.tzw_order_status,
+             t1.tzw_order_createDate
+        from tzw_order t1,tzw_order_item t2, tzw_order_shipping t3,tzw_user t4
+        where t1.tzw_user_id=t4.tzw_user_id and
+        t3.tzw_order_shipping_id=t1.tzw_order_id AND
+        t2.tzw_order_id=t1.tzw_order_id
+    </select>-->
+
   <!--删除订单;-->
 
     <delete id="delById" parameterType="bigInteger">
@@ -27,36 +41,18 @@
     </delete>
 
 <!--修改回显-->
-    <select id="findOrderById" resultType="com.tzw.pojo.Order" parameterType="bigInteger">
+        <select id="findShippingById" parameterType="bigInteger" resultType="com.tzw.pojo.OrderShipping">
+            SELECT * FROM tzw_order_id where tzw_order_id=#{tzw_order_id}
+        </select>
 
-        SELECT t1.tzw_order_id,
-        t1.tzw_order_address,
-        t1.tzw_order_createDate,
-        t1.tzw_order_updateDate,
-        t1.tzw_order_num,
-        t1.tzw_order_beizhu,
-        t1.tzw_order_status,
-        t2.tzw_user_username,
-        t3.tzw_item_name,
-        t2.tzw_user_phone
-        from tzw_order t1,tzw_user t2, tzw_item t3
-        where t1.tzw_user_id=t2.tzw_user_id
-        and
-        t3.tzw_item_id=t1.tzw_item_id
-        AND
-        t1.tzw_order_id=#{tzw_order_id}
-    </select>
-
-
-     <!--修改订单-->
+    <!--修改订单提交-->
 
     <update id="updateOrder" parameterType="com.tzw.pojo.Order">
-        UPDATE  tzw_order set( tzw_order_address=#{tzw_order_address}，
-        tzw_order_createDate=#{tzw_order_createDate}
-        tzw_order_updateDate=#{tzw_order_updateDate}
-        tzw_order_num=#{tzw_order_num}
-        tzw_order_beizhu=#{tzw_order_beizhu}
-        tzw_order_status=#{tzw_order_status}
+        UPDATE  tzw_order set(
+        tzw_shipping_code=#{tzw_shipping_code}，
+        tzw_order_updateDate=#{tzw_order_updateDate},
+        tzw_order_status=#{tzw_order_status},
+        tzw_shipping_name=#{tzw_shipping_name}
         )
         where tzw_order_id=#{tzw_order_id}
     </update>
@@ -67,10 +63,7 @@
 
     <select id="getOrderCount" parameterType="map" resultType="int">
 
-        SELECT count(*)   from tzw_order t1,tzw_order_item t2, tzw_order_shipping t3,tzw_user t4
-        where t1.tzw_user_id=t4.tzw_user_id and
-        t3.tzw_order_shipping_id=t1.tzw_order_id AND
-        t2.tzw_order_id=t1.tzw_order_id where t1.tzw_user_id=#{tzw_user_id}
+        SELECT count(*)   from tzw_order t1
     </select>
 
 

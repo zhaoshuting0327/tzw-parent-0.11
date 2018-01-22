@@ -260,7 +260,11 @@ public class ItemController {
         } else {
             item.setTzw_item_price(Double.parseDouble(itemprice));
         }
+
+        if (itemstatus == null || ("".equals(itemstatus))) {
+        } else {
             item.setTzw_item_status(Integer.parseInt(itemstatus));
+        }
          /*   item.setTzw_item_name(itemname);
             item.setTzw_item_price(Double.parseDouble(itemprice));*/
          //   item.setTzw_item_desc(itemdesc);
@@ -424,9 +428,8 @@ public class ItemController {
         map.put("success", 0);
 
             System.out.println("添加值");
-//             Long i1 = Long.parseLong(itemid);
-            BigInteger n=new BigInteger(itemid);
-            item.setTzw_item_id(n);
+           Long i1 = Long.parseLong(itemid);
+            item.setTzw_item_id(BigInteger.valueOf(i1));
             item.setTzw_item_status(Integer.parseInt(itemstatus));
             item.setTzw_item_name(itemname);
             item.setTzw_item_price(Double.parseDouble(itemprice));

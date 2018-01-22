@@ -91,6 +91,38 @@ public class OrderController {
         this.orderService.delById(tzw_order_id);
         return 1;
     }
-    //订单修改
+    //订单修改回显
+    @RequestMapping("toUpdateOrder")
+    public String toUpdateOrder(BigInteger tzw_order_id,Model model)
+    {
+        model.addAttribute("tzw_order_id", tzw_order_id);
+        return "order_update";
+    }
 
+    @RequestMapping("huixianOrder")
+    @ResponseBody
+    public Order huixianOrder(BigInteger tzw_order_id)
+    {
+
+        Order orderById = this.orderService.findOrderById(tzw_order_id);
+        return orderById;
+    }
+
+    @RequestMapping("order_update_commit")
+    @ResponseBody
+    public int order_update_commit(HttpServletRequest request) {
+
+        String tzw_order_id = request.getParameter("tzw_order_id");
+        String tzw_shipping_code = request.getParameter("tzw_shipping_code");
+        String tzw_shipping_name = request.getParameter("tzw_shipping_name");
+
+        Order order=new Order();
+
+        BigInteger bigInteger=new BigInteger(tzw_order_id);
+        order.setTzw_order_id(bigInteger);
+        order.setTzw_shipping_code(tzw_shipping_code);
+        order.setTzw_shipping_name(tzw_shipping_name);
+        this.orderService.updateOrder(order);
+        return 1;
+    }
 }

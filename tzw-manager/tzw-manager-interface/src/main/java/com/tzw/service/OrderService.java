@@ -24,4 +24,7 @@ public interface OrderService {
     int getOrderCount(String lname);
 
    void delById(BigInteger tzw_order_id);
+
+  // void order_update_commit(Order order);
+
 }

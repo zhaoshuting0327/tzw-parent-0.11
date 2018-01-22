@@ -1,6 +1,7 @@
 package com.tzw.mapper;
 
 import com.tzw.pojo.Order;
+import com.tzw.pojo.OrderShipping;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -25,5 +26,8 @@ public interface OrderMapper {
     void delById(BigInteger tzw_order_id);
 
     void updateOrderStatus();
+
+    OrderShipping findShippingById(BigInteger tzw_order_id);
+
 
 }
