@@ -65,6 +65,9 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.4.2" />
           <element id="library" level="project" name="Maven: com.thetransactioncompany:cors-filter:2.5" />
           <element id="library" level="project" name="Maven: com.thetransactioncompany:java-property-utils:1.9.1" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
+          <element id="library" level="project" name="Maven: org.json:json:20160810" />
+          <element id="library" level="project" name="Maven: com.baidu.ueditor:ueditor:20160310" />
           <element id="archive" name="tzw-common-1.0-SNAPSHOT.jar">
             <element id="module-output" name="tzw-common" />
           </element>
@@ -75,7 +78,6 @@
           <element id="library" level="project" name="Maven: commons-net:commons-net:3.3" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.3.5" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.3.2" />
-          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.6" />
           <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.2.2" />
           <element id="library" level="project" name="Maven: c3p0:c3p0:0.9.1.1" />
           <element id="library" level="project" name="Maven: portlet-api:portlet-api:1.0" />

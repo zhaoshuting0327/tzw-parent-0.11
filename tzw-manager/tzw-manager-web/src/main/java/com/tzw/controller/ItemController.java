@@ -1,26 +1,23 @@
 package com.tzw.controller;
 
-import com.tzw.common.pojo.EasyUIDataGridResult;
 import com.tzw.common.utils.Fenye;
 import com.tzw.pojo.Choujiang;
 import com.tzw.pojo.Item;
 import com.tzw.pojo.JiFen;
 import com.tzw.pojo.JingPai;
 import com.tzw.service.ItemService;
-import org.apache.http.HttpRequest;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
@@ -122,7 +119,7 @@ public class ItemController {
 
     @RequestMapping("item_add_commit")
     @ResponseBody
-    public HashMap<String, Object> item_add_commit(HttpServletRequest request, Model model) {
+    public Map<String, Object> item_add_commit(HttpServletRequest request, Model model) throws IOException {
 
         System.out.println("添加提交");
         HashMap<String, Object> map = new HashMap<>();
@@ -150,6 +147,19 @@ public class ItemController {
         String tzw_item_leibie= request.getParameter("itemleibie");
         String tzw_item_little= request.getParameter("itemlittle");
 
+
+   /*     StringBuffer sb = new StringBuffer() ;
+        InputStream is = request.getInputStream();
+        BufferedReader br = new BufferedReader(new InputStreamReader(is,"utf-8"));
+        String s = "" ;
+        while((s=br.readLine())!=null){
+            sb.append(s) ;
+        }
+        if(sb.toString().length()<=0){
+
+        }else {
+            JSONObject jsonObject = new JSONObject(sb.toString());
+        }*/
 
         System.out.println(itemname + "itemname");
         System.out.println(itemprice + "itemprice");

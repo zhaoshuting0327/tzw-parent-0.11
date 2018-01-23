@@ -229,10 +229,14 @@
             var itemdesc=$("#itemdesc").code();
 
             //过滤style标签
-            var patrn="/style=\"(.*)\"/";
-            var match = patrn.replace(gi, ' ');
+            var r = /style="[^"]*"/g;
+            var b=itemdesc.replace(r,"");
 
-            patrn
+         /*   var s = '123<p style="border:1px solid red">333</p>123123<p style="border:1px solid red">333</p>123';
+            var r = /style="[^"]*"/g;
+
+            alert(s.replace(r, ''));*/
+
 
             var itemstatus=$("[name='itemstatus']:checked").val();
             var choujiang=$("[name='choujiang']:checked").val();
@@ -257,7 +261,7 @@
             alert(itemstatus+"itemstatus");
 */
         //    alert("itemdesc"+itemdesc);
-            $.post(
+       /*     $.post(
                 "item_add_commit",
                 {"itemname":itemname,
                     "itemprice":itemprice,
@@ -266,7 +270,7 @@
                     "itemtype":itemtype,
                     "itemlittle":tzw_item_little,
                     "itemleibie":itemleibie,
-                    "itemdesc":match,
+                    "itemdesc":b,
                     "choujiang":choujiang,
                     "jifen":jifen,
                     "jingpai":jingpai,
@@ -287,6 +291,8 @@
                     "tzw_item_new":tzw_item_new,
                     "imageStr":imageStr
                 },
+                processData : false,
+                contentType : false,
                 function (data) {
 
 
@@ -296,7 +302,44 @@
 
                 },
                 "json"
-            )
+            )*/
+            $.ajax({
+                url :"item_add_commit",
+                data : { "itemname":itemname,
+                "itemprice":itemprice,
+                "itemnum":itemnum,
+                "itemstatus":itemstatus,
+                "itemtype":itemtype,
+                "itemlittle":tzw_item_little,
+                "itemleibie":itemleibie,
+              //  "itemdesc":b,
+                "choujiang":choujiang,
+                "jifen":jifen,
+                "jingpai":jingpai,
+                "preNum":preNum,
+                "houNum":houNum,
+                "tzw_choujiang_jifen":tzw_choujiang_jifen,
+                "tzw_choujiang_yue":tzw_choujiang_yue,
+                "tzw_choujiang_xianjin":tzw_choujiang_xianjin,
+                "tzw_jifen_yue":tzw_jifen_yue,
+                "tzw_jifen_xianjin":tzw_jifen_xianjin,
+                "tzw_jingpai_liupai":tzw_jingpai_liupai,
+                "tzw_jingpai_jifen":tzw_jingpai_jifen,
+                "tzw_jingpai_yue":tzw_jingpai_yue,
+                "tzw_jingpai_xianjin":tzw_jingpai_xianjin,
+                "scoreNum":scoreNum,
+                "jingpaiNum":jingpaiNum,
+                "tzw_item_content":tzw_item_content,
+                "tzw_item_new":tzw_item_new,
+                "imageStr":imageStr},
+               /* processData : false,
+                contentType : false,*/
+                dataType: 'json',
+                type : "POST",
+                success : function(data){
+                    alert("添加成功！");
+                }
+            });
         });
 
 

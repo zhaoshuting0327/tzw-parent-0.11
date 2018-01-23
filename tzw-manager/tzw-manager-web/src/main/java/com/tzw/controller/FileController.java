@@ -4,6 +4,7 @@ import com.tzw.common.utils.FastDFSClient;
 import com.tzw.common.utils.JsonUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -105,10 +106,4 @@ public class FileController {
         }
         System.out.println("接收完毕");
     }
-
-
-
-
-
-
     }

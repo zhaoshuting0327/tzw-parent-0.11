@@ -24,6 +24,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+
   <!-- 加载spring容器 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
@@ -61,7 +62,8 @@
   <init-param>
   <param-name>cors.supportedHeaders</param-name>
     <param-value>Accept, Origin, X-Requested-With, Content-Type, Last-Modified, Access-Control-Allow-Origin</param-value>
-  </init-param>
+  </init-param>d
+
   <init-param>
   <param-name>cors.exposedHeaders</param-name>
   <param-value>Set-Cookie</param-value>
