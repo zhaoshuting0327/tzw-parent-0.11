@@ -870,6 +870,7 @@
                     'method': 'get',
                     'onsuccess': function (r) {
                         try {
+                            r = r.replace('<pre>', '').replace('</pre>', '');
                             var json = isJsonp ? r:eval('(' + r.responseText + ')');
                             if (json.state == 'SUCCESS') {
                                 _this.pushData(json.list);

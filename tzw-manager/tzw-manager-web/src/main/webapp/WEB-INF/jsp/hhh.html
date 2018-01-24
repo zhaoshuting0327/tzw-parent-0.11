@@ -17,12 +17,12 @@
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min.css?v=4.0.0" rel="stylesheet">
 
-<!--    <link rel="stylesheet" type="text/css" href="css/plugins/webuploader/webuploader.css">
-    <link rel="stylesheet" type="text/css" href="css/demo/webuploader-demo.min.css">
-    <link rel="stylesheet" type="text/css" href="css/plugins/markdown/bootstrap-markdown.min.css" />
+    <!--    <link rel="stylesheet" type="text/css" href="css/plugins/webuploader/webuploader.css">
+        <link rel="stylesheet" type="text/css" href="css/demo/webuploader-demo.min.css">
+        <link rel="stylesheet" type="text/css" href="css/plugins/markdown/bootstrap-markdown.min.css" />
 
-    <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
-    <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">-->
+        <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+        <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">-->
 
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.5"></script>
@@ -38,42 +38,51 @@
     <base target="_blank">
 
     <style type="text/css">
-    div{
-        width:100%;
-    }
-</style>
+        div{
+            width:100%;
+        }
+    </style>
 </head>
 <body>
 <div>
     <h1>完整demo</h1>
     <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script></div>
-    <div id="btns">
-        <div>
+<div id="btns">
+    <div>
         <button onclick="getContentTxt()">获得内容</button>
-        </div>
+    </div>
 
-        </div>
+</div>
 
 
-        <script type="text/javascript">
+<script type="text/javascript">
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
     var ue = UE.getEditor('editor');
-  /*  function getContentTxt() {
+/*     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+     UE.Editor.prototype.getActionUrl = function(action) {
+     if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadvideo') {
+     return 'http://192.168.1.17:8080/uploadimage';
+     } else {
+     return this._bkGetActionUrl.call(this, action);
+     }
+     }*/
+    function getContentTxt() {
         var content = ue.getContent();
         console.log("content:"+content);
-        $.ajax({
-            type:"POST",
-            url:"http://localhost:8080/test-ueditor/text/save.do",
-            data:{
-                "Content":content,
+        alert(content)
+        /* $.ajax({
+         type:"POST",
+         url:"http://localhost:8080/test-ueditor/text/save.do",
+         data:{
+         "Content":content,
 
-            },
-            success:function(){
-                alert("成功");
-            },
-            error:function(){
-                alert("失败");
-            }
-        });
-    }*/</script></body>
+         },
+         success:function(){
+         alert("成功");
+         },
+         error:function(){
+         alert("失败");
+         }
+         });*/
+    }</script></body>
