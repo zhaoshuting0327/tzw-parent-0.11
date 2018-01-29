@@ -23,6 +23,9 @@
 	<mvc:resources location="/plugins/" mapping="/plugins/**"/>
 	<mvc:resources location="/ueditor/" mapping="/ueditor/**"/>
 	<mvc:resources location="/kind/" mapping="/kind/**"/>
+	<mvc:resources location="/shangchuan/" mapping="/shangchuan/**"/>
+	<mvc:resources location="/cropper/" mapping="/cropper/**"/>
+	<mvc:resources location="/ImgFiles/" mapping="/ImgFiles/**"/>
 
 	<mvc:annotation-driven />
 

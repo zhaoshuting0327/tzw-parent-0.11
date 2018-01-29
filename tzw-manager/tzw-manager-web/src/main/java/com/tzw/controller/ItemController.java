@@ -468,12 +468,16 @@ public class ItemController {
     public String hh() {
         return "hhh";
     }
+    @RequestMapping(value = "hhh2")
+    public String hh2() {
+        return "hhh2";
+    }
 
 
-    @RequestMapping(value = "pay")
+ /*   @RequestMapping(value = "pay")
     public String hhh() {
 
         System.out.println("支付宝======================================支付宝");
         return "hhh";
-    }
+    }*/
 }

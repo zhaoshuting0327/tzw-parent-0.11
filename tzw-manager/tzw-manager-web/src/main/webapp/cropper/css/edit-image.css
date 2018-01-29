@@ -1,0 +1,885 @@
+@charset "UTF-8"; 
+
+.myaddress-book .page-title {
+	border-bottom: 1px solid #d2d2d2;
+	background: rgba(255, 255, 255, .8)
+}
+
+.myaddress-book .form-main {
+	border: 1px solid #d2d2d2;
+	margin: 1rem;
+	background: #fff
+}
+
+.myaddress-book .form-main input {
+	width: 85%;
+	border: 0;
+	margin-left: 3.4rem;
+	padding: 1rem 0;
+	text-align: left;
+	line-height: 1.4rem;
+	font-size: 1.4rem;
+	line-height: normal
+}
+.hide{display:none!important}
+.myaddress-book .form-main:before {
+	content: "";
+	position: absolute;
+	width: 2.4rem;
+	height: 2.4rem;
+	top: 50%;
+	left: .5rem;
+	margin-top: -1.2rem;
+	z-index: 1;
+	background: url(img/ico-search.png) no-repeat;
+	background-size: 100% 100%;
+	background-position: 0 0
+}
+
+.myaddress-book .list {
+	margin-bottom: 5.4rem
+}
+
+.myaddress-book .list li {
+	background: #fff;
+	line-height: 1.3rem;
+	font-size: 1.3rem;
+	border-top: 1px solid #dadada;
+	border-bottom: 1px solid #dadada;
+	margin-bottom: 1rem
+}
+
+.myaddress-book .list li .load-more-tips {
+	line-height: 3.4rem;
+	margin-top: .5rem
+}
+
+.myaddress-book .list li .stage {
+	height: 100%;
+	overflow: visible
+}
+
+.myaddress-book .list li .con {
+	width: 100%;
+	height: 100%;
+	padding: .7rem 0 .7rem 1rem;
+	float: left;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+.myaddress-book .list li .con .men-word {
+	overflow: hidden;
+	line-height: 2.2rem;
+	font-size: 1.4rem
+}
+
+.myaddress-book .list li .con .men-word .user {
+	max-width: 12rem;
+	float: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis
+}
+
+.myaddress-book .list li .con .men-word .tel {
+	max-width: 12rem;
+	float: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis
+}
+
+.myaddress-book .list li .con .men-word span {
+	color: #666;
+	padding-left: .5rem
+}
+
+.myaddress-book .list li .con .men-word span.edite {
+	color: #dc1e32;
+	font-size: 1.2rem;
+	padding-left: 1.5rem
+}
+
+.myaddress-book .list li .con .men-word .edite-word {
+	float: right;
+	display: block;
+	right: 1rem;
+	width: 4rem
+}
+
+.myaddress-book .list li .edit-address {
+	margin-left: 1rem;
+	border-top: 1px solid rgba(153, 153, 153, .26);
+	line-height: 2.2rem
+}
+
+.myaddress-book .list li .edit-address dl {
+	padding: .5rem 0
+}
+
+.myaddress-book .list li .edit-address dl dt {
+	display: inline-block
+}
+
+.myaddress-book .list li .edit-address dl dt:first-child {
+	font-size: 1.2rem;
+	color: #999;
+	top: -.1rem
+}
+
+.myaddress-book .list li .edit-address dl dt:first-child span.set-radio
+	{
+	width: 1.4rem;
+	height: 1.4rem;
+	border-radius: 50%;
+	display: inline-block;
+	border: 1px solid #b9bcbe;
+	bottom: -.3rem;
+	margin-right: .6rem
+}
+
+.myaddress-book .list li .edit-address dl dt:first-child .cgColor {
+	color: #ea3323
+}
+
+.myaddress-book .list li .edit-address dl dt:first-child span.modify {
+	background: #ea3323;
+	border: 1px solid #ea3323
+}
+
+.myaddress-book .list li .edit-address dl dt:first-child span.modify:before
+	{
+	content: "";
+	position: absolute;
+	width: .4rem;
+	height: .75rem;
+	top: 51%;
+	border-top: .17rem solid #fff;
+	border-left: .17rem solid #fff;
+	margin-top: -.3rem;
+	-webkit-transform: rotate(225deg);
+	-moz-transform: rotate(225deg);
+	transform: rotate(225deg);
+	left: .45rem;
+	margin-top: -.55rem
+}
+
+.myaddress-book .list li .edit-address dl dt:last-child {
+	float: right;
+	margin-right: 1rem
+}
+
+.myaddress-book .list li .edit-address dl dt:last-child span {
+	width: 4.5rem;
+	display: inline-block;
+	height: 1.8rem;
+	text-align: center;
+	margin-left: 1rem;
+	color: rgba(107, 107, 107, .79);
+	font-size: 1.2rem;
+	line-height: 1.8rem
+}
+
+.myaddress-book .list li .edit-address dl dt:last-child span:before {
+	content: "";
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-right: .2rem;
+	vertical-align: middle
+}
+
+.myaddress-book .list li .edit-address dl dt:last-child span:first-child:before
+	{
+	background: url(img/ico-48.png) no-repeat;
+	background-size: 100% 2100%;
+	background-position: 0 70.4%
+}
+
+.myaddress-book .list li .edit-address dl dt:last-child span:last-child:before
+	{
+	background: url(img/ico-48.png) no-repeat;
+	background-size: 100% 2100%;
+	background-position: 0 75.4%
+}
+
+.myaddress-book .list li .swiper-slide.btn {
+	width: 23.4375%;
+	height: auto;
+	line-height: 1.8rem;
+	display: block;
+	float: left;
+	color: #fff;
+	font-size: 1.5rem;
+	text-align: center
+}
+
+.myaddress-book .list li .swiper-slide.btn.modify {
+	background: #dc1e32
+}
+
+.myaddress-book .list li .swiper-slide.btn.complaint {
+	background: #a7aaac
+}
+
+.myaddress-book .list li .contact-addr {
+	line-height: 1.6rem;
+	font-size: 1.3rem;
+	padding: .2rem 1rem .2rem 0;
+	color: #999
+}
+
+.myaddress-book .noresult i {
+	width: 15rem;
+	height: 12rem;
+	display: block;
+	background: url(img/abnormity-img3.png) no-repeat;
+	background-size: 100% 100%;
+	background-position: 0 0;
+	margin: 2rem auto 0
+}
+
+.myaddress-book .noresult p {
+	font-size: 1.3rem;
+	text-align: center;
+	color: #adadad
+}
+
+
+
+<!--888-->
+.page-address-book.build-fixed .asso-list,.page-address-book.build-fixed .confirm-single-btn
+	{
+	display: none
+}
+
+.page-address-book .asso-list {
+	margin: 0 1rem 1rem
+}
+
+.page-address-book .coin-more {
+	display: block;
+	text-align: center;
+	margin: .5rem 0 6.4rem 0;
+	color: #dc1e32;
+	line-height: 3rem
+}
+
+.page-address-book .coin-more.hide {
+	display: none
+}
+
+.page-address-book .add-form {
+	margin: 1rem
+}
+
+.page-address-book .add-form li {
+	padding: .9rem 0
+}
+
+.page-address-book .add-form .select-area input {
+	width: 87.99%
+}
+
+.page-address-book .add-form .select-area:after {
+	-webkit-transform: rotate(225deg);
+	-moz-transform: rotate(225deg);
+	transform: rotate(225deg);
+	right: 1.4rem
+}
+
+.page-address-book .add-form .build.show-near .nearly {
+	display: block
+}
+
+.page-address-book .add-form .build.show-near .input {
+	margin-right: 6rem
+}
+
+.page-address-book .add-form .build .nearly {
+	position: absolute;
+	top: 50%;
+	right: 1rem;
+	margin-top: -1.2rem;
+	line-height: 2.4rem;
+	color: #dc1e32
+}
+
+.page-address-book .add-form .build .input {
+	resize: none;
+	min-height: 1.5rem;
+	border: 0;
+	margin: 0;
+	padding: .5rem 0;
+	font-size: 1.4rem;
+	line-height: 1.5rem;
+	color: #000;
+	overflow: hidden;
+	word-break: break-all;
+	-webkit-appearance: none;
+	outline: 0
+}
+
+.page-address-book .add-form .build .input:before {
+	font-size: 1.3rem
+}
+
+.page-address-book .address-build-fixed {
+	position: fixed;
+	width: 100%;
+	max-width: 640px;
+	min-width: 320px;
+	top: 0;
+	bottom: 0;
+	left: auto;
+	right: auto;
+	padding: 0;
+	border: 0;
+	background: #f2f2f2;
+	overflow-y: auto;
+	z-index: 99;
+	-webkit-animation: buildfadein .7s ease;
+	animation: buildfadein .7s ease
+}
+
+.page-address-book .address-build-fixed a {
+	display: block
+}
+
+.page-address-book .address-build-fixed a.hide {
+	display: none
+}
+
+.page-address-book .address-build-fixed a.a-text {
+	float: left;
+	line-height: 2.4rem
+}
+
+.page-address-book .address-build-fixed a.a-place:before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: #e5e5e5;
+	z-index: 1
+}
+
+.page-address-book .address-build-fixed a.a-show {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	margin-top: -1.2rem;
+	z-index: 2
+}
+
+.page-address-book .address-build-fixed a.a-show.total {
+	right: 4.4rem;
+	color: #a7aaac
+}
+
+.page-address-book .address-build-fixed a.clear {
+	position: absolute;
+	width: 2.4rem;
+	height: 2.4rem;
+	top: 50%;
+	left: -2.4rem;
+	margin-top: -1.2rem;
+	z-index: 2
+}
+
+.page-address-book .address-build-fixed a.clear:before {
+	content: "";
+	position: absolute;
+	width: 1.6rem;
+	height: 1.6rem;
+	top: 50%;
+	left: 50%;
+	margin: -.8rem 0 0 -.8rem;
+	background: url(img/ico-close.png) no-repeat;
+	background-size: 100% 200%;
+	background-position: 0 100%
+}
+
+.page-address-book .address-build-fixed a.sure {
+	width: 4.8rem;
+	text-align: center;
+	color: #dc1e32
+}
+
+.page-address-book .address-build-fixed .input-box {
+	position: fixed;
+	width: 100%;
+	left: 0;
+	top: 0;
+	padding: .7rem;
+	padding-right: 0;
+	background: #e5e5e5;
+	z-index: 10
+}
+
+.page-address-book .address-build-fixed .address-build {
+	margin-right: 0;
+	padding: .8rem;
+	padding-right: 2.4rem;
+	-webkit-border-radius: .4rem;
+	border-radius: .4rem;
+	background: #fff
+}
+
+.page-address-book .address-build-fixed .input {
+	resize: none;
+	min-height: 1.5rem;
+	border: 0;
+	margin: 0;
+	font-size: 1.4rem;
+	line-height: 1.5rem;
+	color: #000;
+	overflow: hidden;
+	word-break: break-all;
+	-webkit-appearance: none;
+	outline: 0
+}
+
+.page-address-book .address-build-fixed .input:before {
+	line-height: normal
+}
+
+.page-address-book .address-build-fixed .build-list {
+	display: block
+}
+
+.page-address-book .address-build-fixed .build-list.swiper-container {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 5rem 0 0;
+	overflow: hidden
+}
+
+.page-address-book .address-build-fixed .build-list.swiper-container .swiper-slide
+	{
+	height: auto
+}
+
+.page-address-book .confirm-single {
+	background: #f2f2f2
+}
+
+.page-address-book .confirm-single .btn {
+	margin-top: 1rem;
+	background: #dc1e32;
+	color: #fff
+}
+
+.page-address-book .btn-word-box {
+	line-height: 2.4rem;
+	margin: -.1rem 1rem 1.5rem
+}
+
+.page-address-book .btn-word-box .add-addr {
+	display: inline-block;
+	padding-left: 2rem;
+	color: #5a5a5a
+}
+
+.page-address-book .btn-word-box .add-addr:before {
+	content: "";
+	position: absolute;
+	width: 1.4rem;
+	height: 1.4rem;
+	top: 50%;
+	left: 0;
+	margin-top: -.7rem;
+	border: .1rem solid #b2b4b5;
+	border-radius: 50%
+}
+
+.page-address-book .btn-word-box .add-addr.on:before {
+	background: #dc1e32;
+	border: .1rem solid #dc1e32
+}
+
+.page-address-book .btn-word-box .add-addr.on:after {
+	content: "";
+	position: absolute;
+	width: .4rem;
+	height: .7rem;
+	top: 50%;
+	border-top: .17rem solid #fff;
+	border-left: .17rem solid #fff;
+	margin-top: -.3rem;
+	-webkit-transform: rotate(225deg);
+	-moz-transform: rotate(225deg);
+	transform: rotate(225deg);
+	left: .5rem;
+	margin-top: -.5rem
+}
+
+.page-address-book .btn-word-box .add-addr.hide {
+	display: none
+}
+
+.page-address-book .btn-word-box .all-delete {
+	display: inline-block;
+	color: #999;
+	float: right;
+	z-index: 1
+}
+
+.page-address-book .btn-word-box .all-delete.on {
+	color: #dc1e32
+}
+
+.page-address-book .btn-word-box .all-delete.hide {
+	display: none
+}
+
+.page-address-book .ntelligent-box {
+	margin: 1rem;
+	padding-top: 1.2rem;
+	border: 1px solid #dadada;
+	background: #fff
+}
+
+.page-address-book .ntelligent-box .ico-pull {
+	width: 4rem;
+	height: 4rem;
+	position: absolute;
+	right: 0;
+	top: -.6rem
+}
+
+.page-address-book .ntelligent-box .ico-pull:after {
+	content: "";
+	position: absolute;
+	width: .8rem;
+	height: .8rem;
+	top: 50%;
+	border-top: .1rem solid #888;
+	border-left: .1rem solid #888;
+	margin-top: -.6rem;
+	-webkit-transform: rotate(135deg);
+	-moz-transform: rotate(135deg);
+	transform: rotate(135deg);
+	right: 1rem;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	transform: rotate(45deg);
+	top: 2rem;
+	margin-top: -.3rem
+}
+
+.page-address-book .ntelligent-box .ico-pull.put-away:after {
+	right: 1rem;
+	-webkit-transform: rotate(225deg);
+	-moz-transform: rotate(225deg);
+	transform: rotate(225deg);
+	top: 2rem;
+	margin-top: -.6rem
+}
+
+.page-address-book .ntelligent-box .ntelligent-tips {
+	color: #666;
+	font-size: 1.2rem;
+	padding: 0 1rem;
+	margin-bottom: 1.2rem
+}
+
+.page-address-book .ntelligent-box .ntelligent-tips:before {
+	content: '';
+	background: url(img/ico-PasteAddress.png) no-repeat center;
+	background-size: 100%;
+	width: 2.3rem;
+	height: 100%;
+	position: absolute
+}
+
+.page-address-book .ntelligent-box .ntelligent-tips i.hint-box {
+	width: 1.4rem;
+	height: 1.4rem;
+	background: url(img/ico-hint.png) no-repeat;
+	background-size: 100%;
+	display: inline-block;
+	margin-left: .3rem;
+	margin-top: -.5rem;
+	vertical-align: middle
+}
+
+.page-address-book .ntelligent-box .ntelligent-tips p,.page-address-book .ntelligent-box .ntelligent-tips span
+	{
+	margin-left: 2.8rem
+}
+
+.page-address-book .ntelligent-box .ntelligent-tips span {
+	font-size: 1.4rem
+}
+
+.page-address-book .ntelligent-box .ntelligent-tips p {
+	font-size: 1.18rem;
+	color: #555;
+	margin-bottom: 1.18rem
+}
+
+.page-address-book .ntelligent-box .action-div .ntelligent-total {
+	border: 1px solid #dadada;
+	overflow: hidden;
+	color: #bfbfbf;
+	width: 88%;
+	margin: 0 auto .5rem;
+	padding: .6rem 1rem .6rem .8rem;
+	height: 8.4rem
+}
+
+.page-address-book .ntelligent-box .action-div .ntelligent-total .ntelligent-input
+	{
+	font-size: 1.2rem;
+	border: 0;
+	line-height: 1.5rem;
+	z-index: 1;
+	resize: none;
+	width: 100%;
+	height: 6.5rem;
+	max-height: 6.5rem
+}
+
+.page-address-book .ntelligent-box .action-div .ntelligent-total .word-num
+	{
+	font-size: 1.1rem;
+	position: absolute;
+	z-index: 1;
+	right: .8rem;
+	bottom: .4rem
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom {
+	line-height: 3rem;
+	overflow: hidden;
+	padding-right: .8rem;
+	font-size: 1.2rem
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .dele-addr
+	{
+	color: #dc1e32;
+	line-height: 3rem;
+	display: inline-block;
+	float: right;
+	margin-right: 2rem
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .dele-addr.hide
+	{
+	display: none
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .pull-addr
+	{
+	float: right;
+	padding: 0 2rem;
+	color: #fff;
+	background: #dc1e32;
+	margin-bottom: .5rem
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .pull-addr.gray
+	{
+	background: #d2d2d2
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .IntelligentReality
+	{
+	display: none;
+	line-height: 2.2rem;
+	margin-left: .8rem;
+	transition: all .2s ease-in;
+	position: relative;
+	overflow: hidden;
+	color: #647db4;
+	margin-top: .2rem
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .IntelligentReality i
+	{
+	content: "";
+	width: 2.4rem;
+	height: 2.4rem;
+	background: url(img/ePhoto.png);
+	background-size: 100%;
+	display: inline-block;
+	background-repeat: no-repeat;
+	vertical-align: bottom
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .IntelligentReality:active
+	{
+	background: #d6d6d6
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .IntelligentReality input
+	{
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	max-width: 100%;
+	height: 100%
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .viweImgBox
+	{
+	padding: .8rem 0 0 .8rem;
+	height: auto
+}
+
+.page-address-book .ntelligent-box .action-div .count-bottom .viweImgBox img
+	{
+	width: 100%;
+	display: inline-block
+}
+
+.page-address-book .ntelligent-box .done-action {
+	-webkit-animation: scaleshow .4s ease;
+	-moz-animation: scaleshow .4s ease;
+	animation: scaleshow .4s ease
+}
+
+@
+-webkit-keyframes scaleshow { 0%{
+	transform: skewY(10deg) scaleY(.1) translateY(-4rem);
+	display: none
+}
+
+100%{
+transform
+:skewY(0)
+ 
+scaleY
+(1)
+ 
+translateY
+(0);display
+:block
+}
+}
+@
+keyframes scaleshow { 0%{
+	transform: skewY(10deg) scaleY(.1) translateY(-4rem);
+	display: none
+}
+
+100%{
+transform
+:skewY(0)
+ 
+scaleY
+(1)
+ 
+translateY
+(0);display
+:block
+}
+}
+.add-built .address-input {
+	width: 67%;
+	height: 2rem;
+	border: 0;
+	font-size: 1.4rem;
+	line-height: 2rem;
+	z-index: 1;
+	margin: 1rem 4rem 1rem 2.8rem;
+	resize: none
+}
+
+.add-built .input-to-select .input .close {
+	width: 3.2rem;
+	height: 3.2rem;
+	top: 50%;
+	margin-top: -1.6rem
+}
+
+.add-built .input-to-select .input .word-total {
+	left: auto;
+	right: 1.6rem;
+	color: #999;
+	z-index: 2
+}
+
+.add-built .input-to-select .input .word-total.red {
+	color: #dc1e32
+}
+
+.add-built .input-to-select .input .back {
+	width: 2.8rem;
+	height: 3.2rem;
+	position: absolute;
+	top: 50%;
+	margin-top: -1.6rem
+}
+
+.add-built .input-to-select .input .back::before {
+	left: 1.2rem
+}
+
+.add-built .asso-list dd .name {
+	width: 100%
+}
+
+.containerImage {
+	background: rgba(0, 0, 0, .8);
+	position: fixed;
+	z-index: 9999;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0
+}
+
+.containerImage #EditImg {
+	width: 100%;
+	height: 100%
+}
+
+.containerImage .footer-btn {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 4.4rem;
+	background: #fff;
+	width: 100%;
+	z-index: 9999999;
+	padding: 5px 0;
+	text-align: center
+}
+
+.containerImage .footer-btn>button {
+	width: 45%;
+	height: 100%;
+	display: inline-block;
+	margin: 0 3px;
+	font-size: 1.7rem;
+	transition: all .2s ease-in
+}
+
+.containerImage .footer-btn .ReselectPhoto {
+	border: 1px solid #d6d6d6
+}
+
+.containerImage .footer-btn .ReselectPhoto:active {
+	background: #d6d6d6
+}
+
+.containerImage .footer-btn .Cut {
+	background: #de1831;
+	border: 1px solid #de1831;
+	color: #fff
+}
+
+.containerImage .footer-btn .Cut:active {
+	background: #b30e23
+}
+/*# sourceMappingURL=address.css.map */
