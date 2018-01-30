@@ -31,9 +31,6 @@
     <script src="js/plugins/validate/messages_zh.min.js"></script>
     <script src="js/demo/form-validate-demo.min.js"></script>
 
-
-
-
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
     <script type="text/javascript">
@@ -55,124 +52,134 @@
     <script type="text/javascript" src="ueditor/lang/zh-cn/zh-cn.js"></script>
     <link href="ueditor/themes/default/css/ueditor.css" rel="stylesheet">
 
-    <script type="text/javascript"> var str="";
+    <link rel="stylesheet" href="cropper/css/swiper.min.css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="cropper/css/edit-image.css" media="screen" charset="utf-8">
+    <link href="cropper/css/cropper.min.css" rel="stylesheet">
+
+    <script src="cropper/js/jquery.min.js"></script>
+    <script src="cropper/js/cropper.min.js"></script>
+
+    <script type="text/javascript">
         $(function(){
-         //   var str="";
-            jQuery(function() {
-                var $ = jQuery,
-                    $list = $('#fileList'),
-                    // 优化retina, 在retina下这个值是2
-                    ratio = window.devicePixelRatio || 1,
-                    // 缩略图大小
-                    thumbnailWidth = 100 * ratio,
-                    thumbnailHeight = 100 * ratio,
-                    // Web Uploader实例
-                    uploader;
-                // 初始化Web Uploader
-                uploader = WebUploader.create({
-                    // 自动上传。
-                    auto: false,
-                    // swf文件路径
-                    swf: BASE_URL + "/Uploader.swf",            // 文件接收服务端。
-                    server: 'uploader1',
-                    threads:'5',        //同时运行5个线程传输
-                    fileNumLimit:'10',  //文件总数量只能选择10个
+            var ue = UE.getEditor('editor');
+            var imageStr="";
+            'use strict';//表示强规则
+            var Cropper = window.Cropper;
+            var console = window.console || { log: function () {} };
+            var URL = window.URL || window.webkitURL;
+            var $image = $('#EditImg');
+            //获取图片截取的位置
+            var screenWidth = $(window).width();
+            var screenHeight =  $(window).height();
+            var $dataX = $('#dataX');
+            var $dataY = $('#dataY');
+            var $dataHeight = $('#dataHeight');
+            var $dataWidth = $('#dataWidth');
+            var $dataRotate = $('#dataRotate');
+            var $dataScaleX = $('#dataScaleX');
+            var $dataScaleY = $('#dataScaleY');
+            var options = {
+                containerHeight :  260,
+                containerWidth : 200,
+                guides :true,//裁剪框虚线 默认true有
+                aspectRatio: 32/18, //裁剪框比例1:1
+                responsive : true,// 是否在窗口尺寸改变的时候重置cropper
+                background : true,// 容器是否显示网格背景
+                zoomable : true,//是否允许放大缩小图片
+                movable : false,//是否允许移动剪裁框
+                resizable : true,//是否允许改变剪裁框的大小
+                cropBoxMovable :false,//是否允许拖动裁剪框
+                cropBoxResizable :false,//是否允许拖动 改变裁剪框大小
+                crop: function (e) {
+                    $dataX.val(Math.round(e.x));
+                    $dataY.val(Math.round(e.y));
+                    $dataHeight.val(Math.round(e.height));
+                    $dataWidth.val(Math.round(e.width));
+                    $dataRotate.val(e.rotate);
+                    $dataScaleX.val(e.scaleX);
+                    $dataScaleY.val(e.scaleY);
+                }
+            };
 
-                    // 选择文件的按钮。可选。
-                    pick: {id:'#filePicker',  //选择文件的按钮
-                        multiple:true},   //允许可以同时选择多个图片
-                    // 图片质量，只有type为`image/jpeg`的时候才有效。
-                    quality: 90,
+            $('#EditImg').cropper(options);
 
-                    //限制传输文件类型，accept可以不写
-                    accept: {
-                        title: 'Images',//描述
-                        extensions: 'gif,jpg,jpeg,bmp,png,zip',//类型
-                        mimeTypes: 'image/*'//mime类型
-                    }
-                });
-
-
-
-
-                // 当有文件添加进来的时候，创建img显示缩略图使用
-                uploader.on( 'fileQueued', function( file ) {
-
-                    str+="http://192.168.1.17:8080/upload/"+ file.name;
-
-                    var $li = $(
-                            '<div id="' + file.id + '" class="file-item thumbnail">' +
-                            '<img>' +
-                            '<div class="info">' + file.name + '</div>' +
-                            '</div>'
-                        ),
-                        $img = $li.find('img');
-
-                    // $list为容器jQuery实例
-                    $list.append( $li );
-
-                    // 创建缩略图
-                    // 如果为非图片文件，可以不用调用此方法。
-                    // thumbnailWidth x thumbnailHeight 为 100 x 100
-                    uploader.makeThumb( file, function( error, src ) {
-                        if ( error ) {
-                            $img.replaceWith('<span>不能预览</span>');
-                            return;
+            var originalImageURL = $image.attr('src');
+            var uploadedImageURL;
+            var $inputImage = $('#inputImage');
+            // Options
+            URL = window.URL || window.webkitURL;
+            var blobURL;
+            if (URL) {
+                $inputImage.change(function () {
+                    var files = this.files,
+                        file;
+                    if (files && files.length) {
+                        file = files[0];
+                        if (/^image\/\w+$/.test(file.type)) {
+                            blobURL = URL.createObjectURL(file);
+                            $image.one('built.cropper', function () {
+                                URL.revokeObjectURL(blobURL); // Revoke when load complete
+                            }).cropper('reset', true).cropper('replace', blobURL);
+                            //$inputImage.val('');
+                            $("#showEdit").removeClass('Hide');
+                        } else {
+                            //alert('Please choose an image file.');
                         }
-
-                        $img.attr( 'src', src );
-                    }, thumbnailWidth, thumbnailHeight );
-                });
-
-                // 文件上传过程中创建进度条实时显示。    uploadProgress事件：上传过程中触发，携带上传进度。 file文件对象 percentage传输进度 Nuber类型
-                uploader.on( 'uploadProgress', function( file, percentage ) {
-                    var $li = $( '#'+file.id ),
-                        $percent = $li.find('.progress span');
-
-                    // 避免重复创建
-                    if ( !$percent.length ) {
-                        $percent = $('<p class="progress"><span></span></p>')
-                            .appendTo( $li )
-                            .find('span');
                     }
-
-                    $percent.css( 'width', percentage * 100 + '%' );
                 });
+            } else {
+                $inputImage.parent().remove();
+            }
 
-                // 文件上传成功时候触发，给item添加成功class, 用样式标记上传成功。 file：文件对象，    response：服务器返回数据
-                uploader.on( 'uploadSuccess', function( file,response) {
-                    $( '#'+file.id ).addClass('upload-state-done');
-                    //console.info(response);
-                    $("#upInfo").html("<font color='red'>"+response._raw+"</font>");
-                });
+            $("#cut").on("click", function () {
+                var dataURL = $image.cropper("getCroppedCanvas");
+                var imgurl = dataURL.toDataURL("image/*", 0.5);
+                $image.cropper('destroy').attr('src', imgurl).cropper(options);
+            });
 
-                // 文件上传失败                                file:文件对象 ， code：出错代码
-                uploader.on( 'uploadError', function(file,code) {
-                    var $li = $( '#'+file.id ),
-                        $error = $li.find('div.error');
-
-                    // 避免重复创建
-                    if ( !$error.length ) {
-                        $error = $('<div class="error"></div>').appendTo( $li );
+            $("#submit").on("click", function () {
+                alert("提交");
+                var accessory = $('#inputImage').val();
+                if (typeof accessory == "null"){
+                    alert("is null");
+                    return ;
+                }
+                var accessoryName = accessory.substring(accessory.lastIndexOf("\\")+1,accessory.length);//截取原文件名
+                var dataURL = $image.cropper("getCroppedCanvas");//拿到剪裁后的数据
+                var data = dataURL.toDataURL("image/*", 0.5);//转成base64
+                if (typeof data == "null"){
+                    alert("is null");
+                    return ;
+                }
+                //   var BS_s = $("#BS_s").val();
+                $.ajax({
+                    url: "/wxFirst/uploadImgBase",
+                    dataType:'json',
+                    type: "POST",
+                    data: {
+                        fileName : accessoryName,
+                        imgBase64 : data.toString()
+                    },
+                    timeout : 10000, //超时时间设置，单位毫秒
+                    async: true,
+                    success: function (result) {
+                        alert(result.path);
+                        var path=result.path;
+                        console.log(typeof(path))
+                        var s;
+                        s = path.split("\\");
+//                    console.log(s)
+//                    alert("图片名："+s[s.length-1]);
+                        imageStr="http://192.168.1.17:8080/ImgFiles/backgroundImg/"+s[s.length-1];
+                        alert(result.success);
+                    },
+                    error: function (returndata) {
+                        alert(result.err);
                     }
-
-                    $error.text('上传失败!');
-                });
-
-                // 不管成功或者失败，文件上传完成时触发。 file： 文件对象
-                uploader.on( 'uploadComplete', function( file ) {
-                    $( '#'+file.id ).find('.progress').remove();
-                });
-
-                //绑定提交事件
-                $("#btn").click(function() {
-                    //   alert(str);//,034.jpg,035.jpg
-                    console.log("上传...");
-                    uploader.upload();   //执行手动提交
-                    alert("上传成功！！！");
-                    console.log("上传成功");
                 });
             });
+
+
 
             /*是否是抽奖商品 3 是 4 不是*/
 
@@ -204,18 +211,9 @@
             $("#optionsRadios8").click(function(){
                 $("#jingpaie").hide();
             });
-        })
-
-    </script>
-<!--表单验证-->
-
-<script type="text/javascript">
 
 
 
-    $(function(){
-        /*数据回显*/
-        var ue = UE.getEditor('editor');
 
         var tzw_item_id=$("#tzw_item_id").val();
 
@@ -300,8 +298,6 @@
 
 
         $("#update").click(function(){
-            var imageStr=str;
-            alert(imageStr+"修改提交===")
             var itemname=$("#itemname").val();
             var tzw_item_id=$("#tzw_item_id").val();
             var itemprice=$("#itemprice").val();
@@ -663,7 +659,7 @@
                 </div>
 
 
-                <div class="form-group">
+              <!--  <div class="form-group">
                     <div class="row">
                         <label class="col-sm-3 control-label">商品图片：</label>
 
@@ -678,9 +674,9 @@
 
                                         <div id="uploader" class="wu-example">
 
-                                            <!--商品图片回显-->
-                                            <div id="aaa"><!--<img src="upload/1.jpg">-->
-                                                <!--<img src="http://192.168.1.17:8081/upload/1.jpg" alt='没有图片' style='width: 200px;height: 120px'>-->
+                                            &lt;!&ndash;商品图片回显&ndash;&gt;
+                                            <div id="aaa">&lt;!&ndash;<img src="upload/1.jpg">&ndash;&gt;
+                                                &lt;!&ndash;<img src="http://192.168.1.17:8081/upload/1.jpg" alt='没有图片' style='width: 200px;height: 120px'>&ndash;&gt;
 
                                             </div>
 
@@ -700,6 +696,22 @@
                             </div>
                         </div>
                     </div>
+-->
+                <div class="row">
+                    <label class="col-sm-3 control-label">活动海报：</label>
+                    <div class="col-sm-8">
+                        <div id="aaa"></div>
+                        <input style="display: none;" id="inputImage" name="file" type="file" accept="image/*">
+                        <div id="showEdit" style="height:400px;width:500px;border: 1px solid ;">
+                            <img id="EditImg" src="">
+                            <div class="footer-btn" style="height: 55px;">
+                                <button type="button" style="width: 130px;font-size: 20px;height: 40px;margin-top: 8px;" class="ReselectPhoto" onclick="JavaScript:$('#inputImage').click();">选择照片</button>
+                                <button id="cut" type="button" style="width: 100px;font-size: 20px;height: 40px;margin-top: 8px;background-color: #3A9E9E;border: 1px solid #3A9E9E;" class="Cut">剪切</button>
+                                <button id="submit" type="button" style="width: 100px;font-size: 20px;height: 40px;margin-top: 8px;" class="Cut">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">图片文字：</label>

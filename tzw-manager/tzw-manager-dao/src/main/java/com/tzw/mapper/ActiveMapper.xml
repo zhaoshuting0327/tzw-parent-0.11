@@ -20,7 +20,6 @@
        where t.tzw_item_id=c.tzw_jingpai_item_id and t.tzw_item_jingpai=7
       limit #{cpage},#{size}
     </select>
-
     <!--所有活动-->
     <select id="loadActive" parameterType="map" resultType="com.tzw.pojo.Activity">
       SELECT * from tzw_activity
