@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="unnamed">
+    <output-path>F:/apache-tomcat-7.0.42-8080/webapps</output-path>
+    <root id="archive" name="unnamed.war" />
+  </artifact>
+</component>
