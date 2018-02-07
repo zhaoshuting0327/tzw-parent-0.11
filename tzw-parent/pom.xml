@@ -9,7 +9,16 @@
 
   <name>tzw-parent</name>
   <url>http://maven.apache.org</url>
-
+<!-- <modules>
+    <module>tzw-manager</module>
+    <module>tzw-common</module>
+    <module>tzw-portal</module>
+  </modules>-->
+  <modules>
+    <module>../tzw-manager</module>
+    <module>../tzw-common</module>
+    <module>../tzw-portal</module>
+  </modules>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
