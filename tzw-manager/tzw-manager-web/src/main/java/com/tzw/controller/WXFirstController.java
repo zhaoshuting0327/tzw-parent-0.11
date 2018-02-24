@@ -37,10 +37,10 @@ public class WXFirstController {
 		System.out.println("inventedDirectory::"+inventedDirectory);
 		String directory = TrueDirectory+"-"+inventedDirectory;
 	//	System.out.println("剪切：============="+imgBase64);
+		System.out.println("=======fileName====="+fileName);
 		Map<String, String> map = ImageUtil.uploadImgBase64(request,imgBase64, directory, fileName);
 
 		System.out.println("map.get:::"+map.get("path"));
-
 
 		return map;
 	}

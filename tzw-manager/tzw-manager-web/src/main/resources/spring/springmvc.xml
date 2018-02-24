@@ -53,6 +53,7 @@
 		</property>
 		<property name="cache"><value>true</value></property>
 		<property name="suffix"><value>.html</value></property>
+		<property name="redirectHttp10Compatible" value="false" />
 		<property name="contentType">
 			<value>text/html; charset=UTF-8</value>
 		</property>

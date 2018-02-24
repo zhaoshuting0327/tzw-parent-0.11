@@ -82,7 +82,7 @@
                 containerHeight :  260,
                 containerWidth : 200,
                 guides :true,//裁剪框虚线 默认true有
-                aspectRatio: 32/18, //裁剪框比例1:1
+                aspectRatio:  750/646, //裁剪框比例1:1
                 responsive : true,// 是否在窗口尺寸改变的时候重置cropper
                 background : true,// 容器是否显示网格背景
                 zoomable : true,//是否允许放大缩小图片
@@ -152,6 +152,7 @@
                     return ;
                 }
                 //   var BS_s = $("#BS_s").val();
+                alert("accessoryName======="+accessoryName);
                 $.ajax({
                     url: "/wxFirst/uploadImgBase",
                     dataType:'json',

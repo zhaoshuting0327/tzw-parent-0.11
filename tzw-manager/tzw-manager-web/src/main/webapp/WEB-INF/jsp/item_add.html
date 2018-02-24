@@ -28,9 +28,9 @@
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.5"></script>
     <script src="js/content.min.js?v=1.0.0"></script>
-    <script src="js/plugins/validate/jquery.validate.min.js"></script>
+<!--    <script src="js/plugins/validate/jquery.validate.min.js"></script>
     <script src="js/plugins/validate/messages_zh.min.js"></script>
-    <script src="js/demo/form-validate-demo.min.js"></script>
+    <script src="js/demo/form-validate-demo.min.js"></script>-->
 
 
 
@@ -86,7 +86,7 @@
             containerHeight :  260,
             containerWidth : 200,
             guides :true,//裁剪框虚线 默认true有
-            aspectRatio: 16/ 9, //裁剪框比例1:1
+            aspectRatio: 750/646, //裁剪框比例1:1
             responsive : true,// 是否在窗口尺寸改变的时候重置cropper
             background : true,// 容器是否显示网格背景
             zoomable : true,//是否允许放大缩小图片
@@ -180,84 +180,6 @@
                 }
             });
         });
-/*   $("#submit2").on("click", function () {
-            alert("提交");
-            var accessory = $('#inputImage').val();
-            if (typeof accessory == "null"){
-                alert("is null");
-                return ;
-            }
-            var accessoryName = accessory.substring(accessory.lastIndexOf("\\")+1,accessory.length);//截取原文件名
-            var dataURL = $image.cropper("getCroppedCanvas");//拿到剪裁后的数据
-            var data = dataURL.toDataURL("image/!*", 0.5);//转成base64
-            if (typeof data == "null"){
-                alert("is null");
-                return ;
-            }
-            //   var BS_s = $("#BS_s").val();
-            $.ajax({
-                url: "/wxFirst/uploadImgBase",
-                dataType:'json',
-                type: "POST",
-                data: {
-                    fileName : accessoryName,
-                    imgBase64 : data.toString()
-                },
-                timeout : 10000, //超时时间设置，单位毫秒
-                async: true,
-                success: function (result) {
-                    alert(result.path);
-                    var path=result.path;
-                    console.log(typeof(path))
-                    var s;
-                    s = path.split("\\");
-                    imageStr2="http://192.168.1.17:8080/ImgFiles/backgroundImg/"+s[s.length-1];
-                    alert(result.success);
-                },
-                error: function (returndata) {
-                    alert(result.err);
-                }
-            });
-        });
-   $("#submit3").on("click", function () {
-            alert("提交");
-            var accessory = $('#inputImage').val();
-            if (typeof accessory == "null"){
-                alert("is null");
-                return ;
-            }
-            var accessoryName = accessory.substring(accessory.lastIndexOf("\\")+1,accessory.length);//截取原文件名
-            var dataURL = $image.cropper("getCroppedCanvas");//拿到剪裁后的数据
-            var data = dataURL.toDataURL("image/!*", 0.5);//转成base64
-            if (typeof data == "null"){
-                alert("is null");
-                return ;
-            }
-            //   var BS_s = $("#BS_s").val();
-            $.ajax({
-                url: "/wxFirst/uploadImgBase",
-                dataType:'json',
-                type: "POST",
-                data: {
-                    fileName : accessoryName,
-                    imgBase64 : data.toString()
-                },
-                timeout : 10000, //超时时间设置，单位毫秒
-                async: true,
-                success: function (result) {
-                    alert(result.path);
-                    var path=result.path;
-                    console.log(typeof(path))
-                    var s;
-                    s = path.split("\\");
-                    imageStr3="http://192.168.1.17:8080/ImgFiles/backgroundImg/"+s[s.length-1];
-                    alert(result.success);
-                },
-                error: function (returndata) {
-                    alert(result.err);
-                }
-            });
-        });*/
 
     /*是否是抽奖商品 3 是 4 不是*/
 

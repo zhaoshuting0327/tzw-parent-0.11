@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.Serializable;
 import java.util.List;
 
-public class E3Result implements Serializable{
+public class TuZiResult implements Serializable{
 
     // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -20,33 +20,33 @@ public class E3Result implements Serializable{
     // 响应中的数据
     private Object data;
 
-    public static E3Result build(Integer status, String msg, Object data) {
-        return new E3Result(status, msg, data);
+    public static TuZiResult build(Integer status, String msg, Object data) {
+        return new TuZiResult(status, msg, data);
     }
 
-    public static E3Result ok(Object data) {
-        return new E3Result(data);
+    public static TuZiResult ok(Object data) {
+        return new TuZiResult(data);
     }
 
-    public static E3Result ok() {
-        return new E3Result(null);
+    public static TuZiResult ok() {
+        return new TuZiResult(null);
     }
 
-    public E3Result() {
+    public TuZiResult() {
 
     }
 
-    public static E3Result build(Integer status, String msg) {
-        return new E3Result(status, msg, null);
+    public static TuZiResult build(Integer status, String msg) {
+        return new TuZiResult(status, msg, null);
     }
 
-    public E3Result(Integer status, String msg, Object data) {
+    public TuZiResult(Integer status, String msg, Object data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public E3Result(Object data) {
+    public TuZiResult(Object data) {
         this.status = 200;
         this.msg = "OK";
         this.data = data;
@@ -87,10 +87,10 @@ public class E3Result implements Serializable{
      * @param clazz TaotaoResult中的object类型
      * @return
      */
-    public static E3Result formatToPojo(String jsonData, Class<?> clazz) {
+    public static TuZiResult formatToPojo(String jsonData, Class<?> clazz) {
         try {
             if (clazz == null) {
-                return MAPPER.readValue(jsonData, E3Result.class);
+                return MAPPER.readValue(jsonData, TuZiResult.class);
             }
             JsonNode jsonNode = MAPPER.readTree(jsonData);
             JsonNode data = jsonNode.get("data");
@@ -114,9 +114,9 @@ public class E3Result implements Serializable{
      * @param json
      * @return
      */
-    public static E3Result format(String json) {
+    public static TuZiResult format(String json) {
         try {
-            return MAPPER.readValue(json, E3Result.class);
+            return MAPPER.readValue(json, TuZiResult.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,7 +130,7 @@ public class E3Result implements Serializable{
      * @param clazz 集合中的类型
      * @return
      */
-    public static E3Result formatToList(String jsonData, Class<?> clazz) {
+    public static TuZiResult formatToList(String jsonData, Class<?> clazz) {
         try {
             JsonNode jsonNode = MAPPER.readTree(jsonData);
             JsonNode data = jsonNode.get("data");
