@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.Serializable;
 import java.util.List;
 
+/*state 请求true false*/
 public class TuZiResult implements Serializable{
 
     // 定义jackson对象
@@ -144,5 +145,4 @@ public class TuZiResult implements Serializable{
             return null;
         }
     }
-
 }
