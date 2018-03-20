@@ -20,6 +20,10 @@
     <link href="css/style.min.css?v=4.0.0" rel="stylesheet"><base target="_blank">
 
     <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+<!--
+    <script src="js/jQuery.md5.js" type="t ext/javascript" ></script>
+-->
     <script src="js/bootstrap.min.js?v=3.3.5"></script>
     <script src="js/content.min.js?v=1.0.0"></script>
     <script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
@@ -77,8 +81,13 @@
         $(function(){
             $("#login_sub").click(function(){
 
+                //对密码进行加密
+             /*   var pwdMd5 = $.md5($("[name='password']").attr("value"));
+                $("[name='password']").attr("value", pwdMd5);*/
+
                 var username=$("[name='username']").val();
                 var password=$("[name='password']").val();
+
 
                 $.post(
                     "/loginForm",

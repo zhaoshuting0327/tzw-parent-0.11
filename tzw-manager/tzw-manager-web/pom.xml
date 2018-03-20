@@ -175,7 +175,7 @@
         </dependency>
     </dependencies>
     <!-- 配置tomcat插件 -->
-<!--<build>
+<build>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
@@ -183,8 +183,11 @@
                 <configuration>
                     <path>/</path>
                     <port>8080</port>
+                    <url>http://192.168.191.129:8080/manager/text</url>
+                    <username>tomcat</username>
+                    <password>tomcat</password>
                 </configuration>
             </plugin>
         </plugins>
-    </build>-->
+    </build>
 </project>

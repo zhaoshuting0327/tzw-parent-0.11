@@ -65,6 +65,8 @@ public class UserController {
 
         String  messg="";
 
+        System.out.println(password);
+
         if(password == null || "".equals(password)||username == null || "".equals(username)) {
            messg="用户名或密码不能为空!";
            map.put("messg",messg);
@@ -72,6 +74,7 @@ public class UserController {
            return map;
         }
         else{
+          //  String s = MD5Util.string2MD5(password);
             String s = MD5Util.string2MD5(password);
             Owner login = this.loginService.login(username, s);
 

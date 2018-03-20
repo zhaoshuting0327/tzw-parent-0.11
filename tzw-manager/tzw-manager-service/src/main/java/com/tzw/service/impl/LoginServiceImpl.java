@@ -22,6 +22,8 @@ public class LoginServiceImpl implements LoginService {
 
         Map<String,Object> map=new HashMap<>();
 
+        System.out.println(username);
+        System.out.println(password);
         map.put("tzw_owner_pwd",password);
         map.put("tzw_owner_name",username);
 

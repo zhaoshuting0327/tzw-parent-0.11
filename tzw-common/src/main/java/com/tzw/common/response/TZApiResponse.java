@@ -35,23 +35,28 @@ public class TZApiResponse<T>   {
      */
     public static final String BingData = "400000";
 
+    //错误码返回
     @JsonProperty(value = "code")
     private String code;
 
+    //数据类型  加密还是不加密
     @JsonProperty(value = "dataType")
     private Integer dataType;
 
+    //错误信息
     @JsonProperty(value = "message")
     private String message;
 
+//    返回给客户端的数据
     @JsonProperty(value = "data")
     private T data;
 
+//    无参构造
     public TZApiResponse() {
 
     }
 
-    //状态码  信息  数据
+    //状态码  信息  数据  没有返回数据类型
    protected TZApiResponse(String code, String message, T data) {
         this.code = code;
         this.message = message;
@@ -59,7 +64,7 @@ public class TZApiResponse<T>   {
     }
 
 
-    //状态码  数据
+    //状态码  数据 无返回数据类型和数据
     public TZApiResponse(String code, String message) {
         super();
         this.code = code;
