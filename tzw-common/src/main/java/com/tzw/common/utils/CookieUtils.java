@@ -87,6 +87,11 @@ public final class CookieUtils {
      */
     public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
             String cookieValue) {
+    /*    Cookie cookie = new Cookie("cookieName", cookieValue);
+        cookie.setDomain(".17tufei.com");
+        cookie.setPath("/");
+        cookie.setMaxAge(36000);
+        response.addCookie(cookie);*/
         setCookie(request, response, cookieName, cookieValue, -1);
     }
 
