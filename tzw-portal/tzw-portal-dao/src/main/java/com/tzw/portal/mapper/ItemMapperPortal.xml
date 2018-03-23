@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tzw.portal.mapper.ItemMapperPortal" >
+
+    <!--首页展示-->
+    <!--热卖商品  id 14-->
+<!--    <select id="remaiItem" resultType="com.tzw.portal.pojo.Item" >
+        select t1.tzw_item_id,t1.tzw_item_name,tzw_item_little,
+              t1.tzw_item_picture,t1.tzw_item_content,t1.tzw_item_dianzanshu,tzw_item_leibie,
+               t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_jingpai
+         from tzw_item t1 where t1.tzw_item_leibie=14
+    </select>-->
+    <select id="remaiItem" resultType="java.util.HashMap" >
+        select t1.tzw_item_id,t1.tzw_item_name,tzw_item_little,
+        t1.tzw_item_picture,t1.tzw_item_content,t1.tzw_item_dianzanshu,tzw_item_type,
+        t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_jingpai,t1.tzw_item_price,
+        t1.tzw_item_dianzanshu
+        from tzw_item t1 where t1.tzw_item_leibie=14
+    </select>
+
+    <!--新品 id 15-->
+    <select id="newItem" resultType="java.util.HashMap">
+        select t1.tzw_item_id,t1.tzw_item_name,tzw_item_little,
+              t1.tzw_item_picture,t1.tzw_item_content,t1.tzw_item_dianzanshu,tzw_item_type,
+               t1.tzw_item_jifen,t1.tzw_item_choujiang,t1.tzw_item_jingpai,t1.tzw_item_price,
+               t1.tzw_item_dianzanshu
+         from tzw_item t1 where t1.tzw_item_leibie=15
+    </select>
+
+    <!--详情页-->
+
+    <select id="itemMessage" parameterType="bigInteger"  resultType="java.util.HashMap">
+
+      SELECT tzw_item_name,tzw_item_desc,tzw_item_picture,tzw_item_content,tzw_item_price
+       from tzw_item where tzw_item_id=#{tzw_item_id}
+
+    </select>
+
+</mapper>

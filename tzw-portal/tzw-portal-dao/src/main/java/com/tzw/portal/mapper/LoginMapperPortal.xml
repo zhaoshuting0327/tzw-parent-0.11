@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tzw.portal.mapper.LoginMapperPortal" >
+
+
+    <!-- 根据用户名查询用户是否存在getUserLogin-->
+    <select id="getUserLogin" parameterType="com.tzw.portal.pojo.User" resultType="com.tzw.portal.pojo.User">
+        select * from tzw_user where tzw_user_username=#{tzw_user_username}
+    </select>
+
+    <!--查看用户名密码是否正确getUserLoginp-->
+    <select id="getUserLoginp" parameterType="com.tzw.portal.pojo.User" resultType="com.tzw.portal.pojo.User">
+        select * from tzw_user where tzw_user_username=#{tzw_user_username}
+        and tzw_user_pwd=#{tzw_user_pwd}
+    </select>
+
+    <!--查看手机号是否被注册-->
+    <select id="getUserLogint" parameterType="com.tzw.portal.pojo.User" resultType="com.tzw.portal.pojo.User">
+        select * from tzw_user where tzw_user_phone=#{tzw_user_phone}
+    </select>
+
+    <!--注册 添加进user表-->
+    <insert id="regAdd" parameterType="com.tzw.portal.pojo.User">
+        INSERT INTO tzw_user(tzw_user_username,
+                              tzw_user_phone,
+                               tzw_user_pwd,,
+                              tzw_user_money,
+                              tzw_user_createDate,
+                              tzw_user_qiandao,
+                              tzw_user_score
+                             )
+                    VALUES (
+                      #{tzw_user_username},
+                      #{tzw_user_phone},
+                      #{tzw_user_pwd},
+                      0,
+                      #{tzw_user_createDate},
+                      0,
+                      0)
+    </insert>
+
+
+    <!--登录成功之后修改token-->
+    <update id="updateUserToken" parameterType="com.tzw.portal.pojo.User">
+        UPDATE tzw_user set tzw_user_token=#{tzw_user_token}
+        where tzw_user_id=#{tzw_user_id}
+    </update>
+
+    <!--登出销毁token-->
+    <update id="deleteUserToken" parameterType="map">
+        update tzw_user set tzw_user_token=null
+         where tzw_user_id=#{tzw_user_id}
+    </update>
+
+    <select id="findByTel"  parameterType="map" resultType="com.tzw.portal.pojo.User">
+        SELECT * from tzw_user where  tzw_user_phone=#{tzw_user_phone}
+    </select>
+</mapper>

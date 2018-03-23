@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tzw.portal.mapper.ActiveMapperPortal" >
+
+  <!--查询所有未被选中的号码-->
+    <!--0 未被选中 1 挂起  2 已被选中-->
+    <select id="findNum"  parameterType="bigInteger" resultType="com.tzw.portal.pojo.NumMid">
+    SELECT * from tzw_num
+    where tzw_num_id
+    not in (select tzw_num_id
+    from tzw_num_mid  where tzw_item_id=#{tzw_item_id} AND
+    (tzw_num_status=0   or tzw_num_status=1))
+     </select>
+
+    <!--用户摇一次 将信息添加进中间表
+      需要参数用户id 商品id 号码id-->
+    <insert id="addMid" parameterType="map">
+        insert into tzw_num_mid(tzw_item_id,
+                                 tzw_user_id,
+                                 tzw_num_id,
+                                 tzw_num_status,
+                                 tzw_num_createDate
+                                 )
+                      VALUES(#{tzw_item_id},
+                              #{tzw_user_id},
+                              #{tzw_num_id},
+                                1,
+                               #{tzw_num_createDate})
+    </insert>
+
+    <!--用户点击确认 步骤1： 根据号码内容查询号码id 返回id-->
+
+    <select id="findNumById" parameterType="map" resultType="bigInteger">
+        SELECT tzw_num_id from tzw_num where tzw_num_content=#{tzw_num_content}
+    </select>
+
+    <!--用户点击确认 步骤2： 需要用户id  号码id 商品id-->
+    <update id="clickRig" parameterType="map">
+       UPDATE  tzw_num_mid set tzw_num_status=2,tzw_num_updateDate=#{tzw_num_updateDate}
+        WHERE  tzw_item_id=#{tzw_item_id}
+        AND tzw_user_id=#{tzw_user_id} AND  tzw_num_id=#{tzw_num_id}
+    </update>
+
+</mapper>

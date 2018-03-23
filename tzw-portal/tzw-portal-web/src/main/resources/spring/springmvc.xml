@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/task   http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<context:component-scan base-package="com.tzw.portal.controller" />
+
+
+	<mvc:annotation-driven />
+
+	<!-- 视图解析转html -->
+	<bean id="freemarkerConfig"
+		  class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/jsp/"/>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="number_format">0.##########</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="template_exception_handler">ignore</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!--<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.freemarker.FreeMarkerView</value>
+		</property>
+		<property name="cache"><value>true</value></property>
+		<property name="suffix"><value>.html</value></property>
+		<property name="contentType">
+			<value>text/html; charset=UTF-8</value>
+		</property>
+	</bean>-->
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设定默认编码 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+		<property name="maxUploadSize" value="5242880"></property>
+	</bean>
+
+<!--  swf: BASE_URL + "/Uploader.swf",            // 文件接收服务端。
+                server: 'uploader1',-->
+	<!-- 拦截器 -->
+	  <!--    <mvc:interceptors>
+	          &lt;!&ndash; 多个拦截器，顺序执行 &ndash;&gt;
+	           <mvc:interceptor>
+	               <mvc:mapping path="/**"/>
+	               <bean class="com.twz.interceptor.CommonInterceptor"></bean>
+	      </mvc:interceptor>
+	       </mvc:interceptors>-->
+	<context:component-scan base-package="com.tzw" />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<context:annotation-config />
+	<!-- 在applicationContext.xml中进行配置，使用定时器
+        ref : pojo类的名称
+        method : 调用的方式名称
+        cron : cronExpression表达式
+        cron="0/5 * * * * ?"  //表示五秒钟执行一次
+     -->
+<!--	<task:scheduled-tasks>
+		<task:scheduled ref="taskCoolJob" method="orderTimeOut" cron="0/5 * * * * ?"/>
+	</task:scheduled-tasks>-->
+
+</beans>

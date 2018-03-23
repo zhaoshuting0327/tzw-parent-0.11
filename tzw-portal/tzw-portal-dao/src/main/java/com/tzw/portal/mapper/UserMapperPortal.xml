@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tzw.portal.mapper.UserMapperPortal" >
+
+
+    <!--个人中心信息-->
+    <select id="findUserById" parameterType="bigInteger" resultType="com.tzw.portal.pojo.User">
+       SELECT * from tzw_user  where tzw_user_id=#{tzw_user_id}
+    </select>
+
+    <!--求用户积分-->
+    <select id="jiaScore" parameterType="bigInteger" resultType="bigInteger">
+       select sum(tzw_score_num) from tzw_score where tzw_score_user_id=#{tzw_user_id} and tzw_score_type=1
+    </select>
+    <select id="jianScore" parameterType="bigInteger" resultType="bigInteger">
+       select sum(tzw_score_num) from tzw_score where tzw_score_user_id=#{tzw_user_id} and tzw_score_type=2
+    </select>
+
+    <!--求用户余额-->
+    <select id="jiaMoney" parameterType="bigInteger" resultType="bigInteger">
+       select sum(tzw_money_num) from tzw_money where tzw_money_user_id=#{tzw_user_id} and tzw_money_type=1
+    </select>
+
+    <select id="jianMoney" parameterType="bigInteger" resultType="bigInteger">
+       select sum(tzw_money_num) from tzw_money where tzw_money_user_id=#{tzw_user_id} and tzw_money_type=2
+    </select>
+
+    <!--  void addQianDaoScore(Score score);
+   void updateSign(HashMap<String,Object> map);-->
+
+    <!--签到添加到个人积分表-->
+    <insert id="addQianDaoScore" parameterType="com.tzw.portal.pojo.Score">
+        INSERT into tzw_score(tzw_score_num,
+                               tzw_score_createDate,
+                               tzw_score_user_id,
+                               tzw_score_desc)
+                               VALUES
+                              ( #{tzw_score_num},
+                               #{tzw_score_createDate},
+                               #{tzw_score_user_id},
+                               #{tzw_score_desc})
+    </insert>
+    <!--签到修改user表-->
+
+     <update id="updateSign" parameterType="com.tzw.portal.pojo.User">
+
+         UPDATE tzw_user SET tzw_user_qiandao=#{tzw_user_qiandao},
+                              tzw_user_sign=#{tzw_user_sign}
+        WHERE  tzw_user_id=#{tzw_user_id}
+
+     </update>
+
+
+
+</mapper>
